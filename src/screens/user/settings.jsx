@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { Form, Input, Button } from 'antd';
 // import * as func from '../../utils/functions';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import SettingsProfile from './settings.profile';
 
@@ -33,6 +33,7 @@ class UserSettings extends Component {
                         </div>
                         <h5 className="mg-b-2 mg-t-10 tx-spacing--1">{logg.fullname}</h5>
                         <p className="tx-color-03 mg-b-25">@{logg.username}</p>
+                        <Link to={`/u/${logg.username}`} className="btn btn-xs btn-primary flex-fill mg-l-10s">View profile</Link>
                     </div>
                     <div className="col-12 col-lg-10">
                         <ul class="nav nav-line nav-justified" id="myTab" role="tablist">

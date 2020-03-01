@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { Form, Input, Button, message } from 'antd';
 import * as func from '../../utils/functions';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Loading } from '../../components';
 
@@ -39,7 +39,7 @@ class UserProfile extends Component {
     }
 
     render() {
-        // const { auth: { logg } } = this.props;
+        const { auth: { logg } } = this.props;
         const { loading, usr, username } = this.state;
 
         return (
@@ -50,15 +50,17 @@ class UserProfile extends Component {
                     <div className="media d-block d-lg-flex">
                         <div className="profile-sidebar pd-lg-r-25">
                             <div className="row">
-                                <div className="col-sm-3 col-md-2 col-lg">
-                                    <div className="avatar avatar-xxl avatar-online"><img src={usr.avatar_link} className="rounded-circle" alt={usr.username} /></div>
+                                <div className="col-sm-3 col-md-2 col-lg-12">
+                                    <div className="avatar avatar-xxl avatar-onlines"><img src={usr.avatar_link} className="rounded-circle" alt={usr.username} /></div>
                                 </div>
-                                <div className="col-sm-8 col-md-7 col-lg mg-t-20 mg-sm-t-0 mg-lg-t-25">
+                                <div className="col-sm-8 col-md-7 col-lg-12 mg-t-20 mg-sm-t-0 mg-lg-t-25">
                                     <h5 className="mg-b-2 tx-spacing--1">{usr.fullname}</h5>
                                     <p className="tx-color-03 mg-b-25">@{usr.username}</p>
                                     <div className="d-flex mg-b-25">
-                                        <button className="btn btn-xs btn-white flex-fill">Message</button>
-                                        <button className="btn btn-xs btn-primary flex-fill mg-l-10">Follow</button>
+                                        {/* <button className="btn btn-xs btn-white flex-fill">Message</button> */}
+                                        {usr.id === logg.id && (
+                                            <Link to="/user" className="btn btn-xs btn-primary flex-fill mg-l-10s">Edit profile</Link>
+                                        )}
                                     </div>
 
                                     <p className="tx-13 tx-color-02 mg-b-25">{usr.about}</p>
