@@ -90,6 +90,9 @@ class UserProfile extends Component {
                                         {usr.facebook && (
                                             <li><i data-feather="facebook"></i> <a target="_blank" rel="noopener noreferrer" href={`https://facebook.com/${usr.facebook}`}>@{usr.facebook}</a></li>
                                         )}
+                                        {usr.linkedin && (
+                                            <li><i data-feather="linkedin"></i> <a target="_blank" rel="noopener noreferrer" href={`https://linkedin.com/in/${usr.linkedin}`}>@{usr.linkedin}</a></li>
+                                        )}
                                         {/* <li><i data-feather="whatsapp"></i> <a target="_blank" rel="noopener noreferrer" href={`https://wa.me/234${usr.whatsapp}`}>@{usr.whatsapp}</a></li> */}
                                     </ul>
                                 </div>
