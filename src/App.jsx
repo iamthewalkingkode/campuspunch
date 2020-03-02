@@ -34,6 +34,13 @@ class App extends React.Component {
     this.initApp();
   }
 
+  componentWillUpdate() {
+    const loc = window.location.pathname.split('/');
+    if ((loc[1] === 'user' && loc[2] === 'signout') && func.getStorage('token')) {
+      this.props.signOutSuccess();
+    }
+  }
+
   initApp = () => {
     // ::: run some things before doingImportantStuffs the MainApp
     const { auth: { logg, token } } = this.props;

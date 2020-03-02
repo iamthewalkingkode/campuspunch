@@ -32,6 +32,7 @@ const initialState = {
             name: logg.username, link: 'user', auth: true, subs: [
                 { name: 'My profile', link: 'u/' + logg.username },
                 { name: 'Profile settings', link: 'user' },
+                { name: 'Sign out', link: 'user/signout' },
             ]
         },
     ]

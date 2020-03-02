@@ -1,4 +1,3 @@
-import React from 'react';
 import moment from 'moment';
 
 export const api = {
@@ -161,27 +160,6 @@ export const getData = async (action, data = {}) => {
         console.error(error);
     }
 }
-
-
-// Alert Message
-export const alertMsgSet = (status, msg) => {
-    setStorageJson('alertMsg', { status: status, msg: msg });
-}
-export const alertMsg = (statos, msj) => {
-    let alert = getStorageJson('alertMsg');
-    let msg = msj ? msj : alert.msg;
-    let status = statos ? statos : alert.status;
-    if (msg && status) {
-        delStorage('alertMsg');
-        delStorage('alertStatus');
-        return <div className={'text-center alert alert-' + status} role="alert">{msg}</div>;
-    }
-}
-
-// Spinners
-export const fspinner = <div style={{ textAlign: 'center', color: '#999', lineHeight: 320 + 'px', width: 100 + '%' }}><i className="fa fa-spin fa-circle-o-notch fa-5x"></i></div>;
-export const fspinner_sm = <div style={{ textAlign: 'center', color: '#999', lineHeight: 120 + 'px', width: 100 + '%' }}><i className="fa fa-spin fa-circle-o-notch fa-3x"></i></div>;
-export const fspinner_xs = <i className="fa fa-spin fa-circle-o-notch"></i>;
 
 export const redirect = (to) => {
     window.location = to;

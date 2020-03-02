@@ -11,9 +11,9 @@ export function signInSuccess(token, data) {
 export function signOutSuccess() {
     return dispatch => {
         message.success('success', 'You are now logged out!');
-        func.delStorage('token');
         func.delStorage('user');
-        // func.redirect('/login');
+        func.delStorage('token');
+        func.redirect('/');
         dispatch({ type: SIGNOUT_SUCCESS });
     }
 };

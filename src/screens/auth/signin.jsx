@@ -72,7 +72,7 @@ class SiginForm extends Component {
                                         {getFieldDecorator('password', {
                                             rules: [{ required: true, message: 'Password is required' }]
                                         })(
-                                            <Input type="password" autoComplete="off" size="large" disabled={submitting} />
+                                            <Input.Password autoComplete="off" size="large" disabled={submitting} />
                                         )}
                                     </Form.Item>
                                 </div>
