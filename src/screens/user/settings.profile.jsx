@@ -44,6 +44,7 @@ const SetProfile = props => {
     const submitGo = (v, avatar) => {
         const { auth: { token, logg } } = props;
         v['id'] = logg.id;
+        v['phone'] = '+234' + v['phone'];
         if (avatar) {
             v['avatar'] = avatar;
             v['oldavatar'] = logg.avatar;
