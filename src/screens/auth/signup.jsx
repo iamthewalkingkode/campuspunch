@@ -103,7 +103,7 @@ class SignupForm extends Component {
                                         {getFieldDecorator('phone', {
                                             rules: [{ required: true }]
                                         })(
-                                            <Input autoComplete="off" size="large" disabled={submitting} />
+                                            <Input autoComplete="off" size="large" addonBefore="+234" disabled={submitting} />
                                         )}
                                     </Form.Item>
                                 </div>

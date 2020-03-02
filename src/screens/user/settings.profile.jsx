@@ -99,9 +99,9 @@ const SetProfile = props => {
                                 <Form.Item colon={false} label="Phone number">
                                     {getFieldDecorator('phone', {
                                         rules: [{ required: true }],
-                                        initialValue: logg.phone
+                                        initialValue: logg.phone.split('+234').join('')
                                     })(
-                                        <Input autoComplete="off" size="large" disabled={submitting} />
+                                        <Input autoComplete="off" size="large" addonBefore="+234" disabled={submitting} />
                                     )}
                                 </Form.Item>
                             </div>

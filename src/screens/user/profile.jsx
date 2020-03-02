@@ -4,6 +4,8 @@ import * as func from '../../utils/functions';
 import { Link } from 'react-router-dom';
 
 import { Loading } from '../../components';
+import NotFound from '../../partials/404';
+import moment from 'moment';
 
 class UserProfile extends Component {
 
@@ -11,7 +13,7 @@ class UserProfile extends Component {
         super(props);
         this.state = {
             usr: {},
-            loading: false,
+            loading: true,
             username: ''
         };
     }
@@ -45,8 +47,9 @@ class UserProfile extends Component {
         return (
             <React.Fragment>
                 {loading === true && (<Loading text={`loading ${username}'s profile...`} />)}
+                {(loading === false && usr.id === undefined) && (<NotFound />)}
 
-                {loading === false && (
+                {(loading === false && usr.id) && (
                     <div className="media d-block d-lg-flex">
                         <div className="profile-sidebar pd-lg-r-25">
                             <div className="row">
@@ -63,7 +66,19 @@ class UserProfile extends Component {
                                         )}
                                     </div>
 
-                                    <p className="tx-13 tx-color-02 mg-b-25">{usr.about}</p>
+                                    {usr.about && (
+                                        <div>
+                                            <label className="tx-sans tx-10 tx-semibold tx-uppercase tx-color-01 tx-spacing-1 mg-b-15">About {usr.username}</label>
+                                            <p className="tx-13 tx-color-02 mg-b-25">{usr.about}</p>
+                                        </div>
+                                    )}
+
+                                    {usr.quote && (
+                                        <div>
+                                            <label className="tx-sans tx-10 tx-semibold tx-uppercase tx-color-01 tx-spacing-1 mg-b-15">{usr.username}'s personal quote</label>
+                                            <p className="tx-13 tx-color-02 mg-b-25">{usr.quote}</p>
+                                        </div>
+                                    )}
 
                                     <div className="d-flex">
                                         <div className="profile-skillset flex-fill">
@@ -109,6 +124,22 @@ class UserProfile extends Component {
                             </div>
                         </div>
                         <div className="media-body mg-t-40 mg-lg-t-0 pd-lg-x-10">
+                            <div class="card mg-b-20">
+                                <div className="card-body d-flex flex-row justify-content-around">
+                                    <div className="profile-skillset flex-fills">
+                                        <h4>State</h4>
+                                        <label>{usr.state}</label>
+                                    </div>
+                                    <div className="profile-skillset flex-fills">
+                                        <h4>Member since</h4>
+                                        <label>{moment(usr.crdate).format('LL')}</label>
+                                    </div>
+                                    <div className="profile-skillset flex-fills">
+                                        <h4>Last active</h4>
+                                        <label>{moment(usr.acdate).format('LL')}</label>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div className="card mg-b-20 mg-lg-b-25">
                                 <div className="card-header pd-y-15 pd-x-20 d-flex align-items-center justify-content-between">
@@ -143,13 +174,13 @@ class UserProfile extends Component {
                         </div>
                         <div className="profile-sidebar mg-t-40 mg-lg-t-0 pd-lg-l-25">
                             <div className="row">
-                                <div className="col-sm-6 col-md-5 col-lg mg-t-40">
+                                <div className="col-sm-6 col-md-5 col-lg">
                                     <div className="d-flex align-items-center justify-content-between mg-b-15">
                                         <h6 className="tx-13 tx-uppercase tx-semibold mg-b-0">{usr.username}'s Photos</h6>
                                     </div>
 
                                     <div className="row row-xxs">
-                                        <div className="col-4">
+                                        <div className="col-6">
                                             <a href="" className="d-block ht-60"><img src={usr.avatar_link} className="img-fit-cover" alt={usr.username} /></a>
                                         </div>
                                     </div>
