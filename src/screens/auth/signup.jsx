@@ -25,7 +25,7 @@ class SignupForm extends Component {
         callback();
     };
 
-    _signup = (e) => {
+    _submit = (e) => {
         e.preventDefault();
         const { form: { validateFields } } = this.props;
         validateFields((err, v) => {
@@ -55,7 +55,7 @@ class SignupForm extends Component {
         const { submitting, errorMessage } = this.state;
 
         return (
-            <Form hideRequiredMark={false} onSubmit={this._signup}>
+            <Form hideRequiredMark={false} onSubmit={this._submit}>
                 <div className="row">
                     <div className="col-12 col-md-10 col-lg-7" style={{ float: 'none', margin: '0 auto' }}>
                         {errorMessage && (

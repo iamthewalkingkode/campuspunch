@@ -17,6 +17,11 @@ import NotFound from './partials/404';
 import Menu from './partials/menu';
 import Footer from './partials/footer';
 
+import HomeSCreen from './screens/home';
+import NewsList from './screens/news/news.list';
+import NewsDetails from './screens/news/news.details';
+import NewsForm from './screens/news/news.form';
+
 import SigninForm from './screens/auth/signin';
 import SignupForm from './screens/auth/signup';
 import ResetForm from './screens/auth/reset';
@@ -54,23 +59,29 @@ class App extends React.Component {
         }
       });
     }
-    func.post('schools', { status: 1, orderby: 'name_asc' }).then((res) => {
-      if (res.status === 200) {
-        this.props.setSetSettings('schools', res.result);
-        func.setStorageJson('schools', res.result);
-      }
-    });
-    func.post('settings/states').then((res) => {
-      if (res.status === 200) {
-        this.props.setSetSettings('states', res.result);
-        func.setStorageJson('states', res.result);
-      }
-    });
+    // func.post('schools', { status: 1, orderby: 'name_asc' }).then((res) => {
+    //   if (res.status === 200) {
+    //     this.props.setSetSettings('schools', res.result);
+    //     func.setStorageJson('schools', res.result);
+    //   }
+    // });
+    // func.post('settings/states').then((res) => {
+    //   if (res.status === 200) {
+    //     this.props.setSetSettings('states', res.result);
+    //     func.setStorageJson('states', res.result);
+    //   }
+    // });
+    // func.post('settings/newsCategories').then((res) => {
+    //   if (res.status === 200) {
+    //     this.props.setSetSettings('newsCategories', res.result);
+    //     func.setStorageJson('newsCategories', res.result);
+    //   }
+    // });
   }
 
   render() {
     const { doingImportantStuffs } = this.state;
-    const { utils: { authenticated, lang, meta } } = this.props;
+    const { utils: { lang, meta } } = this.props;
 
     return (
       <React.Fragment>
@@ -113,11 +124,19 @@ class App extends React.Component {
                 <div className="content content-fixed" style={{ minHeight: '100vh' }}>
                   <div className="container ht-100p">
                     <Switch>
+                      <Route exact path="/" render={(props) => <HomeSCreen {...props} {...this.props} row={{}} />} />
+
                       {/* User unauth routes */}
                       <Route exact path="/user/signin" render={(props) => <SigninForm {...props} {...this.props} row={{}} />} />
                       <Route exact path="/user/signup" render={(props) => <SignupForm {...props} {...this.props} />} />
                       <Route exact path="/user/reset" render={(props) => <ResetForm {...props} {...this.props} />} />
                       <Route exact path="/u/:username" render={(props) => <UserProfile {...props} {...this.props} />} />
+
+                      {/* News */}
+                      <Route exact path="/news" render={(props) => <NewsList {...props} {...this.props} />} />
+                      <Route exact path="/school/:slug/:id" render={(props) => <NewsList {...props} {...this.props} />} />
+                      <Route exact path="/:slug/:id" render={(props) => <NewsDetails {...props} {...this.props} />} />
+                      <Route exact path="/post-article" render={(props) => <NewsForm {...props} {...this.props} />} />
 
                       {/* User authed routes */}
                       {/* {authenticated === true && ( */}

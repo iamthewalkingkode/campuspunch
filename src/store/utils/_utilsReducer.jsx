@@ -7,16 +7,18 @@ const initialState = {
     meta: { title: 'CampusPunch', description: '', keywords: '' },
     pageSubTitle: '',
     lang: 'en',
+    limit: 12,
 
     studentCategories: ['Prospective', 'Student', 'Graduate'],
     states: func.getStorageJson('states'),
     schools: func.getStorageJson('schools'),
+    newsCategories: func.getStorageJson('newsCategories'),
 
     menus: [
         { name: 'News', link: 'news' },
         { name: 'Bidding', link: 'bidding' },
         { name: 'FaceOfCampus', link: 'face-of-campus' },
-        { name: 'Post article', link: 'post-article' },
+        { name: 'Post article', link: 'post-article', auth: true  },
         { name: 'Sign In', link: 'user/signin', auth: false },
         { name: 'Sign Up', link: 'user/signup', auth: false },
         {

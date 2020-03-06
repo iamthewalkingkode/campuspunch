@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-const Footer = props => {
+const Header = props => {
   const { auth: { logg } } = props;
 
   return (
@@ -20,4 +20,4 @@ const Footer = props => {
 
 };
 
-export default Footer;
+export default Header;

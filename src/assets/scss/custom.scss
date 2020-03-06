@@ -204,3 +204,42 @@ strong {
 	border-color: rgba($primary, 0.1) !important;
 	color: rgba(0, 0, 0, 0.65);
 }
+
+#newsCard {
+	.news-image {
+		width: 60rem;
+		height: 10rem;
+		background-size: cover;
+		background-position: center;
+	}
+
+	&:hover {
+		background-color: #f4f5f8;
+	}
+
+	.list-group-item {
+		background-color: transparent;
+	}
+}
+
+#news___details {
+	.news-image {
+		width: 100%;
+		height: 20rem;
+		background-size: cover;
+		background-position: center;
+	}
+}
+
+.ant-comment {
+
+	.ant-comment-inner,
+	.ant-comment-actions {
+		padding: 0px;
+		margin: 0px;
+	}
+
+	.ant-comment-inner {
+		margin-bottom: 1.5rem;
+	}
+}

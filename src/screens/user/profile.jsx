@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 // import { Form, Input, Button, message } from 'antd';
 import * as func from '../../utils/functions';
 import { Link } from 'react-router-dom';
 
-import { Loading } from '../../components';
+import { Loading, NewsCard } from '../../components';
 import NotFound from '../../partials/404';
 import moment from 'moment';
 
@@ -12,8 +13,8 @@ class UserProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            usr: {},
-            loading: true,
+            usr: {}, posts: [],
+            loading: true, loadingPosts: false,
             username: ''
         };
     }
@@ -29,6 +30,7 @@ class UserProfile extends Component {
                     this.setState({ loading: false });
                     if (res.status === 200) {
                         var usr = res.result[0];
+                        this.getPosts(usr.id);
                         setTimeout(() => {
                             window.init();
                         }, 200);
@@ -40,9 +42,19 @@ class UserProfile extends Component {
         }
     }
 
+    getPosts(user) {
+        this.setState({ loadingPosts: true });
+        func.post('posts', { user, limit: 6 }).then(res => {
+            this.setState({ loadingPosts: false });
+            if (res.status === 200) {
+                this.setState({ posts: res.result });
+            }
+        });
+    }
+
     render() {
         const { auth: { logg } } = this.props;
-        const { loading, usr, username } = this.state;
+        const { loading, usr, username, loadingPosts, posts } = this.state;
 
         return (
             <React.Fragment>
@@ -68,14 +80,14 @@ class UserProfile extends Component {
 
                                     {usr.about && (
                                         <div>
-                                            <label className="tx-sans tx-10 tx-semibold tx-uppercase tx-color-01 tx-spacing-1 mg-b-15">About {usr.username}</label>
+                                            <label className="tx-sans tx-10 tx-semibold tx-uppercase tx-color-01 tx-spacing-1 mg-b-5">About {usr.username}</label>
                                             <p className="tx-13 tx-color-02 mg-b-25">{usr.about}</p>
                                         </div>
                                     )}
 
                                     {usr.quote && (
                                         <div>
-                                            <label className="tx-sans tx-10 tx-semibold tx-uppercase tx-color-01 tx-spacing-1 mg-b-15">{usr.username}'s personal quote</label>
+                                            <label className="tx-sans tx-10 tx-semibold tx-uppercase tx-color-01 tx-spacing-1 mg-b-5">{usr.username}'s personal quote</label>
                                             <p className="tx-13 tx-color-02 mg-b-25">{usr.quote}</p>
                                         </div>
                                     )}
@@ -111,16 +123,6 @@ class UserProfile extends Component {
                                         {/* <li><i data-feather="whatsapp"></i> <a target="_blank" rel="noopener noreferrer" href={`https://wa.me/234${usr.whatsapp}`}>@{usr.whatsapp}</a></li> */}
                                     </ul>
                                 </div>
-                                {/* <div className="col-sm-6 col-md-5 col-lg mg-t-40">
-                                <label className="tx-sans tx-10 tx-semibold tx-uppercase tx-color-01 tx-spacing-1 mg-b-15">Contact Information</label>
-                                <ul className="list-unstyled profile-info-list">
-                                    <li><i data-feather="briefcase"></i> <span className="tx-color-03">Bay Area, San Francisco, CA</span></li>
-                                    <li><i data-feather="home"></i> <span className="tx-color-03">Westfield, Oakland, CA</span></li>
-                                    <li><i data-feather="smartphone"></i> <a href="">(+1) 012 345 6789</a></li>
-                                    <li><i data-feather="phone"></i> <a href="">(+1) 987 654 3201</a></li>
-                                    <li><i data-feather="mail"></i> <a href="">me@fenchiumao.me</a></li>
-                                </ul>
-                            </div> */}
                             </div>
                         </div>
                         <div className="media-body mg-t-40 mg-lg-t-0 pd-lg-x-10">
@@ -146,21 +148,8 @@ class UserProfile extends Component {
                                     <h6 className="tx-uppercase tx-semibold mg-b-0">{usr.username}'s Posts</h6>
                                 </div>
                                 <div className="card-body pd-20 pd-lg-25">
-                                    <div className="media align-items-center mg-b-20">
-                                        <div className="avatar avatar-online"><img src="../../assets/img/img15.jpg" className="rounded-circle" alt="" /></div>
-                                        <div className="media-body pd-l-15">
-                                            <h6 className="mg-b-3">Dyanne Aceron</h6>
-                                            <span className="d-block tx-13 tx-color-03">Cigarette Butt Collector</span>
-                                        </div>
-                                        <span className="d-none d-sm-block tx-12 tx-color-03 align-self-start">5 hours ago</span>
-                                    </div>
-                                    <p className="mg-b-20">Our team is expanding again. We are looking for a Product Manager and Software Engineer to drive our new aspects of our capital projects. If you're interested, please drop a comment here or simply message me. <a href="">#softwareengineer</a> <a href="">#engineering</a></p>
-
-                                    <div className="bd bg-gray-50 pd-y-15 pd-x-15 pd-sm-x-20">
-                                        <h6 className="tx-15 mg-b-3">We're hiring of Product Manager</h6>
-                                        <p className="mg-b-0 tx-14">Full-time, $60,000 - $80,000 annual</p>
-                                        <span className="tx-13 tx-color-03">Bay Area, San Francisco, CA</span>
-                                    </div>
+                                    {loadingPosts === true && (<div>loading posts...</div>)}
+                                    {posts.map(row => (<NewsCard row={row} />))}
                                 </div>
                                 {/* <div className="card-footer bg-transparent pd-y-10 pd-sm-y-15 pd-x-10 pd-sm-x-20">
                                 <nav className="nav nav-with-icon tx-13">
