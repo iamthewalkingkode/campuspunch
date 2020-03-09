@@ -18,7 +18,7 @@ class NewsDetails extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'News' });
+        this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
         this.getNews(this.props.match.params.id);
     }
 

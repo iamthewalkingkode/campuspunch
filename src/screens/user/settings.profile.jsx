@@ -52,7 +52,7 @@ const SetProfile = props => {
         func.post('users/update', v).then(res => {
             setSubmitting(false);
             if (res.status === 200) {
-                props.signInSuccess(token, res.data);
+                props.signInSuccess(token, res.user);
                 message.success('Profile details updated');
             } else {
                 message.error(res.result);

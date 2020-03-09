@@ -31,7 +31,7 @@ class ActivateForm extends Component {
                                 // navCtrl.pop();
                             } else {
                                 func.setStorage('token', res.token);
-                                func.setStorageJson('user', res.data);
+                                func.setStorageJson('user', res.user);
                                 window.location.replace('/');
                             }
                         } else {

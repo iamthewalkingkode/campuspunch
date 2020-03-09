@@ -1,6 +1,7 @@
 .ant-form-item-label {
     line-height: 1 !important;
 }
+
 .ant-form-explain {
     font-size: 12px !important;
 }
@@ -15,6 +16,10 @@
     font-weight: 400 !important;
     height: auto !important;
     padding: 0.65rem 0.81rem !important;
+
+    &[disabled] {
+        opacity: 0.4;
+    }
 }
 
 .ant-btn-primary {
@@ -162,6 +167,7 @@
 .ant-select {
     width: 100%;
 }
+
 .ant-select-dropdown {
     z-index: 2050 !important;
 }

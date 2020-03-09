@@ -16,14 +16,12 @@ class NewsFormScreen extends Component {
             screen: '', id: 0,
             file: null, image: defaultImg, action: 'insert'
         };
-
-        if(this.props.auth.authenticated === false) {
-            this.props.history.push('/user/signin');
-        }
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'Post new article' });
+        this.props.setMetaTags({
+            title: 'Post new article', description: 'Post campus related news, stories, events, gossips, and experiences. Original contents earns extra 200 coins and above.', keywords: ''
+        });
         // this.getNews(this.props.match.params.id);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.summernote();
@@ -78,7 +76,7 @@ class NewsFormScreen extends Component {
         });
     }
     _submitGo(v, image) {
-        const { auth: { logg }, form: { resetFields }  } = this.props;
+        const { auth: { logg }, form: { resetFields } } = this.props;
         v['user'] = logg.id;
         v['image'] = image;
         v['content'] = window.$('#content').val();
@@ -141,6 +139,7 @@ class NewsFormScreen extends Component {
                                                                 <Select.Option key={ctg.id} value={ctg.id}>{ctg.name}</Select.Option>
                                                             ))}
                                                         </Select>
+
                                                     )}
                                                 </Form.Item>
                                             </div>
@@ -149,7 +148,7 @@ class NewsFormScreen extends Component {
                                                     {getFieldDecorator('school', {
                                                         rules: [{ required: true }]
                                                     })(
-                                                        <Select showSearch={true} autoComplete="off" size="large" disabled={submitting}>
+                                                        <Select showSearch={true} autoComplete="off" size="large" disabled={submitting} onChange={{}}>
                                                             {schools.map(sch => (
                                                                 <Select.Option key={sch.id} value={sch.id}>{sch.name}</Select.Option>
                                                             ))}

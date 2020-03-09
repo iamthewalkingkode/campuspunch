@@ -18,9 +18,9 @@ class LoginForm extends Component {
         var uri = this.props.location.pathname.split('/');
         if (uri[3]) {
             this.setState({ level: 2, code: uri[3] });
-            this.props.setMetaTags({ title: 'Change your password' });
+            this.props.setMetaTags({ title: 'Change your password', description: '', keywords: '' });
         } else {
-            this.props.setMetaTags({ title: 'Forgot password' });
+            this.props.setMetaTags({ title: 'Forgot password', description: '', keywords: '' });
         }
     }
 

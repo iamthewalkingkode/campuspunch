@@ -30,12 +30,12 @@ class NewsList extends Component {
             switch (pathname[1]) {
                 default:
                 case 'posts':
-                    this.props.setMetaTags({ title: 'News' });
+                    this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
                     const parsed = qs.parse(window.location.search);
                     this.getNews({ title: '%' + (parsed.query || '') + '%' });
                     break;
                 case 'school':
-                    this.props.setMetaTags({ title: 'News' });
+                    this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
                     this.getNews({ school: this.props.match.params.id });
                     break;
 

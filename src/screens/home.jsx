@@ -18,7 +18,7 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        // this.props.setMetaTags({ title: '' });
+        // this.props.setMetaTags({ title: '', description: '', keywords: '' });
         this.setState({ loading: true });
         func.post('posts/home', { limit: 9 }).then(res => {
             this.setState({ loading: false });

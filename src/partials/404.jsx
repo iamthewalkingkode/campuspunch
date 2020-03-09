@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NotFound = props => {
-    // props.setMetaTags({ title: 'Page not found' });
+    // props.setMetaTags({ title: 'Page not found', description: '', keywords: '' });
 
     return (
         <div className="ht-100p d-flex flex-column align-items-center justify-content-center">

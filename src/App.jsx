@@ -22,6 +22,8 @@ import NewsList from './screens/news/news.list';
 import NewsDetails from './screens/news/news.details';
 import NewsForm from './screens/news/news.form';
 
+import BiddingScreen from './screens/bidding/bidding';
+
 import SigninForm from './screens/auth/signin';
 import SignupForm from './screens/auth/signup';
 import ResetForm from './screens/auth/reset';
@@ -52,6 +54,7 @@ class App extends React.Component {
     if (logg.id) {
       // this.setState({ doingImportantStuffs: true });
       func.post('users', { id: logg.id, limit: 1 }).then((res) => {
+        window.init();
         this.setState({ doingImportantStuffs: false });
         if (res.status === 200) {
           this.props.signInSuccess(token, res.result[0]);
@@ -59,40 +62,46 @@ class App extends React.Component {
         }
       });
     }
-    // func.post('schools', { status: 1, orderby: 'name_asc' }).then((res) => {
-    //   if (res.status === 200) {
-    //     this.props.setSetSettings('schools', res.result);
-    //     func.setStorageJson('schools', res.result);
-    //   }
-    // });
-    // func.post('settings/states').then((res) => {
-    //   if (res.status === 200) {
-    //     this.props.setSetSettings('states', res.result);
-    //     func.setStorageJson('states', res.result);
-    //   }
-    // });
-    // func.post('settings/newsCategories').then((res) => {
-    //   if (res.status === 200) {
-    //     this.props.setSetSettings('newsCategories', res.result);
-    //     func.setStorageJson('newsCategories', res.result);
-    //   }
-    // });
+    func.post('schools', { status: 1, orderby: 'name_asc' }).then((res) => {
+      if (res.status === 200) {
+        this.props.setSetSettings('schools', res.result);
+        func.setStorageJson('schools', res.result);
+      }
+    });
+    func.post('settings').then((res) => {
+      if (res.status === 200) {
+        this.props.setSetSettings('settings', res.result);
+        func.setStorageJson('settings', res.result);
+      }
+    });
+    func.post('settings/states').then((res) => {
+      if (res.status === 200) {
+        this.props.setSetSettings('states', res.result);
+        func.setStorageJson('states', res.result);
+      }
+    });
+    func.post('settings/newsCategories').then((res) => {
+      if (res.status === 200) {
+        this.props.setSetSettings('newsCategories', res.result);
+        func.setStorageJson('newsCategories', res.result);
+      }
+    });
   }
 
   render() {
     const { doingImportantStuffs } = this.state;
-    const { utils: { lang, meta } } = this.props;
+    const { utils: { lang, meta }, auth: { authenticated } } = this.props;
 
     return (
       <React.Fragment>
         <IntlProvider locale={lang} defaultLocale={'en'} messages={localeIntl[lang]}>
           <Helmet>
             <title>{meta.title} :: CampusPunch</title>
+            <meta property="og:title" content={meta.title} />
             {meta.description && (<meta name="description" content={meta.description} />)}
+            {meta.description && (<meta property="og:description" content={meta.description} />)}
             {meta.keywords && (<meta name="keywords" content={meta.keywords} />)}
             <meta property="og:url" content="http://campuspunch.com" />
-            <meta property="og:title" content={meta.title} />
-            <meta property="og:description" content={meta.description} />
           </Helmet>
 
           <Router>
@@ -105,7 +114,7 @@ class App extends React.Component {
                 </div>
               )}
 
-              {/* {doingImportantStuffs === false && ( */}
+              {doingImportantStuffs === false && (
               <div>
                 <header className="navbar navbar-header navbar-header-fixed">
                   <span id="mainMenuOpen" className="burger-menu pointer"><i data-feather="menu"></i></span>
@@ -136,19 +145,27 @@ class App extends React.Component {
                       <Route exact path="/news" render={(props) => <NewsList {...props} {...this.props} />} />
                       <Route exact path="/school/:slug/:id" render={(props) => <NewsList {...props} {...this.props} />} />
                       <Route exact path="/:slug/:id" render={(props) => <NewsDetails {...props} {...this.props} />} />
-                      <Route exact path="/post-article" render={(props) => <NewsForm {...props} {...this.props} />} />
+
+                      {/* Bidding */}
+                      <Route exact path="/bidding" render={(props) => <BiddingScreen {...props} {...this.props} />} />
 
                       {/* User authed routes */}
-                      {/* {authenticated === true && ( */}
+                      {authenticated === true && (
                         <Route exact path="/user" render={(props) => <UserSettings {...props} {...this.props} />} />
-                      {/* )} */}
+                      )}
+                      {authenticated === true && (
+                        <Route exact path="/post-article" render={(props) => <NewsForm {...props} {...this.props} />} />
+                      )}
+                      {authenticated === false && (
+                        <Route exact path="/post-article" render={(props) => <SigninForm {...props} {...this.props} redirect="post-article" />} />
+                      )}
 
                       <Route render={(props) => <NotFound {...props} {...this.props} />} />
                     </Switch>
                   </div>
                 </div>
               </div>
-              {/* )} */}
+              )}
 
               <Footer {...this.props} />
             </ConnectedRouter>

@@ -12,6 +12,7 @@ const initialState = {
     studentCategories: ['Prospective', 'Student', 'Graduate'],
     states: func.getStorageJson('states'),
     schools: func.getStorageJson('schools'),
+    settings: func.getStorageJson('settings'),
     newsCategories: func.getStorageJson('newsCategories'),
 
     menus: [

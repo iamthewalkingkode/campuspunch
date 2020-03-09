@@ -63,7 +63,7 @@ class Authenticate extends Component {
                 func.delStorage('otp_country');
                 func.delStorage('otp_username');
                 func.setStorage('token', res.token);
-                func.setStorageJson('user', res.data);
+                func.setStorageJson('user', res.user);
                 window.location.replace('/');
             } else {
                 onOk && onOk();

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, Select } from 'antd';
 import { Link } from 'react-router-dom';
+import * as qs from 'query-string';
 import * as func from '../../utils/functions';
 
+const parsed = qs.parse(window.location.search);
 class SignupForm extends Component {
 
     constructor(props) {
@@ -12,7 +14,7 @@ class SignupForm extends Component {
             submitting: false
         };
 
-        this.props.setMetaTags({ title: 'Create new account' });
+        this.props.setMetaTags({ title: 'Create new account', description: '', keywords: '' });
     }
 
     confirmPassword = (rule, value, callback) => {
@@ -36,8 +38,8 @@ class SignupForm extends Component {
                     this.setState({ submitting: false });
                     if (res.status === 200) {
                         func.setStorage('token', res.token);
-                        func.setStorageJson('user', res.data);
-                        window.location.replace(`/`);
+                        func.setStorageJson('user', res.user);
+                        window.location.replace(`/${parsed.redirect || ''}`);
                     } else {
                         this.setState({ errorMessage: res.result });
                     }

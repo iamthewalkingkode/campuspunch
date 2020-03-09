@@ -20,7 +20,7 @@ class UserSettings extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'Profile settings' });
+        this.props.setMetaTags({ title: 'Profile settings', description: '', keywords: '' });
     }
 
     render() {

@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
-// import { Form, Input, Button, message } from 'antd';
+import Lightbox from 'react-image-lightbox';
 import * as func from '../../utils/functions';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +14,7 @@ class UserProfile extends Component {
         this.state = {
             usr: {}, posts: [],
             loading: true, loadingPosts: false,
-            username: ''
+            username: '', lightImages: [], lightIndex: 0, lightOpen: false
         };
     }
 
@@ -24,7 +23,7 @@ class UserProfile extends Component {
         var username = uri[2];
         if (username) {
             this.setState({ username }, () => {
-                this.props.setMetaTags({ title: username });
+                this.props.setMetaTags({ title: username, description: '', keywords: '' });
                 this.setState({ loading: true });
                 func.post('users', { username, limit: 1 }).then(res => {
                     this.setState({ loading: false });
@@ -34,8 +33,8 @@ class UserProfile extends Component {
                         setTimeout(() => {
                             window.init();
                         }, 200);
-                        this.props.setMetaTags({ title: usr.username, description: usr.about });
-                        this.setState({ usr });
+                        this.props.setMetaTags({ title: usr.username, description: usr.about, keywords: '' });
+                        this.setState({ usr, lightImages: [usr.avatar_link] });
                     }
                 });
             });
@@ -54,7 +53,7 @@ class UserProfile extends Component {
 
     render() {
         const { auth: { logg } } = this.props;
-        const { loading, usr, username, loadingPosts, posts } = this.state;
+        const { loading, usr, username, loadingPosts, posts, lightImages, lightIndex, lightOpen } = this.state;
 
         return (
             <React.Fragment>
@@ -170,13 +169,32 @@ class UserProfile extends Component {
 
                                     <div className="row row-xxs">
                                         <div className="col-6">
-                                            <a href="" className="d-block ht-60"><img src={usr.avatar_link} className="img-fit-cover" alt={usr.username} /></a>
+                                            <span className="d-block ht-60 pointer" onClick={() => this.setState({ lightOpen: true })}><img src={usr.avatar_link} className="img-fit-cover" alt={usr.username} /></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                )}
+
+                {lightOpen === true && (
+                    <Lightbox
+                        mainSrc={lightImages[lightIndex]}
+                        nextSrc={lightImages[(lightIndex + 1) % lightImages.length]}
+                        prevSrc={lightImages[(lightIndex + lightImages.length - 1) % lightImages.length]}
+                        onCloseRequest={() => this.setState({ lightOpen: false })}
+                        onMovePrevRequest={() =>
+                            this.setState({
+                                lightIndex: (lightIndex + lightImages.length - 1) % lightImages.length,
+                            })
+                        }
+                        onMoveNextRequest={() =>
+                            this.setState({
+                                lightIndex: (lightIndex + 1) % lightImages.length,
+                            })
+                        }
+                    />
                 )}
             </React.Fragment>
         )

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Form, Input, Button } from 'antd';
-import * as func from '../../utils/functions';
 import { Link } from 'react-router-dom';
+import { Form, Input, Button } from 'antd';
+import * as qs from 'query-string';
+import * as func from '../../utils/functions';
 
+const parsed = qs.parse(window.location.search);
 class SiginForm extends Component {
 
     constructor(props) {
@@ -11,7 +13,7 @@ class SiginForm extends Component {
             submitting: false, errorMessage: ''
         };
 
-        this.props.setMetaTags({ title: 'Login to your account' });
+        this.props.setMetaTags({ title: 'Login to your account', description: '', keywords: '' });
     }
 
     _submit = (e) => {
@@ -24,8 +26,8 @@ class SiginForm extends Component {
                     this.setState({ submitting: false });
                     if (res.status === 200) {
                         func.setStorage('token', res.token);
-                        func.setStorageJson('user', res.data);
-                        window.location.replace(`/`);
+                        func.setStorageJson('user', res.user);
+                        window.location.replace(`/${parsed.redirect || this.props.redirect || ''}`);
                     } else {
                         this.setState({ errorMessage: res.result });
                     }
