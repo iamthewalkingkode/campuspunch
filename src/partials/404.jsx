@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const NotFound = props => {
-    // props.setMetaTags({ title: 'Page not found', description: '', keywords: '' });
+    const [done, setDone] = useState(false);
+
+    useEffect(() => {
+        if (done === false) {
+            // props.setMetaTags({ title: 'Page not found', description: '', keywords: '' });
+            // props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+            setDone(true);
+        }
+    }, [done, props]);
 
     return (
         <div className="ht-100p d-flex flex-column align-items-center justify-content-center">

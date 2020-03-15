@@ -7,20 +7,30 @@ import { history } from "./store/_store";
 import { Helmet } from "react-helmet";
 
 import { IntlProvider } from 'react-intl';
+import { Loading } from './components';
 import localeIntl from './assets/intl/data.json';
 import * as func from './utils/functions';
 
 import * as authAct from "./store/auth/_authActions";
+import * as dataAct from "./store/data/_dataActions";
 import * as utilsAct from "./store/utils/_utilsActions";
 
 import NotFound from './partials/404';
-import Menu from './partials/menu';
-import Footer from './partials/footer';
+import Menu from './partials/Menu';
+import Footer from './partials/Footer';
+import HeaderBottom from './partials/HeaderBottom';
 
 import HomeSCreen from './screens/home';
-import NewsList from './screens/news/news.list';
-import NewsDetails from './screens/news/news.details';
-import NewsForm from './screens/news/news.form';
+
+import PostList from './screens/post/post.list';
+import PostDetails from './screens/post/post.details';
+import PostForm from './screens/post/post.form';
+
+import FocScreen from './screens/foc/foc.home';
+import FocPhoto from './screens/foc/foc.photo';
+import FocPhotoApply from './screens/foc/foc.photo.apply';
+import FocPhotoProfile from './screens/foc/foc.photo.profile';
+import FocPhotoProfiles from './screens/foc/foc.photo.profiles';
 
 import BiddingScreen from './screens/bidding/bidding';
 
@@ -38,7 +48,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.initApp();
+    // this.initApp();
   }
 
   componentWillUpdate() {
@@ -57,8 +67,11 @@ class App extends React.Component {
         window.init();
         this.setState({ doingImportantStuffs: false });
         if (res.status === 200) {
-          this.props.signInSuccess(token, res.result[0]);
-          func.setStorageJson('user', res.result[0]);
+          let usr = res.result[0];
+          if (usr.status !== 2) {
+            this.props.signInSuccess(token, usr);
+            func.setStorageJson('user', usr);
+          }
         }
       });
     }
@@ -86,6 +99,12 @@ class App extends React.Component {
         func.setStorageJson('newsCategories', res.result);
       }
     });
+    func.post('foc', { status: 1 }).then((res) => {
+      if (res.status === 200) {
+        this.props.setSetSettings('focContests', res.result);
+        func.setStorageJson('focContests', res.result);
+      }
+    });
   }
 
   render() {
@@ -101,21 +120,14 @@ class App extends React.Component {
             {meta.description && (<meta name="description" content={meta.description} />)}
             {meta.description && (<meta property="og:description" content={meta.description} />)}
             {meta.keywords && (<meta name="keywords" content={meta.keywords} />)}
-            <meta property="og:url" content="http://campuspunch.com" />
+            <meta property="og:url" content="https://campuspunch.com" />
           </Helmet>
 
           <Router>
             <ConnectedRouter history={history}>
-              {doingImportantStuffs === true && (
-                <div className="content content-fixed content-auth-alt">
-                  <div className="container ht-100p tx-center text-primary">
-                    <div className="spinner-grow" role="status" /> <br /> CampusPunch
-                  </div>
-                </div>
-              )}
+              {doingImportantStuffs === true && (<Loading text="CampusPunch" />)}
 
-              {doingImportantStuffs === false && (
-              <div>
+              <div className={`${doingImportantStuffs ? 'hide' : ''}`}>
                 <header className="navbar navbar-header navbar-header-fixed">
                   <span id="mainMenuOpen" className="burger-menu pointer"><i data-feather="menu"></i></span>
                   <div className="navbar-brand">
@@ -128,44 +140,55 @@ class App extends React.Component {
                     </div>
                     <Menu {...this.props} />
                   </div>
+
                 </header>
 
-                <div className="content content-fixed" style={{ minHeight: '100vh' }}>
-                  <div className="container ht-100p">
-                    <Switch>
-                      <Route exact path="/" render={(props) => <HomeSCreen {...props} {...this.props} row={{}} />} />
 
-                      {/* User unauth routes */}
-                      <Route exact path="/user/signin" render={(props) => <SigninForm {...props} {...this.props} row={{}} />} />
-                      <Route exact path="/user/signup" render={(props) => <SignupForm {...props} {...this.props} />} />
-                      <Route exact path="/user/reset" render={(props) => <ResetForm {...props} {...this.props} />} />
-                      <Route exact path="/u/:username" render={(props) => <UserProfile {...props} {...this.props} />} />
+                <div className="content-fixed" style={{ minHeight: '100vh' }}>
+                  <HeaderBottom {...this.props} />
+                  <div className="content">
+                    <div className="container ht-100p">
+                      <Switch>
+                        <Route exact path="/" render={(props) => <HomeSCreen {...props} {...this.props} row={{}} />} />
 
-                      {/* News */}
-                      <Route exact path="/news" render={(props) => <NewsList {...props} {...this.props} />} />
-                      <Route exact path="/school/:slug/:id" render={(props) => <NewsList {...props} {...this.props} />} />
-                      <Route exact path="/:slug/:id" render={(props) => <NewsDetails {...props} {...this.props} />} />
+                        {/* User unauth routes */}
+                        <Route exact path="/user/signin" render={(props) => <SigninForm {...props} {...this.props} row={{}} />} />
+                        <Route exact path="/user/signup" render={(props) => <SignupForm {...props} {...this.props} />} />
+                        <Route exact path="/user/reset" render={(props) => <ResetForm {...props} {...this.props} />} />
+                        <Route exact path="/u/:username" render={(props) => <UserProfile {...props} {...this.props} />} />
 
-                      {/* Bidding */}
-                      <Route exact path="/bidding" render={(props) => <BiddingScreen {...props} {...this.props} />} />
+                        {/* News */}
+                        <Route exact path="/news" render={(props) => <PostList {...props} {...this.props} />} />
+                        <Route exact path="/school/:slug/:id" render={(props) => <PostList {...props} {...this.props} />} />
+                        <Route exact path="/article/:slug/:id" render={(props) => <PostDetails {...props} {...this.props} />} />
 
-                      {/* User authed routes */}
-                      {authenticated === true && (
-                        <Route exact path="/user" render={(props) => <UserSettings {...props} {...this.props} />} />
-                      )}
-                      {authenticated === true && (
-                        <Route exact path="/post-article" render={(props) => <NewsForm {...props} {...this.props} />} />
-                      )}
-                      {authenticated === false && (
-                        <Route exact path="/post-article" render={(props) => <SigninForm {...props} {...this.props} redirect="post-article" />} />
-                      )}
+                        {/* Bidding */}
+                        <Route exact path="/bidding" render={(props) => <BiddingScreen {...props} {...this.props} />} />
 
-                      <Route render={(props) => <NotFound {...props} {...this.props} />} />
-                    </Switch>
+                        {/* FOC / Photo */}
+                        <Route exact path="/face-of-campus" render={(props) => <FocScreen {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/photo/:slug/:id" render={(props) => <FocPhoto {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/photo/:slug/:id/apply" render={(props) => <FocPhotoApply {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/photo/school/:code/:school/:contest" render={(props) => <FocPhotoProfiles {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/photo/profile/:username/:id/:contest" render={(props) => <FocPhotoProfile {...props} {...this.props} />} />
+
+                        {/* User authed routes */}
+                        {authenticated === true && (
+                          <Route exact path="/user" render={(props) => <UserSettings {...props} {...this.props} />} />
+                        )}
+                        {authenticated === true && (
+                          <Route exact path="/post-article" render={(props) => <PostForm {...props} {...this.props} />} />
+                        )}
+                        {authenticated === false && (
+                          <Route exact path="/post-article" render={(props) => <SigninForm {...props} {...this.props} redirect="post-article" />} />
+                        )}
+
+                        <Route render={(props) => <NotFound {...props} {...this.props} />} />
+                      </Switch>
+                    </div>
                   </div>
                 </div>
               </div>
-              )}
 
               <Footer {...this.props} />
             </ConnectedRouter>
@@ -179,6 +202,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  data: state.data,
   utils: state.utils,
   router: state.router
 });
@@ -193,8 +217,11 @@ const mapDispatchToProps = (dispatch) => ({
   setMetaTags: (data) => {
     dispatch(utilsAct.setMetaTags(data));
   },
+  setHeaderTitle: (data) => {
+    dispatch(utilsAct.setHeaderTitle(data));
+  },
   setSetSettings: (key, value) => {
-    dispatch(utilsAct.setSetSettings(key, value));
+    dispatch(dataAct.setSetSettings(key, value));
   }
 });
 

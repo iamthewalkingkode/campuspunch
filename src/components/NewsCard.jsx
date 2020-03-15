@@ -13,7 +13,7 @@ const NewsCard = props => {
                     <span class="list-group-item d-flex align-items-center bd-0 pd-0">
                         {row.image && (<div class="mg-r-20 news-image" style={{ backgroundImage: `url(${row.image_link})`}}></div>)}
                         <div>
-                            <Link to={`/${row.slug}/${row.id}`} class="tx-20 tx-inverse tx-semibold mg-b-0">{row.title}</Link>
+                            <Link to={`/article/${row.slug}/${row.id}`} class="tx-20 tx-inverse tx-semibold mg-b-0">{row.title}</Link>
                             <div class="bd-t bd-b mg-t-4 mg-b-4 text-muted">
                                 <small>
                                     <span>{moment(row.crdate, 'YYYY-MM-DD').format('LL')} </span>

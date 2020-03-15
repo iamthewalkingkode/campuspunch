@@ -5,7 +5,7 @@ import * as qs from 'query-string';
 import { Advert } from '../components';
 
 const SideBar = props => {
-    const { utils: { schools } } = props;
+    const { data: { schools } } = props;
     const parsed = qs.parse(window.location.search);
 
     const searchQuery = (q) => {
@@ -33,7 +33,7 @@ const SideBar = props => {
 
             <div className="mg-b-20">
                 <h6 className="tx-uppercase tx-semibold mg-b-5">Select a school</h6>
-                <Select showSearch={true} autoComplete="off" size="large" onChange={sch => searchSchool(sch)}>
+                <Select showSearch={true} autoComplete="off" size="large" optionFilterProp="children" onChange={sch => searchSchool(sch)}>
                     {schools.map(sch => (
                         <Select.Option key={sch.id} value={`${sch.slug}@${sch.id}`}>{sch.name}</Select.Option>
                     ))}

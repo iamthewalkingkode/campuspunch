@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Menu = props => {
   const root = props.router.location.pathname.split('/')[1];
-  const { utils: { menus }, auth: { authenticated } } = props;
+  const { data: { menus }, auth: { authenticated } } = props;
 
   return (
     <ul className="nav navbar-menu">

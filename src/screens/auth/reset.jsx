@@ -15,6 +15,8 @@ class LoginForm extends Component {
     }
 
     componentDidMount() {
+        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         var uri = this.props.location.pathname.split('/');
         if (uri[3]) {
             this.setState({ level: 2, code: uri[3] });

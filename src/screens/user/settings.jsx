@@ -21,6 +21,7 @@ class UserSettings extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Profile settings', description: '', keywords: '' });
+        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
     }
 
     render() {

@@ -6,7 +6,7 @@ import { Loading, Advert } from '../../components';
 
 const defaultImg = 'assets/img/noimage.jpg';
 
-class NewsFormScreen extends Component {
+class PostFormScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -22,6 +22,7 @@ class NewsFormScreen extends Component {
         this.props.setMetaTags({
             title: 'Post new article', description: 'Post campus related news, stories, events, gossips, and experiences. Original contents earns extra 200 coins and above.', keywords: ''
         });
+        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
         // this.getNews(this.props.match.params.id);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.summernote();
@@ -80,7 +81,7 @@ class NewsFormScreen extends Component {
         v['user'] = logg.id;
         v['image'] = image;
         v['content'] = window.$('#content').val();
-        func.post(`news/${this.state.action}`, v).then(res => {
+        func.post(`posts/${this.state.action}`, v).then(res => {
             this.setState({ submitting: false });
             if (res.status === 200) {
                 resetFields();
@@ -93,7 +94,7 @@ class NewsFormScreen extends Component {
 
     render() {
         const { loading, submitting, image } = this.state;
-        const { utils: { newsCategories, schools }, form: { getFieldDecorator } } = this.props;
+        const { data: { newsCategories, schools }, form: { getFieldDecorator }, auth: { logg } } = this.props;
 
         return (
             <React.Fragment>
@@ -146,9 +147,10 @@ class NewsFormScreen extends Component {
                                             <div className="col-12 col-sm-6 col-lg-6">
                                                 <Form.Item colon={false} label="School/Campus">
                                                     {getFieldDecorator('school', {
-                                                        rules: [{ required: true }]
+                                                        rules: [{ required: true }],
+                                                        initialValue: logg.school.id
                                                     })(
-                                                        <Select showSearch={true} autoComplete="off" size="large" disabled={submitting} onChange={{}}>
+                                                        <Select showSearch={true} autoComplete="off" size="large" disabled={submitting} optionFilterProp="children">
                                                             {schools.map(sch => (
                                                                 <Select.Option key={sch.id} value={sch.id}>{sch.name}</Select.Option>
                                                             ))}
@@ -176,5 +178,5 @@ class NewsFormScreen extends Component {
 
 }
 
-const NewsForm = Form.create()(NewsFormScreen);
-export default NewsForm;
+const PostForm = Form.create()(PostFormScreen);
+export default PostForm;

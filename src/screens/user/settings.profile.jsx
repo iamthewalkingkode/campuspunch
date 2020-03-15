@@ -3,7 +3,7 @@ import { Form, Input, Select, Button, message } from 'antd';
 import * as func from '../../utils/functions';
 
 const SetProfile = props => {
-    const { form: { getFieldDecorator }, utils: { states, schools, studentCategories }, auth: { logg } } = props;
+    const { form: { getFieldDecorator }, data: { states, schools, studentCategories }, auth: { logg } } = props;
     const [image, setImage] = useState(undefined);
     const [avatar, setAvatar] = useState(logg.avatar_link);
     const [submitting, setSubmitting] = useState(false);
@@ -126,7 +126,7 @@ const SetProfile = props => {
                                         rules: [{ required: true }],
                                         initialValue: logg.school.id || undefined
                                     })(
-                                        <Select showSearch={true} autoComplete="off" size="large" disabled={submitting}>
+                                        <Select showSearch={true} autoComplete="off" size="large" optionFilterProp="children" disabled={submitting}>
                                             {schools.map(sch => (
                                                 <Select.Option key={sch.id} value={sch.id}>{sch.name}</Select.Option>
                                             ))}

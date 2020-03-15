@@ -1,6 +1,5 @@
 import React from 'react';
 import * as func from '../utils/functions';
-// import { FormattedMessage } from 'react-intl';
 
 const Footer = props => {
 

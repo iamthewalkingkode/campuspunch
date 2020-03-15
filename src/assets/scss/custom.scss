@@ -1,6 +1,10 @@
 @import './variables.scss';
 @import './antd.scss';
 
+body {
+	// background-image: url('/assets/img/bg.png') !important;
+}
+
 input[readonly] {
 	background: #eee;
 }
@@ -241,5 +245,31 @@ strong {
 
 	.ant-comment-inner {
 		margin-bottom: 1.5rem;
+	}
+}
+
+@media (min-width: 576px) {
+	.card-columns {
+		column-count: 4;
+	}
+}
+
+
+.header___bottom {
+	padding: 20px;
+	height: 320px;
+	background-color: rgba(#042893, 0.6);
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+	background-size: cover !important;
+
+	h1 {
+		font-weight: 600;
+	}
+
+	h1,
+	h3,
+	p {
+		color: #fff;
 	}
 }

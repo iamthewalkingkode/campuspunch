@@ -57,8 +57,8 @@ const CommentsC = props => {
                     <Comment
                         avatar={<Avatar src={logg.avatar_link} alt={logg.fullname} />}
                         content={
-                            <div className="row">
-                                <div className="col-10">
+                            <div className="row row-xs">
+                                <div className="col-11">
                                     <Form.Item style={{ marginBottom: 0 }}>
                                         {getFieldDecorator('content', {
                                             rules: [{ required: true, message: 'Comment is required' }]
@@ -67,8 +67,10 @@ const CommentsC = props => {
                                         )}
                                     </Form.Item>
                                 </div>
-                                <div className="col-2">
-                                    <Button htmlType="submit" loading={submitting} disabled={!getFieldValue('content')} type="primary">Comment</Button>
+                                <div className="col-1">
+                                    <Button htmlType="submit" loading={submitting} disabled={!getFieldValue('content')} type="primary">
+                                        {/* <i data-feather="heart"></i> */}send
+                                    </Button>
                                 </div>
                             </div>
                         }

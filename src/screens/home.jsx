@@ -4,7 +4,7 @@ import * as func from '../utils/functions';
 import { Link } from 'react-router-dom';
 
 import { Loading, Advert } from '../components';
-import SideBar from '../partials/sidebar';
+import SideBar from '../partials/Sidebar';
 // import moment from 'moment';
 
 class HomeScreen extends Component {
@@ -29,7 +29,7 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const { utils: { newsCategories } } = this.props;
+        const { data: { newsCategories } } = this.props;
         const { loading, data } = this.state;
 
         return (

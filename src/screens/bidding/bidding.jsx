@@ -19,6 +19,8 @@ class BiddingScreen extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Bidding', description: '', keywords: '' });
+        this.props.setHeaderTitle({ h1: 'Bidding', h3: '', p: '', image: '' });
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.bidItems();
         this.prevWinners();
@@ -81,13 +83,13 @@ class BiddingScreen extends Component {
                                 {(loading === true || (items[0] || {}).id) && (<BiddingCard item={items[0] || {}} {...this.props} />)}
                             </div>
                             <div className="col-12 col-sm-6 col-lg-6">
-                                {(loading === true || (items[1] || {}).id) &&(<BiddingCard item={items[1] || {}} {...this.props} />)}
+                                {(loading === true || (items[1] || {}).id) && (<BiddingCard item={items[1] || {}} {...this.props} />)}
                             </div>
                             <div className="col-12 mg-t-20">
                                 <Advert type="top" />
                             </div>
                             <div className="col-12 col-sm-6 col-lg-6">
-                                {(loading === true || (items[2] || {}).id) &&(<BiddingCard item={items[2] || {}} {...this.props} />)}
+                                {(loading === true || (items[2] || {}).id) && (<BiddingCard item={items[2] || {}} {...this.props} />)}
                             </div>
                         </div>
                     </div>

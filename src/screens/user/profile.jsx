@@ -19,6 +19,7 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
+        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
         var uri = this.props.location.pathname.split('/');
         var username = uri[2];
         if (username) {
@@ -43,7 +44,7 @@ class UserProfile extends Component {
 
     getPosts(user) {
         this.setState({ loadingPosts: true });
-        func.post('posts', { user, limit: 6 }).then(res => {
+        func.post('posts', { user, limit: 6, status: 1 }).then(res => {
             this.setState({ loadingPosts: false });
             if (res.status === 200) {
                 this.setState({ posts: res.result });
@@ -93,7 +94,7 @@ class UserProfile extends Component {
 
                                     <div className="d-flex">
                                         <div className="profile-skillset flex-fill">
-                                            <h4>{usr.points_sf}</h4>
+                                            <h4>{usr.coins_sf}</h4>
                                             <label>Coins</label>
                                         </div>
                                         <div className="profile-skillset flex-fill">
@@ -124,7 +125,7 @@ class UserProfile extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="media-body mg-t-40 mg-lg-t-0 pd-lg-x-10">
+                        <div className="media-body mg-t-40 mg-lg-t-0">
                             <div class="card mg-b-20">
                                 <div className="card-body d-flex flex-row justify-content-around">
                                     <div className="profile-skillset flex-fills">
@@ -148,7 +149,7 @@ class UserProfile extends Component {
                                 </div>
                                 <div className="card-body pd-20 pd-lg-25">
                                     {loadingPosts === true && (<div>loading posts...</div>)}
-                                    {posts.map(row => (<NewsCard row={row} />))}
+                                    {posts.map(row => (<NewsCard key={row.id} row={row} />))}
                                 </div>
                                 {/* <div className="card-footer bg-transparent pd-y-10 pd-sm-y-15 pd-x-10 pd-sm-x-20">
                                 <nav className="nav nav-with-icon tx-13">

@@ -4,9 +4,9 @@ import * as qs from 'query-string';
 import * as func from '../../utils/functions';
 
 import { Loading, NewsCard, Advert } from '../../components';
-import SideBar from '../../partials/sidebar';
+import SideBar from '../../partials/Sidebar';
 
-class NewsList extends Component {
+class PostList extends Component {
 
     constructor(props) {
         super(props);
@@ -20,6 +20,7 @@ class NewsList extends Component {
 
     componentDidMount() {
         this.setState({ screen: '' });
+        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
     }
 
     componentDidUpdate() {
@@ -96,4 +97,4 @@ class NewsList extends Component {
 
 }
 
-export default NewsList;
+export default PostList;

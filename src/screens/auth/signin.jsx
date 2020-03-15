@@ -14,6 +14,8 @@ class SiginForm extends Component {
         };
 
         this.props.setMetaTags({ title: 'Login to your account', description: '', keywords: '' });
+        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     _submit = (e) => {
@@ -55,11 +57,11 @@ class SiginForm extends Component {
                             <div className={errorMessage ? 'animated shake' : ''} style={{ boxShadow: '0 0 3px #CACACA', padding: '35px 25px' }}>
                                 <div className="">
                                     <div class="d-flex justify-content-between mg-b-5">
-                                        <label class="mg-b-0-f">Username/Email</label>
+                                        <label class="mg-b-0-f">Username</label>
                                     </div>
                                     <Form.Item colon={false} label={null}>
                                         {getFieldDecorator('username', {
-                                            rules: [{ required: true, message: 'Username/Email is required' }]
+                                            rules: [{ required: true, message: 'Username is required' }]
                                         })(
                                             <Input autoComplete="off" size="large" disabled={submitting} />
                                         )}

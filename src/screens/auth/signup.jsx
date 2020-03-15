@@ -15,6 +15,8 @@ class SignupForm extends Component {
         };
 
         this.props.setMetaTags({ title: 'Create new account', description: '', keywords: '' });
+        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     confirmPassword = (rule, value, callback) => {
@@ -53,7 +55,7 @@ class SignupForm extends Component {
     }
 
     render() {
-        const { form: { getFieldDecorator }, utils: { studentCategories, states, schools } } = this.props;
+        const { form: { getFieldDecorator }, data: { studentCategories, states, schools } } = this.props;
         const { submitting, errorMessage } = this.state;
 
         return (
@@ -127,7 +129,7 @@ class SignupForm extends Component {
                                         {getFieldDecorator('school', {
                                             rules: [{ required: true }]
                                         })(
-                                            <Select showSearch={true} autoComplete="off" size="large" disabled={submitting}>
+                                            <Select showSearch={true} autoComplete="off" size="large" optionFilterProp="children" disabled={submitting}>
                                                 {schools.map(sch => (
                                                     <Select.Option key={sch.id} value={sch.id}>{sch.name}</Select.Option>
                                                 ))}

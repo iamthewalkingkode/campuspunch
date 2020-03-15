@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import * as func from '../../utils/functions';
 
 import { Loading, Advert, Comments } from '../../components';
-import SideBar from '../../partials/sidebar';
+import SideBar from '../../partials/Sidebar';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
-class NewsDetails extends Component {
+class PostDetails extends Component {
 
     constructor(props) {
         super(props);
@@ -77,4 +77,4 @@ class NewsDetails extends Component {
 
 }
 
-export default NewsDetails;
+export default PostDetails;

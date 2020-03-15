@@ -39,7 +39,7 @@ class VerifyForm extends Component {
     }
 
     render() {
-        const { form: { getFieldDecorator }, row, utils: { allcountries } } = this.props;
+        const { form: { getFieldDecorator }, row, data: { allcountries } } = this.props;
         const { submitting } = this.state;
 
         return (

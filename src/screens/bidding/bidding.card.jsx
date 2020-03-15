@@ -40,9 +40,7 @@ class BiddingCard extends Component {
     countDown(interval) {
         const { item } = this.props;
         func.post('settings/countdown', { to: item.end_date }).then(res => {
-            if (res.status === 200) {
-                this.setState({ cd: res.result, interval });
-            }
+            this.setState({ cd: res.result, interval });
         });
         func.post('bidding/users', { item: item.id, limit: 1 }).then(res => {
             if (res.status === 200) {
@@ -70,7 +68,7 @@ class BiddingCard extends Component {
     }
 
     bid() {
-        const { item, auth: { logg, token }, utils: { settings } } = this.props;
+        const { item, auth: { logg, token }, data: { settings } } = this.props;
         let coins = parseInt(settings.coins_bidding);
         if(logg.coins > coins) {
             this.setState({ submitting: true });

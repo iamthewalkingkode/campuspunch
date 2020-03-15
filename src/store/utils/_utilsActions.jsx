@@ -1,4 +1,4 @@
-import { SET_SITE_LANG, SET_PAGE_TITLE, SET_SET_SETTINGS } from '../_types';
+import { SET_SITE_LANG, SET_PAGE_TITLE, SET_HEADER_TITLES } from '../_types';
 
 export function setMetaTags(data) {
     return dispatch => {
@@ -6,16 +6,14 @@ export function setMetaTags(data) {
     }
 };
 
-export function setSiteLang(lang) {
+export function setHeaderTitle(data) {
     return dispatch => {
-        dispatch({ type: SET_SITE_LANG, lang});
+        dispatch({ type: SET_HEADER_TITLES, data });
     }
 };
 
-export function setSetSettings(key, value) {
+export function setSiteLang(lang) {
     return dispatch => {
-        dispatch({
-            type: SET_SET_SETTINGS, key, value
-        });
+        dispatch({ type: SET_SITE_LANG, lang});
     }
 };
