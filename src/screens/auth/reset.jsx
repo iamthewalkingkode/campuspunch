@@ -3,7 +3,7 @@ import { Form, Input, Button, message } from 'antd';
 import * as func from '../../utils/functions';
 import { Link } from 'react-router-dom';
 
-class LoginForm extends Component {
+class ResetForm extends Component {
 
     constructor(props) {
         super(props);
@@ -120,7 +120,7 @@ class LoginForm extends Component {
                                 </div>
                                 <div className={errorMessage ? 'animated shake' : ''} style={{ boxShadow: '0 0 3px #CACACA', padding: '35px 25px' }}>
                                     <div className="">
-                                        <Form.Item colon={false} label="Password">
+                                        <Form.Item colon={false} label="New password">
                                             {getFieldDecorator('password', {
                                                 rules: [{ required: true, message: 'Password is required' }]
                                             })(
@@ -129,7 +129,7 @@ class LoginForm extends Component {
                                         </Form.Item>
                                     </div>
                                     <div className="">
-                                        <Form.Item colon={false} label="Password">
+                                        <Form.Item colon={false} label="Confirm assword">
                                             {getFieldDecorator('cpassword', {
                                                 rules: [{ required: true, message: 'Password is required' }, { validator: this.confirmPassword }]
                                             })(
@@ -156,5 +156,5 @@ class LoginForm extends Component {
 
 }
 
-const Login = Form.create()(LoginForm);
-export default Login;
+const Reset = Form.create()(ResetForm);
+export default Reset;

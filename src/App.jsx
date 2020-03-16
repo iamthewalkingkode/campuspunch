@@ -155,6 +155,7 @@ class App extends React.Component {
                         <Route exact path="/user/signin" render={(props) => <SigninForm {...props} {...this.props} row={{}} />} />
                         <Route exact path="/user/signup" render={(props) => <SignupForm {...props} {...this.props} />} />
                         <Route exact path="/user/reset" render={(props) => <ResetForm {...props} {...this.props} />} />
+                        <Route exact path="/user/reset/:token" render={(props) => <ResetForm {...props} {...this.props} />} />
                         <Route exact path="/u/:username" render={(props) => <UserProfile {...props} {...this.props} />} />
 
                         {/* News */}
