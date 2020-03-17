@@ -61,8 +61,8 @@ class App extends React.Component {
   initApp = () => {
     // ::: run some things before doingImportantStuffs the MainApp
     const { auth: { logg, token } } = this.props;
+    this.setState({ doingImportantStuffs: true });
     if (logg.id) {
-      // this.setState({ doingImportantStuffs: true });
       func.post('users', { id: logg.id, limit: 1 }).then((res) => {
         window.init();
         this.setState({ doingImportantStuffs: false });
@@ -100,6 +100,8 @@ class App extends React.Component {
       }
     });
     func.post('foc', { status: 1 }).then((res) => {
+      window.init();
+      this.setState({ doingImportantStuffs: false });
       if (res.status === 200) {
         this.props.setSetSettings('focContests', res.result);
         func.setStorageJson('focContests', res.result);

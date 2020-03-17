@@ -4,7 +4,8 @@ export const api = {
     space: 'of',
     apiKey: 'cnVgTUU8JEsvFJUGq7LGxBuxzW2ncmRdYZHPPBj7PWBR1177a5KINwgJMHgGTxN5',
     server_of: 'http://localhost/campuspunch.api/v1/',
-    server_on: 'https://restapi.campuspunch.com/v1/'
+    server_on: 'https://restapi.campuspunch.com/v1/',
+    server_qa: 'http://api.redesign.campuspunch.com/v1/'
 }
 
 export const initialize = () => {
