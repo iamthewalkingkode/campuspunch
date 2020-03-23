@@ -11,7 +11,7 @@ const Menu = props => {
       {menus.map(menu => (
         (menu.auth === undefined || authenticated === menu.auth) && (
           (menu.subs || []).length > 0 ? (
-            <li className={`nav-item with-sub ${root === menu.link ? 'active' : ''}`}>
+            <li key={menu.link} className={`nav-item with-sub ${root === menu.link ? 'active' : ''}`}>
               <span className="nav-link pointer">{menu.name}</span>
               <ul className="navbar-menu-sub">
                 {menu.subs.map(sub => (

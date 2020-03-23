@@ -138,8 +138,8 @@
 
         &:hover,
         &:focus {
-            color: $gradient;
-            border-color: $gradient;
+            color: $primary-hover;
+            border-color: $primary-hover;
         }
 
     }
@@ -153,8 +153,8 @@
         &:hover,
         &:focus {
             color: #fff;
-            background: $gradient;
-            border-color: $gradient;
+            background: $primary-hover;
+            border-color: $primary-hover;
         }
     }
 }

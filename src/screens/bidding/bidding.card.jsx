@@ -22,7 +22,7 @@ class BiddingCard extends Component {
     componentDidMount() {
         const { item, auth: { logg } } = this.props;
         this.setState({ loading: true });
-        if(item.id) {
+        if (item.id) {
             func.post('bidding/logs', { user: logg.id, item: item.id, level: item.level, limit: 1 }).then(res => {
                 this.setState({ loading: false });
                 if (res.status === 200) {
@@ -70,7 +70,7 @@ class BiddingCard extends Component {
     bid() {
         const { item, auth: { logg, token }, data: { settings } } = this.props;
         let coins = parseInt(settings.coins_bidding);
-        if(logg.coins > coins) {
+        if (logg.coins > coins) {
             this.setState({ submitting: true });
             func.post('bidding/bid', { user: logg.id, item: item.id, level: item.level, coins }).then(res => {
                 this.setState({ submitting: false });
@@ -81,7 +81,7 @@ class BiddingCard extends Component {
                     message.error(res.result);
                 }
             });
-        }else{
+        } else {
             message.error('You do not have enough coins to bid');
         }
     }
@@ -117,7 +117,7 @@ class BiddingCard extends Component {
                                     {cd.s <= 0 && (<h1 className="pd-t-10 text-danger"><b>0:0:0:0</b></h1>)}
                                     {last.id && (<p>Last Bidder: {last.user.username}</p>)}
                                     <div className="text-left m-lg">
-                                        <p className="pd-t-10">{item.description}</p>
+                                        <p className="pd-t-10" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                                         <p><b className="text-primary">Bid Expiration:</b> {moment(item.end_date).format('LLLL')}</p> <p></p>
                                         <p><b className="text-primary">How to bid:</b> Always make sure you are the last bidder before the timer ends (turns 0:0:0) or before th bid expiration time</p> <p></p>
                                         <p><b className="text-primary">Note:</b> You have to bid at least 500 coins to win.</p>
@@ -141,9 +141,16 @@ class BiddingCard extends Component {
                     visible={applyVisible}
                     amount={item.amount}
                     type="bidding"
+                    // payModeDefault="zoranga"
                     title={`Recharge ${item.level} (₦${item.amount})`}
                     onCancel={() => this.setState({ applyVisible: false })}
-                    onOk={(e) => console.log(e)}
+                    paySuccess={(e) => {
+                        this.props.signInSuccess(this.props.auth.token, e.user);
+                        setTimeout(() => {
+                            this.apply();
+                        }, 100);
+                    }}
+                    paySuccessData={{ item: item.id }}
                 />
             </React.Fragment>
         )

@@ -25,7 +25,7 @@ export const dates = {
 
 // Storage
 export const setStorage = (key, value) => {
-    if (key && value) {
+    if (key) {
         localStorage.setItem(app.dbpref + key, value);
     }
 }

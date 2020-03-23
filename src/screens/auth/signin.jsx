@@ -29,7 +29,7 @@ class SiginForm extends Component {
                     if (res.status === 200) {
                         func.setStorage('token', res.token);
                         func.setStorageJson('user', res.user);
-                        window.location.replace(`/${parsed.redirect || this.props.redirect || ''}`);
+                        window.location.replace(`${parsed.redirect || this.props.redirect || ''}`);
                     } else {
                         this.setState({ errorMessage: res.result });
                     }

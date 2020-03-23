@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 
 const Header = props => {
   const { auth: { logg } } = props;
@@ -13,7 +12,7 @@ const Header = props => {
         <span className="d-flex align-items-center justify-content-between mg-b-2">
           <h6 className="tx-semibold mg-b-0">{logg.name}</h6>
         </span>
-        <p className="tx-color-03 tx-12 mg-b-0">{logg.coins_nf} <FormattedMessage id="Label.Coins" defaultMessage="Coins" /></p>
+        <p className="tx-color-03 tx-12 mg-b-0">{logg.coins_nf} Coins</p>
       </div>
     </div>
   );

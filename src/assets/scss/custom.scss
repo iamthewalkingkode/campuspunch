@@ -254,10 +254,9 @@ strong {
 	}
 }
 
-
 .header___bottom {
 	padding: 20px;
-	height: 320px;
+	height: 250px;
 	background-color: rgba(#042893, 0.6);
 	background-repeat: no-repeat !important;
 	background-position: center !important;
@@ -271,5 +270,48 @@ strong {
 	h3,
 	p {
 		color: #fff;
+	}
+}
+
+.academy___selector {
+	.panel {
+		border: 1px solid $primary;
+		margin-top: 5px;
+	}
+
+	.panel-heading {
+		background-color: $primary;
+		border-color: $primary;
+		padding: 10px 15px;
+		text-align: center;
+
+		.panel-title {
+			margin: 0px;
+			font-weight: 400;
+			font-size: 16px;
+
+			a {
+				color: #fff;
+			}
+		}
+	}
+
+	.panel-body {
+		padding: 15px;
+	}
+}
+
+#academy__sidebar {
+	.menu {
+		a {
+			padding: 5px;
+			color: #1c273c;
+			margin-bottom: 8px;
+			display: block;
+
+			&:hover, &.active {
+				background: rgba($primary, 0.05);
+			}
+		}
 	}
 }

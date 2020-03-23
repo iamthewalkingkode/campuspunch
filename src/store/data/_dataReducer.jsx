@@ -17,9 +17,9 @@ const initialState = {
         { name: 'Bidding', link: 'bidding' },
         { name: 'FaceOfCampus', link: 'face-of-campus' },
         { name: 'Post article', link: 'post-article', auth: true },
+        { name: 'Academy', link: 'academy' },
         { name: 'Sign In', link: 'user/signin', auth: false },
         { name: 'Sign Up', link: 'user/signup', auth: false },
-        { name: 'Academy', link: 'academy', auth: true },
         // {
         //     name: 'Academy', link: 'academy', auth: true, subs: [
         //         { name: 'Academy', link: 'academy' },

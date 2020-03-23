@@ -33,6 +33,7 @@ const CommentsC = props => {
         e.preventDefault();
         validateFields((err, v) => {
             if (!err) {
+                setErrorMessage('');
                 setSubmitting(true);
                 func.post('comments/insert', { item, type, user: logg.id, content: v.content }).then(res => {
                     setSubmitting(false);
@@ -50,7 +51,9 @@ const CommentsC = props => {
 
     return (
         <div className="mg-b-20 df-examples" data-label="Comments">
-            <h6 className="tx-uppercase tx-semibold mg-b-10">Comment(s)</h6>
+            {type !== 'chat' && (
+                <h6 className="tx-uppercase tx-semibold mg-b-10">Comment(s)</h6>
+            )}
             {authenticated && (
                 <Form hideRequiredMark={false} onSubmit={postComment}>
                     <small className="text-danger">{errorMessage}</small>
@@ -58,18 +61,18 @@ const CommentsC = props => {
                         avatar={<Avatar src={logg.avatar_link} alt={logg.fullname} />}
                         content={
                             <div className="row row-xs">
-                                <div className="col-11">
+                                <div className="col-10">
                                     <Form.Item style={{ marginBottom: 0 }}>
                                         {getFieldDecorator('content', {
                                             rules: [{ required: true, message: 'Comment is required' }]
                                         })(
-                                            <Input.TextArea rows={2} autoComplete="off" placeholder="Type your comment..." />
+                                            <Input size="large" rows={2} autoComplete="off" placeholder="Type your comment..." />
                                         )}
                                     </Form.Item>
                                 </div>
-                                <div className="col-1">
+                                <div className="col-2">
                                     <Button htmlType="submit" loading={submitting} disabled={!getFieldValue('content')} type="primary">
-                                        {/* <i data-feather="heart"></i> */}send
+                                        Send
                                     </Button>
                                 </div>
                             </div>
@@ -79,7 +82,7 @@ const CommentsC = props => {
             )}
 
             {loading === true && (
-                <div>loading comments...</div>
+                <div>loading {type === 'chat' ? 'chats' : 'comments'}...</div>
             )}
 
             {loading === false && (
@@ -108,9 +111,9 @@ const CommentTemplate = props => {
                 // </span>,
                 // <span key="comment-basic-reply-to">Reply to</span>
             ]}
-            author={<Link to={`/u/${row.user.username}`}>{row.user.username}</Link>}
+            author={<Link to={`/u/${row.user.username}`}>{row.user.username} - {row.crdate_ago}</Link>}
             avatar={<Avatar src={row.user.avatar_link} alt={row.user.fullname} />}
-            content={<div dangerouslySetInnerHTML={{ __html:row.content }}></div>}
+            content={<div dangerouslySetInnerHTML={{ __html: row.content }}></div>}
         >
         </Comment>
     )

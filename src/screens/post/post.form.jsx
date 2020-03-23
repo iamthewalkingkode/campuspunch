@@ -30,7 +30,7 @@ class PostFormScreen extends Component {
 
     summernote = () => {
         setTimeout(() => {
-            window.$('.summernoteToolbar').summernote({
+            window.$('.summernote').summernote({
                 height: 250,
                 toolbar: [
                     ['headline', ['style']],
@@ -159,7 +159,7 @@ class PostFormScreen extends Component {
                                                 </Form.Item>
                                             </div>
                                             <div className="col-12">
-                                                <textarea id="content" className="summernoteToolbar"></textarea>
+                                                <textarea id="content" className="summernote"></textarea>
                                             </div>
                                             <div className="col-12">
                                                 <div>&nbsp;</div>
