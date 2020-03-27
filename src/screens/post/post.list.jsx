@@ -74,7 +74,7 @@ class PostList extends Component {
 
                 {(loading === false) && (
                     <div className="mg-b-30">
-                        <Advert type="top" />
+                        <Advert position="top" />
 
                         <div className="row">
                             <div className="col-12 col-sm-9 col-lg-9">

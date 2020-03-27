@@ -63,7 +63,7 @@ class SignupForm extends Component {
                 <div className="row">
                     <div className="col-12 col-md-10 col-lg-7" style={{ float: 'none', margin: '0 auto' }}>
                         {errorMessage && (
-                            <div class="alert alert-danger animated shake" role="alert">{errorMessage}</div>
+                            <div className="alert alert-danger animated shake" role="alert">{errorMessage}</div>
                         )}
                         <div className="text-center pd-b-20">
                             <h3 className="tx-color-01 mg-b-5">Create New Account!</h3>

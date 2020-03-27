@@ -79,7 +79,7 @@ class ResetForm extends Component {
                         <div className="row">
                             <div className="col-12 col-md-6 col-lg-5" style={{ float: 'none', margin: '0 auto' }}>
                                 {errorMessage && (
-                                    <div class="alert alert-danger animated shake" role="alert">{errorMessage}</div>
+                                    <div className="alert alert-danger animated shake" role="alert">{errorMessage}</div>
                                 )}
                                 <div className="text-center pd-b-20">
                                     <h3 className="tx-color-01 mg-b-5">Reset your password</h3>
@@ -112,7 +112,7 @@ class ResetForm extends Component {
                         <div className="row">
                             <div className="col-5" style={{ float: 'none', margin: '0 auto' }}>
                                 {errorMessage && (
-                                    <div class="alert alert-danger animated shake" role="alert">{errorMessage}</div>
+                                    <div className="alert alert-danger animated shake" role="alert">{errorMessage}</div>
                                 )}
                                 <div className="text-center pd-b-20">
                                     <h3 className="tx-color-01 mg-b-5">Change your password</h3>

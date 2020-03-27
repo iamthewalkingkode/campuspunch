@@ -53,7 +53,7 @@ class FocPhotoProfiles extends Component {
 
                 {loading === false && (
                     <div>
-                        <div class="card-columns">
+                        <div className="card-columns">
                             {data.map(row => (<FocPhotoProfileCard key={row.id} row={row} {...this.props} />))}
                         </div>
                     </div>

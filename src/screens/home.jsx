@@ -43,7 +43,7 @@ class HomeScreen extends Component {
                                 <img className="img-thumbnail no" src="https://campuspunch.com/assets/slides/slide5.jpg" alt="Face of Campus - CampusPunch" />
                             </Link>
                         </div> */}
-                        <Advert type="top" />
+                        <Advert position="top" />
 
                         <div className="row">
                             <div className="col-12 col-sm-9 col-lg-9">

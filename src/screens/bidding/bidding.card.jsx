@@ -98,7 +98,7 @@ class BiddingCard extends Component {
                             <div className="card-body">
                                 <div className="d-flex flex-row align-items-center justify-content-center" style={{ minHeight: 350 }}>
                                     <div className="text-center">
-                                        <div class="spinner-grow text-primary"></div>
+                                        <div className="spinner-grow text-primary"></div>
                                         <div>loading item...</div>
                                     </div>
                                 </div>
@@ -109,9 +109,9 @@ class BiddingCard extends Component {
                         <div className="card">
                             <div className="card-body">
                                 <div className="text-center">
-                                    <div class="pos-relative">
-                                        <div class="marker marker-ribbon marker-primary pos-absolute t-10 l-10">Level {item.level}</div>
-                                        <img src={item.image_link} alt={`${item.name} - CampusPunch`} class="img-fluid rounded" style={{ height: 200 }} />
+                                    <div className="pos-relative">
+                                        <div className="marker marker-ribbon marker-primary pos-absolute t-10 l-10">Level {item.level}</div>
+                                        <img src={item.image_link} alt={`${item.name} - CampusPunch`} className="img-fluid rounded" style={{ height: 200 }} />
                                     </div>
                                     {cd.s > 0 && (<h1 className="pd-t-10 text-danger"><b>{cd.d}:{cd.h}:{cd.m}:{cd.s}</b></h1>)}
                                     {cd.s <= 0 && (<h1 className="pd-t-10 text-danger"><b>0:0:0:0</b></h1>)}

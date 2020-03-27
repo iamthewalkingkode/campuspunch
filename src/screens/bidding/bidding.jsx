@@ -50,22 +50,22 @@ class BiddingScreen extends Component {
 
         return (
             <React.Fragment>
-                <Advert type="top" />
+                <Advert position="top" />
                 <div className="row">
                     <div className="col-12 col-sm-9 col-lg-9">
                         <div>
                             {authenticated && (
-                                <div class="card mg-b-20">
-                                    <div class="card-body bg-gray-100 d-flex flex-row justify-content-around">
-                                        <div class="profile-skillset flex-fills">
+                                <div className="card mg-b-20">
+                                    <div className="card-body bg-gray-100 d-flex flex-row justify-content-around">
+                                        <div className="profile-skillset flex-fills">
                                             <h5>Wallet</h5>
                                             <label style={{ fontSize: 12 }}>₦{logg.wallet}</label>
                                         </div>
-                                        {/* <div class="profile-skillset flex-fills">
+                                        {/* <div className="profile-skillset flex-fills">
                                             <h5>Your level</h5>
                                             <label style={{ fontSize: 12 }}>Level {logg.bid_level}</label>
                                         </div> */}
-                                        <div class="profile-skillset flex-fills">
+                                        <div className="profile-skillset flex-fills">
                                             <h5>Your coins</h5>
                                             <label style={{ fontSize: 12 }}>{logg.coins_nf}</label>
                                         </div>
@@ -73,7 +73,7 @@ class BiddingScreen extends Component {
                                 </div>
                             )}
                             {authenticated === false && (
-                                <div class="alert alert-info">
+                                <div className="alert alert-info">
                                     You need to <Link to="/user/signin?redirect=bidding">Sign in</Link> or <Link to="/user/signup?redirect=bidding">Sign up</Link> to be able to bid
                                 </div>
                             )}
@@ -86,7 +86,7 @@ class BiddingScreen extends Component {
                                 {(loading === true || (items[1] || {}).id) && (<BiddingCard item={items[1] || {}} {...this.props} />)}
                             </div>
                             <div className="col-12 mg-t-20">
-                                <Advert type="top" />
+                                <Advert position="top" />
                             </div>
                             <div className="col-12 col-sm-6 col-lg-6">
                                 {(loading === true || (items[2] || {}).id) && (<BiddingCard item={items[2] || {}} {...this.props} />)}
@@ -100,13 +100,13 @@ class BiddingScreen extends Component {
                             <p>Though, the Board also made efforts at training the blind candidates on the equipment before the examination, it is apparent that the two days to one week training and exposure to the sophisticated gadgets are inadequate and have little impact on them before the examination. The Association pleaded that the Board takes another look at our approach in order to have value for the resources that we are committing to their teaching, learning and assessment. <span className="text-primary pointer" onClick={() => this.setState({ visible: true })}>Read more</span></p>
                             <hr />
 
-                            <Advert type="side" />
+                            <Advert position="sidebar" />
 
                             <div className="mg-b-20">
                                 <h6 className="tx-uppercase tx-semibold mg-b-5">Previous winners</h6>
-                                <ul class="list-group">
+                                <ul className="list-group">
                                     {winners.map(win => (
-                                        <li key={win.id} class="list-group-item">
+                                        <li key={win.id} className="list-group-item">
                                             <div className="tx-semibold">{win.winner.username}</div>
                                             <small className="text-muted">Level {win.level} • {win.name}</small>
                                         </li>
@@ -114,7 +114,7 @@ class BiddingScreen extends Component {
                                 </ul>
                             </div>
 
-                            <Advert type="side" />
+                            <Advert position="sidebar" />
                         </div>
                     </div>
                 </div>

@@ -19,7 +19,7 @@ const SideBar = props => {
 
     return (
         <div>
-            {/* <Advert type="side" /> */}
+            {/* <Advert position="sidebar" /> */}
             <div>
                 <Input.Search size="large" placeholder="Search an article" autoComplete="off" defaultValue={parsed.query} onSearch={q => searchQuery(q)} />
                 <hr />
@@ -40,20 +40,20 @@ const SideBar = props => {
                 </Select>
             </div>
 
-            <Advert type="side" />
+            <Advert position="sidebar" />
 
             <div className="mg-b-20">
                 <h6 className="tx-uppercase tx-semibold mg-b-5">Popular posts</h6>
-                <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                <ul className="list-group">
+                    <li className="list-group-item">Cras justo odio</li>
+                    <li className="list-group-item">Dapibus ac facilisis in</li>
+                    <li className="list-group-item">Morbi leo risus</li>
+                    <li className="list-group-item">Porta ac consectetur ac</li>
+                    <li className="list-group-item">Vestibulum at eros</li>
                 </ul>
             </div>
 
-            <Advert type="side" />
+            <Advert position="sidebar" />
         </div>
     );
 

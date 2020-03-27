@@ -39,8 +39,8 @@ class FocPhotoApply extends Component {
                 {loading === false && (
                     <div>
                         <div className="card tx-whites bg-successs text-center mg-b-35 mg-t-10">
-                            <div class="card-header tx-semibold"><h2 className="tx-whites">CONGRATULATIONS</h2></div>
-                            <div class="card-body tx-whites" dangerouslySetInnerHTML={{ __html: settings.foc_photo_apply }}></div>
+                            <div className="card-header tx-semibold"><h2 className="tx-whites">CONGRATULATIONS</h2></div>
+                            <div className="card-body tx-whites" dangerouslySetInnerHTML={{ __html: settings.foc_photo_apply }}></div>
 
                             <Link to={`/face-of-campus/photo/profile/${logg.username}/${logg.id}/${contest}`} className="btn btn-primary">Update your voting profile</Link>
                         </div>

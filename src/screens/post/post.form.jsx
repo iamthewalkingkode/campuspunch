@@ -102,7 +102,7 @@ class PostFormScreen extends Component {
 
                 {loading === false && (
                     <div className="mg-b-30">
-                        <Advert type="top" />
+                        <Advert position="top" />
 
                         <div>
                             <div className="text-center mg-b-10s">
@@ -115,7 +115,7 @@ class PostFormScreen extends Component {
                             <Form hideRequiredMark={false} onSubmit={e => this._submit(e)}>
                                 <div className="row">
                                     <div className="col-12 col-sm-3 col-lg-3">
-                                        <div class="img-thumbnail"><img src={image} class="roundeds" alt="Default" style={{ width: '100%' }} /></div>
+                                        <div className="img-thumbnail"><img src={image} className="roundeds" alt="Default" style={{ width: '100%' }} /></div>
                                         <input type="file" name="image" id="image" accept="image/*" onChange={this.formChange} className="hide" />
                                         <button type="button" className="btn btn-xs btn-block btn-secondary mb-1" onClick={() => window.$('#image').click()}>Choose a picture</button>
                                     </div>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Modal } from 'antd';
 import * as func from '../../utils/functions';
 import AcademySidebar from './components/Sidebar';
 import { Loading } from '../../components';
-import { Modal } from 'antd';
 
 class AcademyCourses extends Component {
 
@@ -63,7 +63,15 @@ class AcademyCourses extends Component {
                 this.setState({ planVisible: true });
             }
         } else {
-
+            let self = this;
+            Modal.confirm({
+                title: 'Sign in',
+                content: `You need to sign in to gain access to Academy`,
+                okText: 'Sign in',
+                onOk() {
+                    self.props.history.push(`/user/signin`);
+                }
+            });
         }
     }
 

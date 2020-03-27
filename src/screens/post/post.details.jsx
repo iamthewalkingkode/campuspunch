@@ -44,13 +44,13 @@ class PostDetails extends Component {
 
                 {loading === false && (
                     <div className="mg-b-30">
-                        <Advert type="top" />
+                        <Advert position="top" />
 
                         <div className="row">
                             <div id="news___details" className="col-12 col-sm-9 col-lg-9">
-                                {row.image && (<div class="mg-b-10 news-image" style={{ backgroundImage: `url(${row.image_link})` }}></div>)}
+                                {row.image && (<div className="mg-b-10 news-image" style={{ backgroundImage: `url(${row.image_link})` }}></div>)}
                                 <h2>{row.title}</h2>
-                                <div class="bd-t bd-b mg-t-4 mg-b-4 text-muted">
+                                <div className="bd-t bd-b mg-t-4 mg-b-4 text-muted">
                                     <small>
                                         <span>Posted in {row.category.name} </span>
                                         <span>| {moment(row.crdate).format('LL')} </span>

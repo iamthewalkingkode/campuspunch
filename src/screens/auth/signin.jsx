@@ -48,7 +48,7 @@ class SiginForm extends Component {
                     <div className="row">
                         <div className="col-12 col-md-6 col-lg-5" style={{ float: 'none', margin: '0 auto' }}>
                             {errorMessage && (
-                                <div class="alert alert-danger animated shake" role="alert">{errorMessage}</div>
+                                <div className="alert alert-danger animated shake" role="alert">{errorMessage}</div>
                             )}
                             <div className="text-center pd-b-20">
                                 <h3 className="tx-color-01 mg-b-5">Welcome Back!</h3>
@@ -56,8 +56,8 @@ class SiginForm extends Component {
                             </div>
                             <div className={errorMessage ? 'animated shake' : ''} style={{ boxShadow: '0 0 3px #CACACA', padding: '35px 25px' }}>
                                 <div className="">
-                                    <div class="d-flex justify-content-between mg-b-5">
-                                        <label class="mg-b-0-f">Username</label>
+                                    <div className="d-flex justify-content-between mg-b-5">
+                                        <label className="mg-b-0-f">Username</label>
                                     </div>
                                     <Form.Item colon={false} label={null}>
                                         {getFieldDecorator('username', {
@@ -68,8 +68,8 @@ class SiginForm extends Component {
                                     </Form.Item>
                                 </div>
                                 <div className="">
-                                    <div class="d-flex justify-content-between mg-b-5">
-                                        <label class="mg-b-0-f">Password</label>
+                                    <div className="d-flex justify-content-between mg-b-5">
+                                        <label className="mg-b-0-f">Password</label>
                                         <Link to="/user/reset" className="tx-13 pointer">Forgot password?</Link>
                                     </div>
                                     <Form.Item colon={false} label={null}>

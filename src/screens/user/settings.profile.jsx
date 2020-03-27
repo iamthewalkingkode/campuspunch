@@ -172,7 +172,7 @@ const SetProfile = props => {
                         </div>
                     </div>
                     <div className="col-12 col-lg-3">
-                        <div class="img-thumbnail"><img src={avatar} class="rounded" alt={logg.username} style={{ width: '100%' }} /></div>
+                        <div className="img-thumbnail"><img src={avatar} className="rounded" alt={logg.username} style={{ width: '100%' }} /></div>
                         <input type="file" name="image" id="image" accept="image/*" onChange={formChange} className="hide" />
                         <button type="button" className="btn btn-xs btn-block btn-secondary mb-1" onClick={() => window.$('#image').click()}>Change picture</button>
                     </div>

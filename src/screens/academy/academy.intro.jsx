@@ -49,7 +49,15 @@ class AcademyIntro extends Component {
                 this.setState({ planVisible: true });
             }
         } else {
-
+            let self = this;
+            Modal.confirm({
+                title: 'Sign in',
+                content: `You need to sign in to gain access to Academy`,
+                okText: 'Sign in',
+                onOk() {
+                    self.props.history.push(`/user/signin`);
+                }
+            });
         }
     }
 
@@ -77,7 +85,7 @@ class AcademyIntro extends Component {
 
                         <div className="row">
                             <div className="col-lg-4 col-12">
-                                <AcademySidebar display="intro" category={'student'} payCourse={() => this.startAcademy()} />
+                                <AcademySidebar {...this.props} display="intro" category={'student'} payCourse={() => this.startAcademy()} />
                             </div>
                             <div className="col-lg-8 col-12">
                                 <div className="pd-15" style={{ backgroundColor: '#e5e9f2' }}>

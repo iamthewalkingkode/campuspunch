@@ -126,8 +126,8 @@ const PayModalScreen = props => {
 
                 {payMode === 'zoranga' && (
                     <Form hideRequiredMark={false} className={errMessage ? 'animated shake' : ''}>
-                        {errMessage && (<div class="alert alert-danger">{errMessage}</div>)}
-                        {sucMessage && (<div class="alert alert-success">{sucMessage}</div>)}
+                        {errMessage && (<div className="alert alert-danger">{errMessage}</div>)}
+                        {sucMessage && (<div className="alert alert-success">{sucMessage}</div>)}
                         <Form.Item colon={false} label="Amount">
                             {getFieldDecorator('amount', {
                                 rules: [{ required: true }],

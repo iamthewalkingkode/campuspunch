@@ -126,7 +126,7 @@ class UserProfile extends Component {
                             </div>
                         </div>
                         <div className="media-body mg-t-40 mg-lg-t-0">
-                            <div class="card mg-b-20">
+                            <div className="card mg-b-20">
                                 <div className="card-body d-flex flex-row justify-content-around">
                                     <div className="profile-skillset flex-fills">
                                         <h4>State</h4>

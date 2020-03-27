@@ -41,7 +41,7 @@ const SetPassword = props => {
             <div className="row">
                 <div className="col-12 col-lg-3"></div>
                 <div className="col-12 col-lg-6">
-                    <div class="alert alert-info mg-b-25" role="alert">It's a good idea to use a strong password that you're not using elsewhere</div>
+                    <div className="alert alert-info mg-b-25" role="alert">It's a good idea to use a strong password that you're not using elsewhere</div>
                     <Form hideRequiredMark={false} onSubmit={submit}>
                         <Form.Item colon={false} label="Current password">
                             {getFieldDecorator('password', {

@@ -27,10 +27,10 @@ const FocPhotoProfileCard = props => {
     }
 
     return (
-        <div class="card">
-            <p class="card-title text-center pd-t-10">{row.user.username}</p>
+        <div className="card">
+            <p className="card-title text-center pd-t-10">{row.user.username}</p>
             <Link to={`/face-of-campus/photo/profile/${row.user.username}/${row.user.id}/${row.contest.id}`}>
-                <img src={row.user.avatar_link} class="card-img-top" alt={row.user.username} />
+                <img src={row.user.avatar_link} className="card-img-top" alt={row.user.username} />
             </Link>
             <div className="card-footer d-flex">
                 <Button type="primary" outline block size="small" disabled={voted} loading={submitting} onClick={() => vote(row.user.id)}>

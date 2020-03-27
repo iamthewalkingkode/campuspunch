@@ -96,9 +96,9 @@ class FocPhoto extends Component {
                                         <Link to={`/face-of-campus/photo/school/${school}/${data[school][0].user.school.id}/${data[school][0].contest.id}`} key={school}>
                                             <div className="bg-gray-100 pd-20 mg-b-25">
                                                 <div className="text-center text-uppercase mg-b-15"><b>{school}</b></div>
-                                                <div class="img-group">
+                                                <div className="img-group">
                                                     {data[school].map(row => (
-                                                        <img src={row.user.avatar_link} alt={row.user.fullname} class="img wd-100 ht-100 rounded-circle" />
+                                                        <img src={row.user.avatar_link} alt={row.user.fullname} className="img wd-100 ht-100 rounded-circle" />
                                                     ))}
                                                 </div>
                                             </div>

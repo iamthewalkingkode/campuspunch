@@ -73,7 +73,7 @@ class FocPhotoProfile extends Component {
 
                 {(loading === false && usr.id) && (
                     <div>
-                        <Advert type="top" />
+                        <Advert position="top" />
                         <div className="media d-block d-lg-flex">
                             <div className="profile-sidebar pd-lg-r-25">
                                 <div className="row">
@@ -120,7 +120,7 @@ class FocPhotoProfile extends Component {
                                 </div>
                             </div>
                             <div className="media-body mg-t-40 mg-lg-t-0">
-                                <div class="card mg-b-20">
+                                <div className="card mg-b-20">
                                     <div className="card-body d-flex flex-row justify-content-around">
                                         <div className="profile-skillset flex-fills">
                                             <b>Height</b>
