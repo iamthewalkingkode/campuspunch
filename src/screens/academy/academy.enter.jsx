@@ -41,6 +41,15 @@ class AcademyEnter extends Component {
                         this.setState({ courses: res.result });
                     } else {
                         this.setState({ courses: [] });
+                        let self = this;
+                        Modal.info({
+                            title: 'No courses',
+                            content: `We did not find any courses in this department.`,
+                            okText: 'Go back',
+                            onOk() {
+                                self.props.history.goBack();
+                            }
+                        });
                     }
                 });
                 func.post('academy/years', { level, school, type: 1 }).then((res) => {

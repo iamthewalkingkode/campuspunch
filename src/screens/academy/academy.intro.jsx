@@ -17,7 +17,7 @@ class AcademyIntro extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderTitle({ h1: 'Academy', h3: '', p: 'Introduction', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -30,6 +30,15 @@ class AcademyIntro extends Component {
                 this.setState({ courses: res.result });
             } else {
                 this.setState({ courses: [] });
+                let self = this;
+                Modal.info({
+                    title: 'No courses',
+                    content: `We did not find any courses in this department.`,
+                    okText: 'Go back',
+                    onOk() {
+                        self.props.history.goBack();
+                    }
+                });
             }
         });
 
@@ -45,7 +54,7 @@ class AcademyIntro extends Component {
         if (authenticated === true) {
             if (this.state.ipaid > 0) {
                 this.enterAcademy();
-            }else{
+            } else {
                 this.setState({ planVisible: true });
             }
         } else {
@@ -74,12 +83,12 @@ class AcademyIntro extends Component {
                     <Loading text="loading courses..." />
                 )}
 
-                {loading === false && (
+                {loading === false && courses.length > 0 && (
                     <div>
                         <nav aria-label="breadcrumb">
                             <ol className="breadcrumb breadcrumb-style2 bg-gray-100 pd-12">
                                 <li className="breadcrumb-item"><Link to="/academy">Academy</Link></li>
-                                <li className="breadcrumb-item active" aria-current="page">Data</li>
+                                <li className="breadcrumb-item active" aria-current="page">Introduction</li>
                             </ol>
                         </nav>
 

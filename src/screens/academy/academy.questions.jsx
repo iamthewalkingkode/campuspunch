@@ -48,7 +48,8 @@ class AcademyQuestions extends Component {
                                 title: 'No questions',
                                 content: `This course has no questions`,
                                 onOk() {
-                                    self.props.history.push(`/${path[1]}/courses/${path[3]}/${path[4]}/${path[5]}/${path[6]}`);
+                                    // self.props.history.push(`/${path[1]}/courses/${path[3]}/${path[4]}/${path[5]}/${path[6]}`);
+                                    self.props.history.goBack();
                                 }
                             });
                         }

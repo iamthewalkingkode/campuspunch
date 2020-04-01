@@ -34,6 +34,15 @@ class AcademyLessons extends Component {
                             this.setState({ courses: res.result });
                         } else {
                             this.setState({ courses: [] });
+                            let self = this;
+                            Modal.info({
+                                title: 'No courses',
+                                content: `We did not find any courses in this department and level.`,
+                                okText: 'Go back',
+                                onOk() {
+                                    self.props.history.goBack();
+                                }
+                            });
                         }
                     });
                 } else {
