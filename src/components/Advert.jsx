@@ -18,9 +18,9 @@ const Advert = props => {
 
     return (
         <div>
-            {loading === true && (
+            {/* {loading === true && (
                 <div>loading advert....</div>
-            )}
+            )} */}
 
             {loading === false && ad.id && (
                 <div className="text-center mg-b-20 df-example" data-label="Advert" style={{ padding: 0 }}>

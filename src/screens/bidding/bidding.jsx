@@ -59,7 +59,7 @@ class BiddingScreen extends Component {
                                     <div className="card-body bg-gray-100 d-flex flex-row justify-content-around">
                                         <div className="profile-skillset flex-fills">
                                             <h5>Wallet</h5>
-                                            <label style={{ fontSize: 12 }}>₦{logg.wallet}</label>
+                                            <label style={{ fontSize: 12 }}>₦{logg.wallet_nf}</label>
                                         </div>
                                         {/* <div className="profile-skillset flex-fills">
                                             <h5>Your level</h5>

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-// import { Form, Input, Button, message } from 'antd';
 import * as func from '../utils/functions';
 import { Link } from 'react-router-dom';
 
 import { Loading, Advert } from '../components';
 import SideBar from '../partials/Sidebar';
-// import moment from 'moment';
 
 class HomeScreen extends Component {
 
@@ -18,9 +16,10 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        // this.props.setMetaTags({ title: '', description: '', keywords: '' });
+        this.props.setMetaTags({ title: '', description: '', keywords: '' });
         this.setState({ loading: true });
         func.post('posts/home', { limit: 9 }).then(res => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             this.setState({ loading: false });
             if (res.status === 200) {
                 this.setState({ data: res.result });
@@ -70,25 +69,37 @@ export default HomeScreen;
 const HomeCard = props => {
     const { ctg, data } = props;
     let main = ((data[ctg.id] || [])[0] || {});
+
     return (
-        <div className="bd-1 mg-b-30">
-            <h6 className="tx-uppercase tx-semibold mg-b-0">Campus {ctg.name}</h6>
-            <div className="list-group">
-                <span className="list-group-item d-flex align-items-center bd-0 pd-0">
-                    <div className="mg-r-20" style={{ background: `url(${main.image_link})`, width: '40rem', height: 100, backgroundSize: 'cover', backgroundPosition: 'center', }}></div>
-                    <div>
-                        <Link to={`/${main.slug}/${main.id}`} className="tx-20 tx-inverse tx-semibold mg-b-0">{main.title}</Link>
-                        <p className="d-block tx-13 text-muted">{main.content_small} ...</p>
-                    </div>
-                </span>
+        <div className="card mg-b-25">
+            <div className="card-header pd-y-15 pd-x-20 d-flex align-items-center justify-content-between bg-gray-100">
+                <h6 className="tx-uppercase tx-semibold mg-b-0">Campus {ctg.name}</h6>
             </div>
-            <ul className="list-group">
-                {(data[ctg.id] || []).map((row, i) => (
-                    i > 1 && (
-                        <li className="list-group-item bd-0 pd-0"><Link to={`/article/${row.slug}/${row.id}`}>{row.title}</Link></li>
-                    )
-                ))}
-            </ul>
+            <div className="card-body">
+                <div className="">
+                    {main.id && (
+                        <div className="row row-sm">
+                            <div className="col-12 col-lg-4">
+                                <img className="img-fluid" src={main.image_link} alt={`${main.title} - CampusPunch`} />
+                            </div>
+                            <div className="col-12 col-lg-8">
+                                <Link to={`/article/${main.slug}/${main.id}`} className="tx-20 tx-inverse tx-semibold mg-b-0">{main.title}</Link>
+                                <p className="d-block tx-13 text-muteds">{main.content_small} ...</p>
+                            </div>
+                        </div>
+                    )}
+                    <ul className="list-group">
+                        {(data[ctg.id] || []).map((row, i) => (
+                            i > 1 && (
+                                <li className="list-group-item bd-0 pd-0 mg-b-5">
+                                    <Link to={`/article/${row.slug}/${row.id}`}>{row.title}</Link>{' '} | {' '}
+                                    <Link to={`/u/${row.user.username}`}><i className="fa fa-user"></i> {row.user.username}</Link>
+                                </li>
+                            )
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 };

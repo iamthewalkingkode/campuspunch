@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export const api = {
-    space: 'of',
+    space: 'qa',
     apiKey: 'cnVgTUU8JEsvFJUGq7LGxBuxzW2ncmRdYZHPPBj7PWBR1177a5KINwgJMHgGTxN5',
     server_of: 'http://localhost/campuspunch.api/v1/',
     server_on: 'https://restapi.campuspunch.com/v1/',
@@ -14,7 +14,7 @@ export const initialize = () => {
 }
 
 export const app = {
-    version: '1.0.0',
+    version: '2.0.0',
     dbpref: 'cp_'
 }
 

@@ -25,7 +25,7 @@ class AcademyLessons extends Component {
         const { department, level, path } = this.state;
         func.post('academy/payments_total', { department, level, user: this.props.auth.logg.id }).then((res) => {
             if (res.status === 200) {
-                if (res.result > 3000) {
+                if (res.result >= 3000) {
                     func.post('academy/courses', { department, level, lessons: 'yes' }).then((res) => {
                         this.setState({ loading: false });
                         if (res.status === 200) {

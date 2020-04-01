@@ -107,6 +107,19 @@ const SetProfile = props => {
                                 </Form.Item>
                             </div>
                             <div className="col-6 col-lg-6">
+                                <Form.Item colon={false} label="Gender">
+                                    {getFieldDecorator('gender', {
+                                        rules: [{ required: true }],
+                                        initialValue: logg.gender
+                                    })(
+                                        <Select showSearch={true} autoComplete="off" size="large" disabled={submitting}>
+                                            <Select.Option value="M">Male</Select.Option>
+                                            <Select.Option value="F">Male</Select.Option>
+                                        </Select>
+                                    )}
+                                </Form.Item>
+                            </div>
+                            <div className="col-6 col-lg-6">
                                 <Form.Item colon={false} label="State of residence">
                                     {getFieldDecorator('state', {
                                         rules: [{ required: true }],

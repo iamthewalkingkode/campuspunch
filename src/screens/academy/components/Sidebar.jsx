@@ -13,10 +13,10 @@ const AcademySidebar = props => {
             <div id="academy__sidebar" className="pd-15 bg-gray-200">
                 {display === 'menu' && (
                     <div className="menu">
-                        <Link className={path[2] === 'courses' ? 'active' :''} to={`/academy/courses/${path[3]}/${path[4]}/${path[5]}`}>ABC Questions</Link>
-                        <Link className={path[2] === 'lessons' ? 'active' :''} to={`/academy/lessons/${path[3]}/${path[4]}/${path[5]}`}>Lessons</Link>
-                        <Link className={path[2] === 'chat' ? 'active' :''} to={`/academy/chat/${path[3]}/${path[4]}/${path[5]}`}>Lecturer's Chat</Link>
-                        <Link className={path[2] === 'ressources' ? 'active' :''} to={`/academy/ressources/${path[3]}/${path[4]}/${path[5]}`}>Ressources</Link>
+                        <Link className={path[2] === 'courses' ? 'active' : ''} to={`/academy/courses/${path[3]}/${path[4]}/${path[5]}`}>ABC Questions</Link>
+                        <Link className={path[2] === 'lessons' ? 'active' : ''} to={`/academy/lessons/${path[3]}/${path[4]}/${path[5]}`}>Lessons</Link>
+                        <Link className={path[2] === 'chat' ? 'active' : ''} to={`/academy/chat/${path[3]}/${path[4]}/${path[5]}`}>Lecturer's Chat</Link>
+                        <Link className={path[2] === 'ressources' ? 'active' : ''} to={`/academy/ressources/${path[3]}/${path[4]}/${path[5]}`}>Ressources</Link>
                     </div>
                 )}
 
@@ -41,7 +41,9 @@ const AcademySidebar = props => {
 
                         {/* <p>&nbsp;</p> */}
                         {ipay > 0 && (
-                            <b className="text-primary">₦{ipay.toLocaleString()}</b>
+                            <div className="text-center">
+                                <b className="text-primary">₦{ipay.toLocaleString()}</b>
+                            </div>
                         )}
                         <p>&nbsp;</p>
                         <Button type="primary" block onClick={() => props.payCourse()}>Start</Button>

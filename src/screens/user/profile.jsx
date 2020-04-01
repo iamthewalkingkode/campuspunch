@@ -27,6 +27,7 @@ class UserProfile extends Component {
                 this.props.setMetaTags({ title: username, description: '', keywords: '' });
                 this.setState({ loading: true });
                 func.post('users', { username, limit: 1 }).then(res => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                     this.setState({ loading: false });
                     if (res.status === 200) {
                         var usr = res.result[0];
@@ -161,7 +162,7 @@ class UserProfile extends Component {
                             </div>
 
                         </div>
-                        <div className="profile-sidebar mg-t-40 mg-lg-t-0 pd-lg-l-25">
+                        {/* <div className="profile-sidebar mg-t-40 mg-lg-t-0 pd-lg-l-25">
                             <div className="row">
                                 <div className="col-sm-6 col-md-5 col-lg">
                                     <div className="d-flex align-items-center justify-content-between mg-b-15">
@@ -175,7 +176,7 @@ class UserProfile extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 )}
 

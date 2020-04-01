@@ -126,7 +126,7 @@ class App extends React.Component {
       <React.Fragment>
         <IntlProvider locale={lang} defaultLocale={'en'} messages={localeIntl[lang]}>
           <Helmet>
-            <title>{meta.title} :: CampusPunch</title>
+            <title>{meta.title ? `${meta.title} :: ` : ''}CampusPunch</title>
             <meta property="og:title" content={meta.title} />
             {meta.description && (<meta name="description" content={meta.description} />)}
             {meta.description && (<meta property="og:description" content={meta.description} />)}

@@ -33,7 +33,7 @@ class AcademyEnter extends Component {
         func.post('academy/payments_total', { department, level, user: this.props.auth.logg.id }).then((res) => {
             if (res.status === 200) {
                 this.setState({ ipaid: res.result });
-                func.post('academy/courses', { department, lessons: 'yes' }).then((res) => {
+                func.post('academy/courses', { department, lessons: 'yes', status: 1 }).then((res) => {
                     this.setState({ loading: false });
                     if (res.status === 200) {
                         let crs = res.result[0];

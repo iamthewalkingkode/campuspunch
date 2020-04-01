@@ -20,21 +20,20 @@ class BiddingCard extends Component {
     }
 
     componentDidMount() {
-        const { item, auth: { logg } } = this.props;
-        this.setState({ loading: true });
-        if (item.id) {
+        const { item, auth: { logg, authenticated } } = this.props;
+        if (item.id && authenticated) {
+            this.setState({ loading: true });
             func.post('bidding/logs', { user: logg.id, item: item.id, level: item.level, limit: 1 }).then(res => {
                 this.setState({ loading: false });
                 if (res.status === 200) {
-                    this.setState({ applied: true }, () => {
-                        this.countDown();
-                        let interval = setInterval(() => {
-                            this.countDown(interval);
-                        }, 4000);
-                    });
+                    this.setState({ applied: true });
                 }
             });
         }
+        // this.countDown();
+        let interval = setInterval(() => {
+            this.countDown(interval);
+        }, 4000);
     }
 
     countDown(interval) {
@@ -56,6 +55,7 @@ class BiddingCard extends Component {
             func.post('bidding/apply', { user: logg.id, item: item.id, level: item.level, amount: item.amount }).then(res => {
                 this.setState({ submitting: false });
                 if (res.status === 200) {
+                    this.setState({ applied: true });
                     message.success(`You have applied`);
                     this.props.signInSuccess(token, res.user);
                 } else {
