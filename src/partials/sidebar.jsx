@@ -9,7 +9,7 @@ const SideBar = props => {
     const parsed = qs.parse(window.location.search);
 
     const searchQuery = (q) => {
-        window.location.replace(`/news?query=${q}`);
+        window.location.replace(`${window.location.pathname}?query=${q}`);
     }
 
     const searchSchool = (sch) => {

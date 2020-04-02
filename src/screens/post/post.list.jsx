@@ -28,12 +28,20 @@ class PostList extends Component {
         const pathname = window.location.pathname.split('/');
         if (screen !== pathname[1]) {
             this.setState({ screen: pathname[1] });
+            const parsed = qs.parse(window.location.search);
             switch (pathname[1]) {
                 default:
+                    if (pathname[2]) {
+                        this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
+                        this.getNews({ category: pathname[2], title: `%${parsed.query || ''}%` });
+                    } else {
+                        this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
+                        this.getNews({ title: `%${parsed.query || ''}%` });
+                    }
+                    break;
                 case 'posts':
                     this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
-                    const parsed = qs.parse(window.location.search);
-                    this.getNews({ title: '%' + (parsed.query || '') + '%' });
+                    this.getNews({ title: `%${parsed.query || ''}%` });
                     break;
                 case 'school':
                     this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
@@ -47,9 +55,9 @@ class PostList extends Component {
     getNews(params) {
         this.setState({ loading: true });
         const { step, limit } = this.state;
-        const { title, school } = params;
+        const { title, school, category } = params;
         this.setState({ ...params });
-        func.post('posts', { status: 1, title, school, limit: `${step},${limit}` }).then(res => {
+        func.post('posts', { status: 1, title, school, category, limit: `${step},${limit}` }).then(res => {
             this.setState({ loading: false });
             if (res.status === 200) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });

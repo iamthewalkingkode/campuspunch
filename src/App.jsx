@@ -171,6 +171,7 @@ class App extends React.Component {
 
                         {/* News */}
                         <Route exact path="/news" render={(props) => <PostList {...props} {...this.props} />} />
+                        <Route exact path="/news/:category" render={(props) => <PostList {...props} {...this.props} />} />
                         <Route exact path="/school/:slug/:id" render={(props) => <PostList {...props} {...this.props} />} />
                         <Route exact path="/article/:slug/:id" render={(props) => <PostDetails {...props} {...this.props} />} />
 
