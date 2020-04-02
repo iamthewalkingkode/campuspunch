@@ -41,11 +41,10 @@ const AcademySidebar = props => {
 
                         {/* <p>&nbsp;</p> */}
                         {ipay > 0 && (
-                            <div className="text-center">
+                            <div className="text-center h4 mg-b-25">
                                 <b className="text-primary">₦{ipay.toLocaleString()}</b>
                             </div>
                         )}
-                        <p>&nbsp;</p>
                         <Button type="primary" block onClick={() => props.payCourse()}>Start</Button>
                     </span>
                 )}

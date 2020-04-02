@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Select, Button, message } from 'antd';
 import * as func from '../../utils/functions';
 
-import { Loading, Advert } from '../../components';
+import { Loading } from '../../components';
 
 const defaultImg = 'assets/img/noimage.jpg';
 
@@ -22,8 +22,7 @@ class PostFormScreen extends Component {
         this.props.setMetaTags({
             title: 'Post new article', description: 'Post campus related news, stories, events, gossips, and experiences. Original contents earns extra 200 coins and above.', keywords: ''
         });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
-        // this.getNews(this.props.match.params.id);
+        this.props.setHeaderTitle({ h1: 'Post new article', h3: '', p: '', image: '' });
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.summernote();
     }
@@ -102,8 +101,6 @@ class PostFormScreen extends Component {
 
                 {loading === false && (
                     <div className="mg-b-30">
-                        <Advert position="top" />
-
                         <div>
                             <div className="text-center mg-b-10s">
                                 <h2>Post campus related news, stories, events, gossips, and experiences</h2>
@@ -135,12 +132,11 @@ class PostFormScreen extends Component {
                                                     {getFieldDecorator('category', {
                                                         rules: [{ required: true }]
                                                     })(
-                                                        <Select autoComplete="off" size="large" disabled={submitting}>
+                                                        <Select autoComplete="off" size="large" optionFilterProp="children" disabled={submitting}>
                                                             {newsCategories.map(ctg => (
                                                                 <Select.Option key={ctg.id} value={ctg.id}>{ctg.name}</Select.Option>
                                                             ))}
                                                         </Select>
-
                                                     )}
                                                 </Form.Item>
                                             </div>

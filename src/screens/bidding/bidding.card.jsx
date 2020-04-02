@@ -119,8 +119,8 @@ class BiddingCard extends Component {
                                     <div className="text-left m-lg">
                                         <p className="pd-t-10" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                                         <p><b className="text-primary">Bid Expiration:</b> {moment(item.end_date).format('LLLL')}</p> <p></p>
-                                        <p><b className="text-primary">How to bid:</b> Always make sure you are the last bidder before the timer ends (turns 0:0:0) or before th bid expiration time</p> <p></p>
-                                        <p><b className="text-primary">Note:</b> You have to bid at least 500 coins to win.</p>
+                                        <p><b className="text-primary">How to bid:</b> First bid only 500 coins. Come back 10mins before the bid expiration time and continue bidding. This time the highest bidder wins.</p> <p></p>
+                                        <p><b className="text-primary">Note:</b> Only those who bid 500 coins qualify to bid in the last 10mins left.</p>
                                     </div>
                                     <div style={{}}>
                                         {applied === false && (

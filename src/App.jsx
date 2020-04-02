@@ -155,7 +155,7 @@ class App extends React.Component {
                 </header>
 
 
-                <div className="content-fixed" style={{ minHeight: '100vh' }}>
+                <div className="content-fixed content-auth-alt">
                   <HeaderBottom {...this.props} />
                   <div className="content">
                     <div className="container ht-100p">

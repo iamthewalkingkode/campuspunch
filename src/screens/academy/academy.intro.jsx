@@ -9,7 +9,7 @@ class AcademyIntro extends Component {
 
     state = {
         loading: true, payVisible: false, planVisible: false,
-        courses: [], payAmount: 0, ipaid: 0,
+        courses: [], tutors: [], payAmount: 0, ipaid: 0,
         level: parseInt(this.props.match.params.level.split('.')[1]),
         school: parseInt(this.props.match.params.school.split('.')[1]),
         department: parseInt(this.props.match.params.department.split('.')[1])
@@ -47,6 +47,12 @@ class AcademyIntro extends Component {
                 this.setState({ ipaid: res.result });
             }
         });
+
+        func.post('academy/tutors', { type: 1, status: 1, level, department }).then((res) => {
+            if (res.status === 200) {
+                this.setState({ tutors: res.result });
+            }
+        });
     }
 
     startAcademy = (e) => {
@@ -75,7 +81,7 @@ class AcademyIntro extends Component {
     }
 
     render() {
-        const { loading, courses, payAmount, payVisible, planVisible, ipaid, department, level } = this.state;
+        const { loading, courses, tutors, payAmount, payVisible, planVisible, ipaid, department, level } = this.state;
 
         return (
             <React.Fragment>
@@ -94,10 +100,30 @@ class AcademyIntro extends Component {
 
                         <div className="row">
                             <div className="col-lg-4 col-12">
-                                <AcademySidebar {...this.props} display="intro" category={'student'} payCourse={() => this.startAcademy()} />
+                                <AcademySidebar
+                                    {...this.props} display="intro"
+                                    school={courses[0].school.name}
+                                    category={courses[0].category}
+                                    department={courses[0].departments.filter(dep => dep.id === department)[0].name}
+                                    payCourse={() => this.startAcademy()}
+                                />
                             </div>
                             <div className="col-lg-8 col-12">
-                                <div className="pd-15" style={{ backgroundColor: '#e5e9f2' }}>
+                                <div className="mg-b-25">
+                                    <h3 className="text-center">Why You'll Love This Course</h3>
+                                    Earn an internationally recognized certificate at the end of this course.
+Offers proper discipline to ensure you complete your lessons.
+This course provides the highest quality and affordable online academy.
+Learn from several experts on a single subject.
+This course is handled by at least two professionals.
+All our videos are very short and fully transcribed.
+Videos are available in mp4, mp3, pdf, and doc format.
+All courses are completely practical.
+Find thought provoking test at the end of each lesson.
+Have access to one and one chat with any tutor anytime.
+Job offer available for all best graduating students.
+                                </div>
+                                <div className="pd-15 bg-gray-200">
                                     {courses.map(crs => (
                                         <div>
                                             <b>{crs.title}</b>
@@ -114,6 +140,21 @@ class AcademyIntro extends Component {
                                     <div className="col-sm-4"><Button type="primary" block onClick={() => this.startAcademy()}>Start</Button></div>
                                     <div className="col-sm-4"></div>
                                 </div>
+
+                                {tutors.length > 0 && (
+                                    <div className="list-group mg-t-25">
+                                        <h4 className="text-center">Meet the tutor</h4>
+                                        {tutors.map(tut => (
+                                            <div class="list-group-item d-flex align-items-centers">
+                                                <img src={tut.avatar_link} class="wd-100 mg-r-15" alt={tut.username} />
+                                                <div>
+                                                    <h6 class="tx-inverse tx-semibold mg-b-0">{tut.fullname}</h6>
+                                                    <span class="d-block text-muted">{tut.about}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

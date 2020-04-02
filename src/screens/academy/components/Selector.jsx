@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Select, Button } from 'antd';
 import { useState } from 'react';
 import * as func from '../../../utils/functions';
@@ -10,15 +10,20 @@ const Screen = props => {
     const [levels, setLevels] = useState([]);
     const [departments, setDepartments] = useState([]);
 
+    useEffect(() => {
+        getDepartmentsLevels(schools[0].id);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const getDepartmentsLevels = (school) => {
         setFinal({ ...final, school });
         setLoading(true);
-        func.post('academy/departments', { school, faculty, status: 1 }).then(res => {
+        func.post('academy/departments', { school, faculty, status: 1, orderby: 'name_asc' }).then(res => {
             if (res.status === 200) {
                 setDepartments(res.result);
             }
         });
-        func.post('academy/levels', { category, status: 1 }).then(res => {
+        func.post('academy/levels', { category, status: 1, orderby: 'name_asc' }).then(res => {
             setLoading(false);
             if (res.status === 200) {
                 setLevels(res.result);
@@ -42,21 +47,23 @@ const Screen = props => {
 
     return (
         <Form hideRequiredMark={false} onSubmit={sendOK}>
-            <div className="row">
-                <div className="col-lg-4 col-sm-4 col-xs-6 form-group">
-                    <Form.Item colon={false} label={null}>
-                        {getFieldDecorator('school', {
-                            rules: [{ required: true, message: 'School is required' }]
-                        })(
-                            <Select showSearch={true} size="large" loading={loading} optionFilterProp="children" placeholder="Choose a school" onChange={e => getDepartmentsLevels(e)}>
-                                {schools.map(sch => (
-                                    <Select.Option value={sch.id}>{sch.name}</Select.Option>
-                                ))}
-                            </Select>
-                        )}
-                    </Form.Item>
-                </div>
-                <div className="col-lg-4 col-sm-4 col-xs-6 form-group">
+            <div className="row row-xs">
+                {schools.length > 1 && (
+                    <div className={`col-lg-${schools.length > 1 ? '4' : '6'} col-6`}>
+                        <Form.Item colon={false} label={null}>
+                            {getFieldDecorator('school', {
+                                rules: [{ required: true, message: 'School is required' }]
+                            })(
+                                <Select showSearch={true} size="large" loading={loading} optionFilterProp="children" placeholder="Choose a school" onChange={e => getDepartmentsLevels(e)}>
+                                    {schools.map(sch => (
+                                        <Select.Option value={sch.id}>{sch.name}</Select.Option>
+                                    ))}
+                                </Select>
+                            )}
+                        </Form.Item>
+                    </div>
+                )}
+                <div className={`col-lg-${schools.length > 1 ? '4' : '6'} col-6`}>
                     <Form.Item colon={false} label={null}>
                         {getFieldDecorator('department', {
                             rules: [{ required: true, message: 'Department is required' }]
@@ -69,7 +76,7 @@ const Screen = props => {
                         )}
                     </Form.Item>
                 </div>
-                <div className="col-lg-4 col-sm-4 col-xs-6 form-group">
+                <div className={`col-lg-${schools.length > 1 ? '4' : '6'} col-6`}>
                     <Form.Item colon={false} label={null}>
                         {getFieldDecorator('level', {
                             rules: [{ required: true, message: 'Level is required' }]
@@ -82,11 +89,11 @@ const Screen = props => {
                         )}
                     </Form.Item>
                 </div>
-                <div className="col-lg-5 col-sm-5 hidden-xs"></div>
-                <div className="col-lg-2 col-sm-2 col-xs-6 form-group">
+                <div className="col-lg-5 col-sm-5 d-none d-sm-block"></div>
+                <div className="col-lg-2 col-6">
                     <Button type="primary" htmlType="submit" block loading={loading}> Enter</Button>
                 </div>
-                <div className="col-lg-5 col-sm-5 hidden-xs"></div>
+                <div className="col-lg-5 col-sm-5 d-none d-sm-block"></div>
             </div>
         </Form>
     );
