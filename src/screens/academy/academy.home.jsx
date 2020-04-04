@@ -85,7 +85,7 @@ class AcademyHome extends Component {
                             {skills.map(dep => (
                                 <div className="col-6 col-lg-3">
                                     <div class="card mg-b-25 pointer" onClick={() => this.setState({ dep, visible: true })}>
-                                        <img src="/assets/img/noimage.jpg" class="card-img-top" alt={dep.name} />
+                                        <img src={dep.image_link} class="card-img-top" alt={dep.name} />
                                         <div class="card-bodys pd-15 text-center">
                                             <h6 class="card-title mg-b-0">{dep.name}</h6>
                                         </div>

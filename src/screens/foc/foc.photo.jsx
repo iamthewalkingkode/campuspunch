@@ -73,7 +73,7 @@ class FocPhoto extends Component {
                 {loading === true && (<Loading text="loading contest ..." />)}
 
                 {loading === false && (
-                    <div>
+                    <div style={{ minHeight: 550 }}>
                         <div className="text-center mg-b-35 mg-t-10">
                             <h3>Application starts on {moment(row.apply_start).format('DD/MM/YY')} and ends on {moment(row.apply_end).format('DD/MM/YY')}</h3>
                             <h3>Voting starts on {moment(row.vote_start).format('DD/MM/YY')} and ends on {moment(row.vote_end).format('DD/MM/YY')}</h3>

@@ -158,7 +158,7 @@ class App extends React.Component {
 
                 <div className="content-fixed content-auth-alt">
                   <HeaderBottom {...this.props} />
-                  <div className="content">
+                  <div className="content" style={{ minHeight: 650 }}>
                     <div className="container ht-100p">
                       <Switch>
                         <Route exact path="/" render={(props) => <HomeScreen {...props} {...this.props} row={{}} />} />
