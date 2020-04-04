@@ -68,7 +68,7 @@ const Screen = props => {
                         {getFieldDecorator('department', {
                             rules: [{ required: true, message: 'Department is required' }]
                         })(
-                            <Select showSearch={true} size="large" loading={loading} optionFilterProp="children" placeholder="Choose a department" onChange={department => setFinal({ ...final, department })}>
+                            <Select showSearch={true} size="large" loading={loading} disabled={loading} optionFilterProp="children" placeholder="Choose a department" onChange={department => setFinal({ ...final, department })}>
                                 {departments.map(dep => (
                                     <Select.Option value={dep.id}>{dep.name}</Select.Option>
                                 ))}
@@ -81,7 +81,7 @@ const Screen = props => {
                         {getFieldDecorator('level', {
                             rules: [{ required: true, message: 'Level is required' }]
                         })(
-                            <Select showSearch={true} size="large" loading={loading} optionFilterProp="children" placeholder="Choose a level" onChange={level => setFinal({ ...final, level })}>
+                            <Select showSearch={true} size="large" loading={loading} disabled={loading} optionFilterProp="children" placeholder="Choose a level" onChange={level => setFinal({ ...final, level })}>
                                 {levels.map(lvl => (
                                     <Select.Option value={lvl.id}>{lvl.name}</Select.Option>
                                 ))}
@@ -91,7 +91,7 @@ const Screen = props => {
                 </div>
                 <div className="col-lg-5 col-sm-5 d-none d-sm-block"></div>
                 <div className="col-lg-2 col-6">
-                    <Button type="primary" htmlType="submit" block loading={loading}> Enter</Button>
+                    <Button type="primary" htmlType="submit" block loading={loading} disabled={loading}> Enter</Button>
                 </div>
                 <div className="col-lg-5 col-sm-5 d-none d-sm-block"></div>
             </div>
