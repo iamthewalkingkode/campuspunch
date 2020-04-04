@@ -38,8 +38,9 @@ import SigninForm from './screens/auth/signin';
 import SignupForm from './screens/auth/signup';
 import ResetForm from './screens/auth/reset';
 
-import UserProfile from './screens/user/profile';
-import UserSettings from './screens/user/settings';
+import UserProfile from './screens/user/user.profile';
+import UserSettings from './screens/user/user.settings';
+import UserAcademy from './screens/user/user.academy';
 
 import AcademyScreen from './screens/academy/academy.home';
 import AcademyIntro from './screens/academy/academy.intro';
@@ -243,7 +244,7 @@ class App extends React.Component {
                           <Route exact path="/user" render={(props) => <UserSettings {...props} {...this.props} />} />
                         )}
                         {authenticated === true && (
-                          <Route exact path="/user/academy" render={(props) => <UserSettings {...props} {...this.props} />} />
+                          <Route exact path="/user/academy" render={(props) => <UserAcademy {...props} {...this.props} />} />
                         )}
                         {authenticated === true && (
                           <Route exact path="/post-article" render={(props) => <PostForm {...props} {...this.props} />} />
