@@ -194,10 +194,16 @@ class App extends React.Component {
                           <Route exact path="/academy/lessons/:school/:department/:level" render={(props) => <AcademyLessons {...props} {...this.props} />} />
                         )}
                         {authenticated === true && (
+                          <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <AcademyChat {...props} {...this.props} />} />
+                        )}
+                        {authenticated === true && (
+                          <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <AcademyChat {...props} {...this.props} />} />
+                        )}
+                        {authenticated === true && (
                           <Route exact path="/academy/lesson/:school/:department/:level/:course" render={(props) => <AcademyLesson {...props} {...this.props} />} />
                         )}
                         {authenticated === true && (
-                          <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <AcademyChat {...props} {...this.props} />} />
+                          <Route exact path="/academy/questions/:school/:department/:level/:year/:course/:lesson" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
                         )}
 
                         {authenticated === false && (
@@ -215,6 +221,15 @@ class App extends React.Component {
                         {authenticated === false && (
                           <Route exact path="/academy/lesson/:school/:department/:level/:year/:course" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                         )}
+                        {authenticated === false && (
+                          <Route exact path="/academy/questions/:school/:department/:level/:year/:course/:lesson" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                        )}
+                        {authenticated === false && (
+                          <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                        )}
+                        {authenticated === false && (
+                          <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                        )}
 
                         {/* FOC / Photo */}
                         <Route exact path="/face-of-campus" render={(props) => <FocScreen {...props} {...this.props} />} />
@@ -228,10 +243,16 @@ class App extends React.Component {
                           <Route exact path="/user" render={(props) => <UserSettings {...props} {...this.props} />} />
                         )}
                         {authenticated === true && (
+                          <Route exact path="/user/academy" render={(props) => <UserSettings {...props} {...this.props} />} />
+                        )}
+                        {authenticated === true && (
                           <Route exact path="/post-article" render={(props) => <PostForm {...props} {...this.props} />} />
                         )}
                         {authenticated === false && (
                           <Route exact path="/post-article" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                        )}
+                        {authenticated === false && (
+                          <Route exact path="/user/academy" render={(props) => <UserSettings {...props} {...this.props} redirect={pathname} />} />
                         )}
 
                         <Route render={(props) => <NotFound {...props} {...this.props} />} />

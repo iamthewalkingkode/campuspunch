@@ -37,7 +37,7 @@ class AcademyEnter extends Component {
                     this.setState({ loading: false });
                     if (res.status === 200) {
                         let crs = res.result[0];
-                        this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: 'Introduction', image: '' });
+                        this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: 'Introduction', image: 'banner/academy.png' });
                         this.setState({ courses: res.result });
                     } else {
                         this.setState({ courses: [] });
@@ -68,7 +68,7 @@ class AcademyEnter extends Component {
 
             if (ipaid >= 200) {
                 if (ipaid < 3000) {
-                    if (func.inArray(card.icon, ['abc']) === true) {
+                    if (['abc'].includes(card.icon) === true) {
                         this.setState({ yearsVisible: true });
                     } else {
                         this.setState({ planVisible: true });
@@ -114,7 +114,7 @@ class AcademyEnter extends Component {
                             <ol className="breadcrumb breadcrumb-style2 bg-gray-100 pd-12">
                                 <li className="breadcrumb-item"><Link to="/academy">Academy</Link></li>
                                 <li className="breadcrumb-item"><Link to={`${this.props.location.pathname.split('enter').join('intro')}`}>Introduction</Link></li>
-                                <li className="breadcrumb-item active" aria-current="page">Data</li>
+                                <li className="breadcrumb-item active" aria-current="page">Academy</li>
                             </ol>
                         </nav>
 

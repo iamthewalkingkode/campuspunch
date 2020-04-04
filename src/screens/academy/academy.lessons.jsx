@@ -30,7 +30,7 @@ class AcademyLessons extends Component {
                         this.setState({ loading: false });
                         if (res.status === 200) {
                             let crs = res.result[0];
-                            this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: `Lessons`, image: '' });
+                            this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: `Lessons`, image: 'banner/academy.png' });
                             this.setState({ courses: res.result });
                         } else {
                             this.setState({ courses: [] });
@@ -79,7 +79,7 @@ class AcademyLessons extends Component {
                             <ol className="breadcrumb breadcrumb-style2 bg-gray-100 pd-12">
                                 <li className="breadcrumb-item"><Link to="/academy">Academy</Link></li>
                                 <li className="breadcrumb-item"><Link to={`/${path[1]}/intro/${path[3]}/${path[4]}/${path[5]}`}>Introduction</Link></li>
-                                <li className="breadcrumb-item"><Link to={`/${path[1]}/enter/${path[3]}/${path[4]}/${path[5]}`}>Enter</Link></li>
+                                <li className="breadcrumb-item"><Link to={`/${path[1]}/enter/${path[3]}/${path[4]}/${path[5]}`}>Academy</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">Lessons</li>
                             </ol>
                         </nav>

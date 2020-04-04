@@ -7,8 +7,8 @@ import { Modal, Button } from 'antd';
 class AcademyLesson extends Component {
 
     state = {
-        loading: true, index: 0,
-        lessons: [], lss: {},
+        loading: true, index: 0, year: 0,
+        lessons: [], questions: false, lss: {},
         path: this.props.location.pathname.split('courses').join('enter').split('/'),
         pathname: this.props.location.pathname.split('/academy/lesson/').join('').split('/').join('.'),
         course: parseInt(this.props.match.params.course.split('.')[1]),
@@ -18,6 +18,7 @@ class AcademyLesson extends Component {
     }
 
     componentDidMount() {
+        let self = this;
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
         this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
 
@@ -30,17 +31,24 @@ class AcademyLesson extends Component {
                         this.setState({ loading: false });
                         if (res.status === 200) {
                             let lss = res.result[0];
-                            this.props.setHeaderTitle({ h1: 'Academy', h3: `${lss.school.name} - ${lss.department.name}`, p: lss.title, image: '' });
+                            this.props.setHeaderTitle({ h1: 'Academy', h3: `${lss.school.name} - ${lss.department.name}`, p: lss.title, image: 'banner/academy.png' });
                             this.setState({ lessons: res.result }, () => {
                                 this.getActiveLesson();
                             });
                         } else {
                             this.setState({ lessons: [] });
+                            Modal.info({
+                                title: 'No lessons',
+                                content: `We did not find any lessons in this course.`,
+                                okText: 'Go back',
+                                onOk() {
+                                    self.props.history.goBack();
+                                }
+                            });
                         }
                     });
                 } else {
                     this.setState({ loading: false });
-                    let self = this;
                     Modal.info({
                         title: 'Please pay',
                         content: `You have not paid for this section`,
@@ -57,13 +65,24 @@ class AcademyLesson extends Component {
         const { pathname, lessons } = this.state;
         const index = parseInt(func.getStorage(`${pathname}.academy.lessons.index`) || 0);
         const lss = lessons[index];
-        this.setState({ index, lss });
+        this.setState({ index, lss }, () => {
+            func.setStorage(`${pathname}.academy.lessons.index`, index);
+            this.getQuestions(lss.id);
+        });
+    }
+
+    getQuestions(lesson) {
+        func.post('academy/questions', { lesson, limit: 1, tolesson: true }).then(res => {
+            if (res.status === 200) {
+                this.setState({ questions: true, year: res.result[0].year });
+            }
+        });
     }
 
     navigateLesson = (operator = '-') => {
         const { pathname } = this.state;
         let index = parseInt(func.getStorage(`${pathname}.academy.lessons.index`) || 0);
-        index = operator === '-' ? index - 1 : index + 1; console.log(index)
+        index = operator === '-' ? index - 1 : index + 1;
         func.setStorage(`${pathname}.academy.lessons.index`, index);
         this.setState({ index, lss: {} }, () => {
             this.getActiveLesson();
@@ -82,7 +101,7 @@ class AcademyLesson extends Component {
     }
 
     render() {
-        const { loading, lessons, lss, path, index, school, department, level, course } = this.state;
+        const { loading, lessons, lss, path, index, school, department, level, course, questions, year } = this.state;
 
         return (
             <React.Fragment>
@@ -96,7 +115,7 @@ class AcademyLesson extends Component {
                             <ol className="breadcrumb breadcrumb-style2 bg-gray-100 pd-12">
                                 <li className="breadcrumb-item"><Link to="/academy">Academy</Link></li>
                                 <li className="breadcrumb-item"><Link to={`/${path[1]}/intro/${path[3]}/${path[4]}/${path[5]}`}>Introduction</Link></li>
-                                <li className="breadcrumb-item"><Link to={`/${path[1]}/enter/${path[3]}/${path[4]}/${path[5]}`}>Enter</Link></li>
+                                <li className="breadcrumb-item"><Link to={`/${path[1]}/enter/${path[3]}/${path[4]}/${path[5]}`}>Academy</Link></li>
                                 <li className="breadcrumb-item"><Link to={`/${path[1]}/lessons/${path[3]}/${path[4]}/${path[5]}`}>Lessons</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">{lss.title}</li>
                             </ol>
@@ -117,16 +136,18 @@ class AcademyLesson extends Component {
                             <p className="text-justifys mg-b-25">
                                 <span dangerouslySetInnerHTML={{ __html: lss.instruction }}></span>
                             </p>
-                            <div className="mg-b-25">
+                            <div className="mg-b-50">
                                 {index > 0 && (
-                                    <Button type="primary" size="small" className="float-left" onClick={() => this.navigateLesson('-', lss)}>&laquo; Previous lesson</Button>
+                                    <Button type="primary" size="small" className="float-left" onClick={() => this.navigateLesson('-')}>&laquo; Previous lesson</Button>
                                 )}
-                                {(index + 1) < lessons.length && (
-                                    <Button type="primary" className="float-right" onClick={() => this.navigateLesson('+', lss)}>Next lesson &raquo;</Button>
+                                {(index + 1) < lessons.length && questions === false && (
+                                    <Button type="primary" className="float-right" onClick={() => this.navigateLesson('+')}>Next lesson &raquo;</Button>
+                                )}
+                                {(index + 1) < lessons.length && questions === true && (
+                                    <Button type="danger" className="float-right" onClick={() => this.props.history.push(`/${path[1]}/questions/${path[3]}/${path[4]}/${path[5]}/${year}/${path[6]}/${lss.slug}.${lss.id}`)}>Take Test &raquo;</Button>
                                 )}
                                 <div className="clearfix"></div>
                             </div>
-
                             {lss.id && (
                                 <Comments item={`${school}-${department}-${level}-${course}-${lss.id}`} type="lesson" {...this.props} />
                             )}

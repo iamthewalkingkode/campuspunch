@@ -20,19 +20,11 @@ const initialState = {
         { name: 'Academy', link: 'academy' },
         { name: 'Sign In', link: 'user/signin', auth: false },
         { name: 'Sign Up', link: 'user/signup', auth: false },
-        // {
-        //     name: 'Academy', link: 'academy', auth: true, subs: [
-        //         { name: 'Academy', link: 'academy' },
-        //         { name: 'Manage academy', link: 'academy/manage' },
-        //         { name: 'Courses', link: 'academy/courses' },
-        //         { name: 'Schools', link: 'academy/schools' },
-        //         { name: 'Student profile', link: 'academy/profile' },
-        //     ]
-        // },
         {
             name: logg.username, link: 'user', auth: true, subs: [
                 { name: 'My profile', link: 'u/' + logg.username },
                 { name: 'Profile settings', link: 'user' },
+                { name: 'Academy subscriptions', link: 'user/academy' },
                 { name: 'Sign out', link: 'user/signout' },
             ]
         },

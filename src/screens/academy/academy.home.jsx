@@ -12,7 +12,7 @@ class AcademyHome extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
-        this.props.setHeaderTitle({ h1: 'Academy', h3: '', p: '', image: '' });
+        this.props.setHeaderTitle({ h1: 'Academy', h3: '', p: '', image: 'banner/academy.png' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.getSkills();

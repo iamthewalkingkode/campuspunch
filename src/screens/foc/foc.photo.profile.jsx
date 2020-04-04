@@ -29,14 +29,17 @@ class FocPhotoProfile extends Component {
                 this.props.setMetaTags({ title: username, description: '', keywords: '' });
                 this.setState({ loading: true });
                 func.post('foc/users', { user, contest, voter: this.props.auth.logg.id, limit: 1 }).then(res => {
-                    this.setState({ loading: false });
                     if (res.status === 200) {
                         var usr = res.result[0].user;
                         setTimeout(() => {
                             window.init();
                         }, 200);
-                        // this.props.setMetaTags({ title: usr.username, description: usr.about, keywords: '' });
-                        this.setState({ usr, foc: res.result[0], lightImages: [usr.avatar_link] });
+                        this.props.setMetaTags({ title: usr.username, description: usr.about, keywords: '' });
+                        this.setState({ usr, foc: res.result[0], lightImages: [usr.avatar_link] }, () => {
+                            this.setState({ loading: false });
+                        });
+                    } else {
+                        this.setState({ loading: false });
                     }
                 });
             });
@@ -69,7 +72,7 @@ class FocPhotoProfile extends Component {
         return (
             <React.Fragment>
                 {loading === true && (<Loading text={`loading ${username}'s profile...`} />)}
-                {(loading === false && usr.id === undefined) && (<NotFound />)}
+                {(loading === false && usr.id === undefined) && (<NotFound {...this.props} />)}
 
                 {(loading === false && usr.id) && (
                     <div>

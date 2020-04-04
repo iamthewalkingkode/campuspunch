@@ -51,13 +51,6 @@ export const delStorage = (key) => {
 }
 
 
-export const inArray = (needle, haystack) => {
-    var length = haystack.length;
-    for (var i = 0; i < length; i++) {
-        if (haystack[i] === needle) return true;
-    }
-    return false;
-}
 export const mergeObj = (obj, src) => {
     for (var key in src) {
         if (src.hasOwnProperty(key)) obj[key] = src[key];

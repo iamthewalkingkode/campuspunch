@@ -26,7 +26,7 @@ class AcademyIntro extends Component {
             this.setState({ loading: false });
             if (res.status === 200) {
                 let crs = res.result[0];
-                this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: 'Introduction', image: '' });
+                this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: 'Introduction', image: 'banner/academy.png' });
                 this.setState({ courses: res.result });
             } else {
                 this.setState({ courses: [] });

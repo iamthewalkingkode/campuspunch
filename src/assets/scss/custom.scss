@@ -309,9 +309,63 @@ strong {
 			margin-bottom: 8px;
 			display: block;
 
-			&:hover, &.active {
+			&:hover,
+			&.active {
 				background: rgba($primary, 0.05);
 			}
 		}
 	}
+}
+
+#comment___form {
+	border-radius: 4px;
+	border: 1px solid #ddd;
+
+	input {
+		float: left;
+		margin: 0;
+		width: 85%;
+		font-size: 13px;
+		height: 40px !important;
+		padding: 0 10px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border: 1px solid #fff;
+
+		&:focus {
+			*box-shadow: none !important;
+		}
+	}
+
+	button {
+		float: left;
+		margin: 0;
+		width: 15%;
+		font-size: 12px;
+		height: 40px !important;
+		*padding: 0 20px;
+		background: #fff;
+		border: 1px solid #fff;
+		border-left: none;
+		border-radius: 4px;
+		background: #eee;
+		border-top-left-radius: 0px;
+		border-bottom-left-radius: 0px;
+	}
+}
+
+.df-examples {
+	.ant-form .ant-comment-content-author {
+		display: none;
+	}
+}
+
+.init___insta___chat {
+	color: #fff;
+	background-color: #16aa4c;
+	padding: 10px;
+	position: absolute;
+	bottom: 20;
+	border-radius: 45px;
+	cursor: pointer;
 }

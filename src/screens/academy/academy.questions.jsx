@@ -15,10 +15,15 @@ class AcademyQuestions extends Component {
         path: this.props.location.pathname.split('courses').join('enter').split('/'),
         pathname: this.props.location.pathname.split('/academy/questions/').join('').split('/').join('.'),
         year: parseInt(this.props.match.params.year),
-        course: parseInt(this.props.match.params.course),
+        course: parseInt(this.props.match.params.course.split('.')[1]),
         level: parseInt(this.props.match.params.level.split('.')[1]),
+        lesson: parseInt((this.props.match.params.lesson || '.').split('.')[1]),
         school: parseInt(this.props.match.params.school.split('.')[1]),
         department: parseInt(this.props.match.params.department.split('.')[1])
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.timeInterval);
     }
 
     componentDidMount() {
@@ -28,34 +33,31 @@ class AcademyQuestions extends Component {
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        const { department, level, year, course, path } = this.state;
+        const { department, level, year, course, lesson, path } = this.state;
         func.post('academy/payments_total', { department, level, user: this.props.auth.logg.id }).then((res) => {
             if (res.status === 200) {
                 if (res.result > 0) {
-                    func.post('academy/questions', { year, course, type: 1, status: 1, category: 'radio', orderby: 'title_asc', limit: 3 }).then((res) => {
+                    func.post('academy/questions', { year, course, lesson: lesson || undefined, type: 1, status: 1, category: 'radio', orderby: 'title_asc' }).then((res) => {
                         if (res.status === 200) {
                             const crs = res.result[0].course;
                             const questions = res.result;
 
                             this.setState({ questions }, () => {
                                 this.setState({ loading: false });
-                                this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: `${crs.title}`, image: '' });
+                                this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: `${crs.title}`, image: 'banner/academy.png' });
                                 this.getActiveQuestion();
                             });
                         } else {
-                            this.setState({ loading: false });
                             Modal.info({
                                 title: 'No questions',
                                 content: `This course has no questions`,
                                 onOk() {
-                                    // self.props.history.push(`/${path[1]}/courses/${path[3]}/${path[4]}/${path[5]}/${path[6]}`);
                                     self.props.history.goBack();
                                 }
                             });
                         }
                     });
                 } else {
-                    this.setState({ loading: false });
                     Modal.info({
                         title: 'Please pay',
                         content: `You have not paid for this section`,
@@ -129,7 +131,7 @@ class AcademyQuestions extends Component {
             this.getActiveQuestion();
             window.$('#answers')[0].reset();
         } else {
-            Modal.info({
+            Modal.confirm({
                 title: 'No answer',
                 content: `You did not choose any answer for this question, do you wish to continue next?`,
                 okText: 'Yes, Continue',
@@ -164,21 +166,30 @@ class AcademyQuestions extends Component {
         const score = Math.round((correct / questions.length) * 100);
         if (questions.length && (index + 1) > questions.length) {
             this.setState({ saved: true });
-            const { school, level, department, year, course, pathname } = this.state;
-            func.post('academy/saveScore', { school, level, score, department, year, course, user: this.props.auth.logg.id, answers: func.getStorageJson(`${pathname}.academy.answers`) });
+            const { school, level, department, year, course, lesson, pathname } = this.state;
+            func.post('academy/saveScore', { school, level, score, department, year, course, lesson: lesson || 0, user: this.props.auth.logg.id, answers: func.getStorageJson(`${pathname}.academy.answers`) });
         }
     }
 
     nextLesson = (score) => {
-        const { path, pathname } = this.state;
+        const { lesson, path, pathname } = this.state;
         if (score >= 70) {
-            this.props.history.push(`/${path[1]}/courses/${path[3]}/${path[4]}/${path[5]}/${path[6]}`);
+            if (lesson) {
+                let pathname = `${path[3]}.${path[4]}.${path[5]}.${path[7]}`;
+                let index = parseInt(func.getStorage(`${pathname}.academy.lessons.index`) || 0) + 1;
+                func.setStorage(`${pathname}.academy.lessons.index`, index);
+                setTimeout(() => {
+                    this.props.history.push(`/${path[1]}/lesson/${path[3]}/${path[4]}/${path[5]}/${path[7]}`);
+                }, 100);
+            } else {
+                this.props.history.push(`/${path[1]}/courses/${path[3]}/${path[4]}/${path[5]}/${path[6]}`);
+            }
         } else {
             this.setState({ saved: false }, () => {
                 func.delStorage(`${pathname}.academy.correct`);
                 func.delStorage(`${pathname}.academy.elapsed`);
-                func.delStorage(`${pathname}.academy.questions`);
                 func.delStorage(`${pathname}.academy.answers`);
+                func.delStorage(`${pathname}.academy.questions`);
                 func.delStorage(`${pathname}.academy.questions.index`);
                 this.getActiveQuestion();
             });
@@ -186,7 +197,7 @@ class AcademyQuestions extends Component {
     }
 
     render() {
-        const { loading, questions, index, time, que, correct, pathname, path } = this.state;
+        const { loading, questions, index, time, que, correct, pathname, path, lesson } = this.state;
         const current = index + 1;
         const score = Math.round((correct / questions.length) * 100);
         const correctArr = func.getStorageJson(`${pathname}.academy.correct`);
@@ -204,8 +215,9 @@ class AcademyQuestions extends Component {
                             <ol className="breadcrumb breadcrumb-style2 bg-gray-100 pd-12">
                                 <li className="breadcrumb-item"><Link to="/academy">Academy</Link></li>
                                 <li className="breadcrumb-item"><Link to={`/${path[1]}/intro/${path[3]}/${path[4]}/${path[5]}`}>Introduction</Link></li>
-                                <li className="breadcrumb-item"><Link to={`/${path[1]}/enter/${path[3]}/${path[4]}/${path[5]}`}>Enter</Link></li>
-                                <li className="breadcrumb-item active" aria-current="page">ABC Questions {correct}</li>
+                                <li className="breadcrumb-item"><Link to={`/${path[1]}/enter/${path[3]}/${path[4]}/${path[5]}`}>Academy</Link></li>
+                                <li className="breadcrumb-item"><Link to={`/${path[1]}/courses/${path[3]}/${path[4]}/${path[5]}/${path[6]}`}>Courses</Link></li>
+                                <li className="breadcrumb-item active" aria-current="page">ABC Questions</li>
                             </ol>
                         </nav>
 
@@ -275,7 +287,9 @@ class AcademyQuestions extends Component {
                             </div>
                         </div>
                         <div className="mg-t-25 text-center">
-                            <Button type="primary" onClick={() => this.nextLesson(score)}>&nbsp; &nbsp; &nbsp; &nbsp; {score >= 70 ? 'Next' : 'Repeat'} Course &nbsp; &nbsp; &nbsp; &nbsp;</Button>
+                            <Button type="primary" onClick={() => this.nextLesson(score)}>
+                                &nbsp; &nbsp; &nbsp; &nbsp; {score >= 70 ? 'Next' : 'Repeat'} {lesson ? 'Lesson' : 'Course'} &nbsp; &nbsp; &nbsp; &nbsp;
+                            </Button>
                         </div>
                     </div>
                 )}

@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 const NotFound = props => {
-    const [done, setDone] = useState(false);
 
     useEffect(() => {
-        if (done === false) {
-            // props.setMetaTags({ title: 'Page not found', description: '', keywords: '' });
-            // props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
-            setDone(true);
+        if (props.setMetaTags) {
+            props.setMetaTags({ title: 'Page not found', description: '', keywords: '' });
+            props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
         }
-    }, [done, props]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="ht-100p d-flex flex-column align-items-center justify-content-center">

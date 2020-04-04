@@ -25,27 +25,26 @@ class BiddingCard extends Component {
             this.setState({ loading: true });
             func.post('bidding/logs', { user: logg.id, item: item.id, level: item.level, limit: 1 }).then(res => {
                 this.setState({ loading: false });
+                this.countDown();
                 if (res.status === 200) {
                     this.setState({ applied: true });
                 }
             });
         }
-        // this.countDown();
-        let interval = setInterval(() => {
-            this.countDown(interval);
-        }, 4000);
     }
 
-    countDown(interval) {
+    countDown() {
         const { item } = this.props;
-        func.post('settings/countdown', { to: item.end_date }).then(res => {
-            this.setState({ cd: res.result, interval });
-        });
-        func.post('bidding/users', { item: item.id, limit: 1 }).then(res => {
-            if (res.status === 200) {
-                this.setState({ last: res.result[0] });
-            }
-        });
+        let interval = setInterval(() => {
+            func.post('settings/countdown', { to: item.end_date }).then(res => {
+                this.setState({ cd: res.result, interval });
+            });
+            func.post('bidding/users', { item: item.id, limit: 1 }).then(res => {
+                if (res.status === 200) {
+                    this.setState({ last: res.result[0] });
+                }
+            });
+        }, 4000);
     }
 
     apply() {

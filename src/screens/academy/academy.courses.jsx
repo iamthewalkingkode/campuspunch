@@ -19,6 +19,7 @@ class AcademyCourses extends Component {
     }
 
     componentDidMount() {
+        let self = this;
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
         this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
 
@@ -28,15 +29,14 @@ class AcademyCourses extends Component {
         func.post('academy/payments_total', { department, level, user: this.props.auth.logg.id }).then((res) => {
             if (res.status === 200) {
                 if (res.result > 0) {
-                    func.post('academy/courses', { department, level, lessons: 'yes', status: 1 }).then((res) => {
+                    func.post('academy/courses', { department, level, lessons: 'yess', status: 1 }).then((res) => {
                         this.setState({ loading: false });
                         if (res.status === 200) {
                             let crs = res.result[0];
-                            this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: `${year} courses`, image: '' });
+                            this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: `${year} courses`, image: 'banner/academy.png' });
                             this.setState({ courses: res.result });
                         } else {
                             this.setState({ courses: [] });
-                            let self = this;
                             Modal.info({
                                 title: 'No courses',
                                 content: `We did not find any courses in this department and level.`,
@@ -49,7 +49,6 @@ class AcademyCourses extends Component {
                     });
                 } else {
                     this.setState({ loading: false });
-                    let self = this;
                     Modal.info({
                         title: 'Please pay',
                         content: `You have not paid for this section`,
@@ -91,7 +90,7 @@ class AcademyCourses extends Component {
             content: `You are about to open "${crs.title}". This will automatically start the timer for the 1st Question. Are you ready?`,
             okText: 'Yes, Start',
             onOk() {
-                self.props.history.push(`${self.props.location.pathname.split('courses').join('questions')}/${crs.id}`);
+                self.props.history.push(`${self.props.location.pathname.split('courses').join('questions')}/${crs.slug}.${crs.id}`);
             }
         });
     }
@@ -111,7 +110,7 @@ class AcademyCourses extends Component {
                             <ol className="breadcrumb breadcrumb-style2 bg-gray-100 pd-12">
                                 <li className="breadcrumb-item"><Link to="/academy">Academy</Link></li>
                                 <li className="breadcrumb-item"><Link to={`/${path[1]}/intro/${path[3]}/${path[4]}/${path[5]}`}>Introduction</Link></li>
-                                <li className="breadcrumb-item"><Link to={`/${path[1]}/enter/${path[3]}/${path[4]}/${path[5]}`}>Enter</Link></li>
+                                <li className="breadcrumb-item"><Link to={`/${path[1]}/enter/${path[3]}/${path[4]}/${path[5]}`}>Academy</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">Courses</li>
                             </ol>
                         </nav>

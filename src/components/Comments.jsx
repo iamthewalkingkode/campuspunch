@@ -4,47 +4,40 @@ import * as func from '../utils/functions';
 import { Link } from 'react-router-dom';
 
 const CommentsC = props => {
-    const { type, item, auth: { logg, authenticated }, form: { getFieldDecorator, getFieldValue, validateFields, resetFields } } = props;
+    const { type, item, auth: { logg, authenticated } } = props;
 
     const [loading, setLoading] = useState(false);
-    const [fetching, setFetching] = useState(true);
     const [comments, setComments] = useState([]);
+    const [content, setContent] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
         getComments();
-    });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const getComments = () => {
-        if (loading === false && fetching === true) {
-            setLoading(true);
-            setFetching(false);
-            func.post('comments', { item, type, limit: 12 }).then(res => {
-                setLoading(false);
-                if (res.status === 200) {
-                    setComments(res.result);
-                }
-            });
-        }
+        setLoading(true);
+        func.post('comments', { item, type, limit: 12 }).then(res => {
+            setLoading(false);
+            if (res.status === 200) {
+                setComments(res.result);
+            }
+        });
     }
 
-    const postComment = (e) => {
+    const submit = (e) => {
         e.preventDefault();
-        validateFields((err, v) => {
-            if (!err) {
-                setErrorMessage('');
-                setSubmitting(true);
-                func.post('comments/insert', { item, type, user: logg.id, content: v.content }).then(res => {
-                    setSubmitting(false);
-                    if (res.status === 200) {
-                        resetFields();
-                        setFetching(true);
-                        getComments();
-                    } else {
-                        setErrorMessage(res.result)
-                    }
-                });
+        setErrorMessage('');
+        setSubmitting(true);
+        func.post('comments/insert', { item, type, user: logg.id, content }).then(res => {
+            setSubmitting(false);
+            if (res.status === 200) {
+                setContent('');
+                getComments();
+            } else {
+                setErrorMessage(res.result);
             }
         });
     }
@@ -55,26 +48,17 @@ const CommentsC = props => {
                 <h6 className="tx-uppercase tx-semibold mg-b-10">Comment(s)</h6>
             )}
             {authenticated && (
-                <Form hideRequiredMark={false} onSubmit={postComment}>
+                <Form hideRequiredMark={false} onSubmit={submit}>
                     <small className="text-danger">{errorMessage}</small>
                     <Comment
                         avatar={<Avatar src={logg.avatar_link} alt={logg.fullname} />}
                         content={
-                            <div className="row row-xs">
-                                <div className="col-10">
-                                    <Form.Item style={{ marginBottom: 0 }}>
-                                        {getFieldDecorator('content', {
-                                            rules: [{ required: true, message: 'Comment is required' }]
-                                        })(
-                                            <Input size="large" rows={2} autoComplete="off" placeholder="Type your comment..." />
-                                        )}
-                                    </Form.Item>
-                                </div>
-                                <div className="col-2">
-                                    <Button htmlType="submit" loading={submitting} disabled={!getFieldValue('content')} type="primary">
-                                        Send
-                                    </Button>
-                                </div>
+                            <div id="comment___form">
+                                <Input size="large" autoComplete="off" placeholder={`Type here...`} value={content} onChange={e => setContent(e.target.value)} />
+                                <Button htmlType="submit" type="primary" loading={submitting} disabled={!content}>
+                                    Send
+                                </Button>
+                                <div className="clearfix" />
                             </div>
                         }
                     />
@@ -82,7 +66,7 @@ const CommentsC = props => {
             )}
 
             {loading === true && (
-                <div>loading {type === 'chat' ? 'chats' : 'comments'}...</div>
+                <div className="text-center">loading {type === 'chat' ? 'chats' : 'comments'}...</div>
             )}
 
             {loading === false && (
