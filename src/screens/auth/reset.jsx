@@ -15,7 +15,9 @@ class ResetForm extends Component {
     }
 
     componentDidMount() {
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
+        
         window.scrollTo({ top: 0, behavior: 'smooth' });
         var uri = this.props.location.pathname.split('/');
         if (uri[3]) {

@@ -19,7 +19,8 @@ class BiddingScreen extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Bidding', description: '', keywords: '' });
-        this.props.setHeaderTitle({ h1: 'Bidding', h3: '', p: '', image: 'banner/bidding.png' });
+        this.props.setHeaderBottom({ h1: 'Bidding', h3: '', p: '', image: 'banner/bidding.png' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.bidItems();

@@ -14,7 +14,8 @@ class SiginForm extends Component {
         };
 
         this.props.setMetaTags({ title: 'Login to your account', description: '', keywords: '' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 

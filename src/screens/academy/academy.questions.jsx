@@ -29,7 +29,8 @@ class AcademyQuestions extends Component {
     componentDidMount() {
         const self = this;
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -44,7 +45,7 @@ class AcademyQuestions extends Component {
 
                             this.setState({ questions }, () => {
                                 this.setState({ loading: false });
-                                this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: `${crs.title}`, image: 'banner/academy.png' });
+                                this.props.setHeaderBottom({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: `${crs.title}`, image: 'banner/academy.png' });
                                 this.getActiveQuestion();
                             });
                         } else {

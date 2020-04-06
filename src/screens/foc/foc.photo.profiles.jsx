@@ -20,7 +20,8 @@ class FocPhotoProfiles extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Photogenic Contest', description: 'Share Your Pics & Win', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         const { school, contest } = this.props.match.params;
         func.post('foc', { id: parseInt(contest), status: 1, limit: 1 }).then(res => {
@@ -33,7 +34,7 @@ class FocPhotoProfiles extends Component {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     if (res.status === 200) {
                         this.setState({ data: res.result });
-                        this.props.setHeaderTitle({ h1: row.name, h3: res.result[0].school.name, p: '', image: 'foc/photo-home.jpg' });
+                        this.props.setHeaderBottom({ h1: row.name, h3: res.result[0].school.name, p: '', image: 'foc/photo-home.jpg' });
                     } else {
 
                     }

@@ -18,7 +18,8 @@ class AcademyChat extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
     }
 
     componentDidUpdate() {
@@ -30,7 +31,7 @@ class AcademyChat extends Component {
                 func.post('academy/tutors', { type: 1, status: 1, level, department }).then((res) => {
                     if (res.status === 200) {
                         this.setState({ loading: false });
-                        this.props.setHeaderTitle({ h1: 'Academy', h3: '', p: 'Lecturer\'s chat', image: 'banner/academy.png' });
+                        this.props.setHeaderBottom({ h1: 'Academy', h3: '', p: 'Lecturer\'s chat', image: 'banner/academy.png' });
                         this.setState({ tutors: res.result });
                     }
                 });

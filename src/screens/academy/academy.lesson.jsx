@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as func from '../../utils/functions';
 import { Loading, Comments } from '../../components';
 import { Modal, Button } from 'antd';
+import { isMobile } from 'react-device-detect';
 
 class AcademyLesson extends Component {
 
@@ -20,7 +21,8 @@ class AcademyLesson extends Component {
     componentDidMount() {
         let self = this;
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         const { department, level, course, school, path } = this.state;
         func.post('academy/payments_total', { department, level, user: this.props.auth.logg.id }).then((res) => {
@@ -31,7 +33,7 @@ class AcademyLesson extends Component {
                         this.setState({ loading: false });
                         if (res.status === 200) {
                             let lss = res.result[0];
-                            this.props.setHeaderTitle({ h1: 'Academy', h3: `${lss.school.name} - ${lss.department.name}`, p: lss.title, image: 'banner/academy.png' });
+                            this.props.setHeaderBottom({ h1: 'Academy', h3: `${lss.school.name} - ${lss.department.name}`, p: lss.title, image: 'banner/academy.png' });
                             this.setState({ lessons: res.result }, () => {
                                 this.getActiveLesson();
                             });
@@ -123,13 +125,16 @@ class AcademyLesson extends Component {
 
                         <div className="">
                             {lss.video && (
-                                <iframe src={`https://www.youtube-nocookie.com/embed/${lss.video}`} title={lss.title} height="550px" width="100%" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{ background: '#000' }}></iframe>
+                                <iframe src={`https://www.youtube-nocookie.com/embed/${lss.video}`} title={lss.title}
+                                    height={isMobile ? '250px' : '550px'} width="100%" frameBorder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{ background: '#000' }}
+                                ></iframe>
                             )}
-                            <h2>{lss.number}. {lss.title}</h2>
                             <div className="mg-b-10">
                                 <span className="pointer" id="strans" onClick={() => this.showTranscript()}><b>View Transcript</b></span>
                                 <span className="pointer" id="htrans" onClick={() => this.hideTranscript()} style={{ display: 'none' }}><b>Close Transcript</b></span>
                             </div>
+                            <h2>{lss.number}. {lss.title}</h2>
                             <p id="transcript" className="text-justifys pd-15 bg-gray-100 mg-b-25" style={{ display: 'none' }}>
                                 <span dangerouslySetInnerHTML={{ __html: lss.transcript }}></span>
                             </p>

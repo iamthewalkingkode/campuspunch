@@ -22,7 +22,8 @@ class PostFormScreen extends Component {
         this.props.setMetaTags({
             title: 'Post new article', description: 'Post campus related news, stories, events, gossips, and experiences. Original contents earns extra 200 coins and above.', keywords: ''
         });
-        this.props.setHeaderTitle({ h1: 'Post new article', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: 'Post new article', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.summernote();
     }

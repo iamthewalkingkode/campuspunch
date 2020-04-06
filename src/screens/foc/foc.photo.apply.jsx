@@ -19,7 +19,8 @@ class FocPhotoApply extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Photogenic Contest', description: 'Share Your Pics & Win', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         const { auth: { logg }, match: { params: { id } } } = this.props;
         func.post('foc/apply', { contest: parseInt(id), user: logg.id, school: logg.school.id }).then(res => {

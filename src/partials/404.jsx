@@ -5,7 +5,8 @@ const NotFound = props => {
     useEffect(() => {
         if (props.setMetaTags) {
             props.setMetaTags({ title: 'Page not found', description: '', keywords: '' });
-            props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+            props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+            props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

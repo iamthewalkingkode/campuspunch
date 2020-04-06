@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Input, Select } from 'antd';
 import * as qs from 'query-string';
+import * as func from '../utils/functions';
 
 import { Advert } from '../components';
 
 const SideBar = props => {
     const { data: { schools } } = props;
     const parsed = qs.parse(window.location.search);
+    const [posts, setPosts] = useState([]);
 
     const searchQuery = (q) => {
         window.location.replace(`${window.location.pathname}?query=${q}`);
@@ -16,6 +19,14 @@ const SideBar = props => {
         sch = sch.split('@');
         window.location.replace(`/school/${sch[0]}/${sch[1]}`);
     }
+
+    useEffect(() => {
+        func.post('posts', { limit: 4, status: 1, orderby: 'clicks_desc' }).then(res => {
+            if (res.status === 200) {
+                setPosts(res.result);
+            }
+        });
+    }, []);
 
     return (
         <div>
@@ -42,16 +53,23 @@ const SideBar = props => {
 
             <Advert position="sidebar" />
 
-            <div className="mg-b-20">
-                <h6 className="tx-uppercase tx-semibold mg-b-5">Popular posts</h6>
-                <ul className="list-group">
-                    <li className="list-group-item">Cras justo odio</li>
-                    <li className="list-group-item">Dapibus ac facilisis in</li>
-                    <li className="list-group-item">Morbi leo risus</li>
-                    <li className="list-group-item">Porta ac consectetur ac</li>
-                    <li className="list-group-item">Vestibulum at eros</li>
-                </ul>
-            </div>
+            {posts.length > 0 && (
+                <div className="mg-b-20">
+                    <h6 className="tx-uppercase tx-semibold mg-b-5">Popular posts</h6>
+                    <div className="list-group">
+                        {posts.map(row => (
+                            <div class="list-group-item d-flex align-items-centers">
+                                <img src={row.image_link} class="ht-30 mg-r-15 rounded-circles" alt={row.title} />
+                                <div className="">
+                                    <Link to={`/article/${row.slug}/${row.id}`}>
+                                        <h6 class="tx-inverse tx-semibold mg-b-0">{row.title}</h6>
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             <Advert position="sidebar" />
         </div>

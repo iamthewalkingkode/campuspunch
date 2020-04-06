@@ -16,7 +16,8 @@ class UserAcademy extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'My academy', description: '', keywords: '' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -26,9 +27,9 @@ class UserAcademy extends Component {
             <React.Fragment>
                 <div className="row">
                     <div className="col-12 col-lg-12">
-                        {/* <ul className="nav nav-line nav-justified" id="myTab" role="tablist">
+                        <ul className="nav nav-line nav-justified" id="myTab" role="tablist">
                             <Tabs.Head id="subscriptions" title="Subscriptions" active={true} />
-                        </ul> */}
+                        </ul>
                         <div className="tab-content bds bd-gray-300 bd-t-0 pd-t-20" id="myTabContent">
                             <Tabs.Body id="subscriptions" active={true}>
                                 <UserAcademySubs {...this.props} />

@@ -50,6 +50,7 @@ import AcademyQuestions from './screens/academy/academy.questions';
 import AcademyLessons from './screens/academy/academy.lessons';
 import AcademyLesson from './screens/academy/academy.lesson';
 import AcademyChat from './screens/academy/academy.chat';
+import FooterTop from './partials/FooterTop';
 
 class App extends React.Component {
 
@@ -260,9 +261,10 @@ class App extends React.Component {
                       </Switch>
                     </div>
                   </div>
+                  <FooterTop {...this.props} />
                 </div>
               </div>
-
+              
               <Footer {...this.props} />
             </ConnectedRouter>
           </Router>
@@ -290,8 +292,11 @@ const mapDispatchToProps = (dispatch) => ({
   setMetaTags: (data) => {
     dispatch(utilsAct.setMetaTags(data));
   },
-  setHeaderTitle: (data) => {
-    dispatch(utilsAct.setHeaderTitle(data));
+  setHeaderBottom: (data) => {
+    dispatch(utilsAct.setHeaderBottom(data));
+  },
+  setFooterTop: (data) => {
+    dispatch(utilsAct.setFooterTop(data));
   },
   setSetSettings: (key, value) => {
     dispatch(dataAct.setSetSettings(key, value));

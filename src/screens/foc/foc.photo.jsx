@@ -21,7 +21,8 @@ class FocPhoto extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Photogenic Contest', description: 'Share Your Pics & Win', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         const { id } = this.props.match.params;
         const { auth: { logg } } = this.props;
@@ -37,7 +38,7 @@ class FocPhoto extends Component {
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                             this.setState({ loading: false });
                             this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
-                            this.props.setHeaderTitle({ h1: row.name, h3: row.description, p: 'Jambites | Students | Graduates', image: 'foc/photo-home.jpg' });
+                            this.props.setHeaderBottom({ h1: row.name, h3: row.description, p: 'Jambites | Students | Graduates', image: 'foc/photo-home.jpg' });
                             if (row.canapply === true) {
                                 this.countDown();
                                 let interval = setInterval(() => {

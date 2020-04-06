@@ -20,7 +20,8 @@ class PostList extends Component {
 
     componentDidMount() {
         this.setState({ screen: '' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
     }
 
     componentDidUpdate() {

@@ -12,7 +12,8 @@ class AcademyHome extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
-        this.props.setHeaderTitle({ h1: 'Academy', h3: '', p: '', image: 'banner/academy.png' });
+        this.props.setHeaderBottom({ h1: 'Academy', h3: '', p: '', image: 'banner/academy.png' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.getSkills();
@@ -74,9 +75,9 @@ class AcademyHome extends Component {
                         />
                     </Accordion>
                 </div>
-                <hr/>
+                <hr />
                 {skills.length > 0 && (
-                    <section className="mg-t-50">
+                    <section className="mg-t-50 mg-b-50">
                         <div className="text-center">
                             <h3 className="mg-b-0">Learn a new skill today</h3>
                             <p className="text-muted">Awesome skills to learn to make money</p>
@@ -98,6 +99,31 @@ class AcademyHome extends Component {
                         </div>
                     </section>
                 )}
+
+                <hr />
+
+                <section className="mg-t-50 mg-b-50">
+                    <div className="text-center">
+                        <h3 className="mg-b-0">Why students love us</h3>
+                    </div>
+                    <div className="row row-xl text-center mg-t-30">
+                        <div className="col-12 col-lg-4">
+                            <i className="fa fa-certificate fa-2x text-muted"></i>
+                            <div className="tx-bold mg-t-10 mg-b-10">Certificate</div>
+                            <p>Earn an internationally recognized certificate delivered to your doorstep</p>
+                        </div>
+                        <div className="col-12 col-lg-4">
+                            <i className="fa fa-users fa-2x text-muted"></i>
+                            <div className="tx-bold mg-t-10 mg-b-10">Study Partner</div>
+                            <p>Studying alone can be boring. Get matched up with a perfect study buddy near you!</p>
+                        </div>
+                        <div className="col-12 col-lg-4">
+                            <i className="fa fa-briefcase fa-2x text-muted"></i>
+                            <div className="tx-bold mg-t-10 mg-b-10">Jobs</div>
+                            <p>Get immediate job offers studying any course</p>
+                        </div>
+                    </div>
+                </section>
 
                 <Modal title="Choose a level to continue" visible={visible} closable={true} footer={null} maskClosable={false} width={300}
                     onCancel={() => this.setState({ visible: false, dep: {} })} style={{ top: 20 }}

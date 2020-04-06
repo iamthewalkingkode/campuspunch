@@ -1,9 +1,10 @@
-import { SET_SITE_LANG, SET_PAGE_TITLE, SET_PAGE_SUB_TITLE, SET_HEADER_TITLES } from '../_types';
+import { SET_SITE_LANG, SET_PAGE_TITLE, SET_PAGE_SUB_TITLE, SET_HEADER_BOTTOM, SET_FOOTER_TOP } from '../_types';
 
 const initialState = {
     meta: { title: 'CampusPunch', description: '', keywords: '' },
     pageSubTitle: '',
-    headerTitles: { h1: '', h3: '', p: '', image: '' },
+    headerBottom: { h1: '', h3: '', p: '', image: '' },
+    footerTop: { h1: '', p: '', btnText: '', btnLink: '', image: '' },
     lang: 'en',
     limit: 12
 };
@@ -25,10 +26,16 @@ const utilsReducer = (state = initialState, action) => {
                 pageSubTitle: action.title
             };
 
-        case SET_HEADER_TITLES:
+        case SET_HEADER_BOTTOM:
             return {
                 ...state,
-                headerTitles: action.data
+                headerBottom: action.data
+            }
+
+        case SET_FOOTER_TOP:
+            return {
+                ...state,
+                footerTop: action.data
             }
 
         case SET_SITE_LANG:

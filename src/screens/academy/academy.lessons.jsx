@@ -18,7 +18,8 @@ class AcademyLessons extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -30,7 +31,7 @@ class AcademyLessons extends Component {
                         this.setState({ loading: false });
                         if (res.status === 200) {
                             let crs = res.result[0];
-                            this.props.setHeaderTitle({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: `Lessons`, image: 'banner/academy.png' });
+                            this.props.setHeaderBottom({ h1: 'Academy', h3: `${crs.school.name} - ${crs.departments.filter(dep => dep.id === department)[0]['name']}`, p: `Lessons`, image: 'banner/academy.png' });
                             this.setState({ courses: res.result });
                         } else {
                             this.setState({ courses: [] });

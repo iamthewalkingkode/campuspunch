@@ -21,7 +21,9 @@ class FocPhotoProfile extends Component {
     }
 
     componentDidMount() {
-        this.props.setHeaderTitle({ h1: '', h3: '', p: '', image: '' });
+        this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
+        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
+        
         var uri = this.props.location.pathname.split('/');
         var username = uri[4], user = parseInt(uri[5]), contest = parseInt(uri[6]);
         if (username) {
