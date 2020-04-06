@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Comment, Avatar } from 'antd';
 import * as func from '../utils/functions';
 import { Link } from 'react-router-dom';
+import publicIp from 'public-ip';
 
 const CommentsC = props => {
     const { type, item, auth: { logg, authenticated } } = props;
@@ -27,11 +28,12 @@ const CommentsC = props => {
         });
     }
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
         setErrorMessage('');
         setSubmitting(true);
-        func.post('comments/insert', { item, type, user: logg.id, content }).then(res => {
+        const ip = await publicIp.v4({ fallbackUrls: ['https://ifconfig.co/ip'] });
+        func.post('comments/insert', { item, type, user: logg.id, content, ip }).then(res => {
             setSubmitting(false);
             if (res.status === 200) {
                 setContent('');

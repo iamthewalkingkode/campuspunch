@@ -5,11 +5,13 @@ import { PayModal, Loading } from '../../components';
 import { Modal } from 'antd';
 
 const cards = [
-    { icon: 'abc', name: 'ABC Questions', link: 'abc-questions' },
+    {
+        icon: 'abc', name: 'ABC Questions', link: 'abc-questions', desc: 'Gain access to 1000\'s of practice questions'
+    },
     // { icon: 'theory', name: 'Theory Questions', link: 'theory-questions' },
-    { icon: 'lessons', name: 'Lessons', link: 'lessons' },
-    { icon: 'chat', name: 'Lecturer\'s chat', link: 'chat' },
-    { icon: 'resources', name: 'Resources', link: 'resources' }
+    { icon: 'lessons', name: 'Lessons', link: 'lessons', desc: 'Best illustrative & interactive video lessons' },
+    { icon: 'chat', name: 'Lecturer\'s chat', link: 'chat', desc: 'Chat one-on-one with your instructor' },
+    { icon: 'resources', name: 'Resources', link: 'resources', desc: 'All course materials you need in mp4, mp3, pdf, doc format' }
 ];
 
 class AcademyEnter extends Component {
@@ -126,7 +128,7 @@ class AcademyEnter extends Component {
                                             <div className="card-body">
                                                 <p><img src={`/assets/img/academy/${card.icon}.png`} className="img-thumbnails" alt={card.name} style={{ maxWidth: '20%' }} /></p>
                                                 <p><b className="pointer" style={{ color: '#202020' }}>{card.name}</b></p>
-                                                <p style={{ color: '#666' }}>Small description goes here</p>
+                                                <p style={{ color: '#666' }}>{card.desc}</p>
                                             </div>
                                         </div>
                                     </div>

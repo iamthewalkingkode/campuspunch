@@ -48,7 +48,7 @@ class AcademyHome extends Component {
 
         return (
             <React.Fragment>
-                <div className="panel-group academy___selector" id="accordion" role="tablist" aria-multiselectable="true">
+                <div className="panel-group academy___selector mg-b-50" id="accordion" role="tablist" aria-multiselectable="true">
                     <Accordion id="students" title={'<b>STUDENTS</b> - What courses are you taking this semester?'}>
                         <AcademySelector
                             schools={schools}
@@ -74,7 +74,7 @@ class AcademyHome extends Component {
                         />
                     </Accordion>
                 </div>
-
+                <hr/>
                 {skills.length > 0 && (
                     <section className="mg-t-50">
                         <div className="text-center">
@@ -85,7 +85,10 @@ class AcademyHome extends Component {
                             {skills.map(dep => (
                                 <div className="col-6 col-lg-3">
                                     <div class="card mg-b-25 pointer" onClick={() => this.setState({ dep, visible: true })}>
-                                        <img src={dep.image_link} class="card-img-top" alt={dep.name} />
+                                        <div class="pos-relative">
+                                            <div class="marker pos-absolute t-10 l-10 bg-primary tx-white">₦3,000</div>
+                                            <img src={dep.image_link} class="card-img-top" alt={dep.name} />
+                                        </div>
                                         <div class="card-bodys pd-15 text-center">
                                             <h6 class="card-title mg-b-0">{dep.name}</h6>
                                         </div>

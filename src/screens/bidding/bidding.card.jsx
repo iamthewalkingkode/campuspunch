@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Button, message } from 'antd';
 import * as func from '../../utils/functions';
 import { PayModal } from '../../components';
+import publicIp from 'public-ip';
 
 class BiddingCard extends Component {
 
@@ -66,12 +67,13 @@ class BiddingCard extends Component {
         }
     }
 
-    bid() {
+    bid = async () => {
         const { item, auth: { logg, token }, data: { settings } } = this.props;
         let coins = parseInt(settings.coins_bidding);
         if (logg.coins > coins) {
+            const ip = await publicIp.v4({ fallbackUrls: ['https://ifconfig.co/ip'] });
             this.setState({ submitting: true });
-            func.post('bidding/bid', { user: logg.id, item: item.id, level: item.level, coins }).then(res => {
+            func.post('bidding/bid', { user: logg.id, item: item.id, level: item.level, coins, ip }).then(res => {
                 this.setState({ submitting: false });
                 if (res.status === 200) {
                     message.success(`Bid placed. You were debited ${coins} coins`);

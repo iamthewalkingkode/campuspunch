@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, message } from 'antd';
 import * as func from '../../utils/functions';
+import publicIp from 'public-ip';
 
 const FocPhotoProfileCard = props => {
     const { row, auth: { authenticated } } = props;
     const [voted, setVoted] = useState(row.voted);
     const [submitting, setSubmitting] = useState(false);
 
-    const vote = (user) => {
+    const vote = async (user) => {
         if (authenticated === true) {
+            const ip = await publicIp.v4({ fallbackUrls: ['https://ifconfig.co/ip'] });
             setSubmitting(true);
             const { match: { params: { school, contest } }, auth: { logg } } = props;
-            func.post('foc/vote', { contest: parseInt(contest), user, school: parseInt(school), voter: logg.id, type: 'photo' }).then(res => {
+            func.post('foc/vote', { contest: parseInt(contest), user, school: parseInt(school), voter: logg.id, type: 'photo', ip }).then(res => {
                 setSubmitting(false);
                 if (res.status === 200) {
                     setVoted(true);
