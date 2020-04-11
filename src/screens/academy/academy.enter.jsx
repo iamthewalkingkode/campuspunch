@@ -27,7 +27,7 @@ class AcademyEnter extends Component {
     componentDidMount() {
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
-        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
+        this.props.setFooterTop({ h1: 'SPONSOR A GROUP', p: 'Transform someone\'s life, a group, or your employees career skills by sponsoring them to learn a course', btnText: 'Get Started Now', btnLink: '', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
 

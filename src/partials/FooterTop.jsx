@@ -11,10 +11,10 @@ const FooterTop = props => {
                 style={{ background: `linear-gradient(0deg, rgba(0,0,0, 0.6), rgba(0,0,0, 0.6)), url(/assets/img/${image || 'banner/footer.jpg'})` }}
             >
                 <div className="text-center">
-                    {h1 && (<h3 className="mg-b-10">{h1}</h3>)}
-                    {p && (<p>{p}</p>)}
-                    {btnText && !btnLink && (<span className="btn btn-warning pointer">{btnText}</span>)}
-                    {btnText && btnLink && (<Link to={btnLink} className="btn btn-warning">{btnText}</Link>)}
+                    {h1 && (<h1 className="mg-b-10">{h1}</h1>)}
+                    {p && (<h3>{p}</h3>)}
+                    {btnText && !btnLink && (<span className="btn btn-warning pointer mg-t-25">{btnText}</span>)}
+                    {btnText && btnLink && (<Link to={btnLink} className="btn btn-warning mg-t-25">{btnText}</Link>)}
                 </div>
             </div>
         )

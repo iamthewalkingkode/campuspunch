@@ -13,7 +13,7 @@ class AcademyHome extends Component {
     componentDidMount() {
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
         this.props.setHeaderBottom({ h1: 'Academy', h3: '', p: '', image: 'banner/academy.png' });
-        this.props.setFooterTop({ h1: 'SPONSOR SOMEONE', p: 'Transform someone\'s life, a group, or your employees career skills by sponsoring them to learn a course', btnText: 'Get Started Now', btnLink: '', image: '' });
+        this.props.setFooterTop({ h1: 'SPONSOR A GROUP', p: 'Transform someone\'s life, a group, or your employees career skills by sponsoring them to learn a course', btnText: 'Get Started Now', btnLink: '', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.getSkills();
