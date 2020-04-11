@@ -12,7 +12,7 @@ class PostList extends Component {
         super(props);
         this.state = {
             screen: '',
-            data: [], school: '%', title: '%',
+            data: [], school: '%', title: '%', params: {},
             loading: true,
             step: 0, total: 0, currentStep: 1, limit: props.utils.limit
         };
@@ -34,31 +34,39 @@ class PostList extends Component {
                 default:
                     if (pathname[2]) {
                         this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
-                        this.getNews({ category: pathname[2], title: `%${parsed.query || ''}%` });
+                        this.setState({ params: { category: pathname[2], title: `%${parsed.query || ''}%` } }, () => {
+                            this.getNews();
+                        });
                     } else {
                         this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
-                        this.getNews({ title: `%${parsed.query || ''}%` });
+                        this.setState({ params: { title: `%${parsed.query || ''}%` } }, () => {
+                            this.getNews();
+                        });
                     }
                     break;
                 case 'posts':
                     this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
-                    this.getNews({ title: `%${parsed.query || ''}%` });
+                    this.setState({ params: { title: `%${parsed.query || ''}%` } }, () => {
+                        this.getNews();
+                    });
                     break;
                 case 'school':
                     this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
-                    this.getNews({ school: this.props.match.params.id });
+                    this.setState({ params: { school: this.props.match.params.id } }, () => {
+                        this.getNews();
+                    });
                     break;
 
             }
         }
     }
 
-    getNews(params) {
+    getNews() {
         this.setState({ loading: true });
-        const { step, limit } = this.state;
-        const { title, school, category } = params;
-        this.setState({ ...params });
-        func.post('posts', { status: 1, title, school, category, limit: `${step},${limit}` }).then(res => {
+        const { step, limit, params } = this.state;
+        params['status'] = 1;
+        params['limit'] = `${step},${limit}`;
+        func.post('posts', params).then(res => {
             this.setState({ loading: false });
             if (res.status === 200) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -68,9 +76,10 @@ class PostList extends Component {
     }
 
     nextPrev = (e) => {
-        let { limit, title, school } = this.state;
+        let { limit } = this.state;
         this.setState({ currentStep: e, step: (e - 1) * limit }, () => {
-            this.getNews({ title, school });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            this.getNews();
         });
     }
 
@@ -79,20 +88,25 @@ class PostList extends Component {
 
         return (
             <React.Fragment>
-                {loading === true && (<Loading text={`loading news...`} />)}
+                {loading === true && data.length === 0 && (<Loading text={`loading news...`} />)}
 
-                {(loading === false) && (
+                {(!loading || data.length > 0) && (
                     <div className="mg-b-30">
                         <Advert position="top" />
 
                         <div className="row">
-                            <div className="col-12 col-sm-9 col-lg-9">
-                                {data.map(row => (
-                                    <NewsCard key={row.id} row={row} />
-                                ))}
+                            {loading === true && (
+                                <div className="col-12 col-sm-9 col-lg-9"><Loading size="small" text={`loading news...`} /></div>
+                            )}
+                            {!loading && (
+                                <div className="col-12 col-sm-9 col-lg-9">
+                                    {data.map(row => (
+                                        <NewsCard key={row.id} row={row} />
+                                    ))}
 
-                                {total > limit && loading === false && (<Pagination total={total} pageSize={limit} current={currentStep} onChange={(e) => this.nextPrev(e)} />)}
-                            </div>
+                                    {total > limit && !loading && (<Pagination total={total} pageSize={limit} current={currentStep} onChange={(e) => this.nextPrev(e)} />)}
+                                </div>
+                            )}
 
                             <div className="col-12 col-sm-3 col-lg-3">
                                 <SideBar {...this.props} />

@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export const api = {
-    space: 'qa',
+    space: 'of',
     apiKey: 'cnVgTUU8JEsvFJUGq7LGxBuxzW2ncmRdYZHPPBj7PWBR1177a5KINwgJMHgGTxN5',
     server_of: 'http://localhost/campuspunch.api/v1/',
     server_on: 'https://restapi.campuspunch.com/v1/',
