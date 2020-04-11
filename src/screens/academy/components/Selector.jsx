@@ -66,9 +66,9 @@ const Screen = props => {
                 <div className={`col-lg-${schools.length > 1 ? '4' : '6'} col-6`}>
                     <Form.Item colon={false} label={null}>
                         {getFieldDecorator('department', {
-                            rules: [{ required: true, message: 'Department is required' }]
+                            rules: [{ required: true, message: 'Exam is required' }]
                         })(
-                            <Select showSearch={true} size="large" loading={loading} disabled={loading} optionFilterProp="children" placeholder="Choose a department" onChange={department => setFinal({ ...final, department })}>
+                            <Select showSearch={true} size="large" loading={loading} disabled={loading} optionFilterProp="children" placeholder="Choose an exam" onChange={department => setFinal({ ...final, department })}>
                                 {departments.map(dep => (
                                     <Select.Option value={dep.id}>{dep.name}</Select.Option>
                                 ))}

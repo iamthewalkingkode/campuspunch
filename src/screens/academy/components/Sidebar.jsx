@@ -10,7 +10,7 @@ const AcademySidebar = props => {
 
     return (
         <React.Fragment>
-            <div id="academy__sidebar" className="pd-15 bg-gray-200">
+            <div id="academy__sidebar" className="pd-15 bg-gray-200 mg-b-25">
                 {display === 'menu' && (
                     <div className="menu">
                         <Link className={path[2] === 'courses' ? 'active' : ''} to={`/academy/courses/${path[3]}/${path[4]}/${path[5]}`}>ABC Questions</Link>

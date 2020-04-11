@@ -84,7 +84,7 @@ class AcademyHome extends Component {
                         </div>
                         <div className="row mg-t-30">
                             {skills.map(dep => (
-                                <div className="col-6 col-lg-3">
+                                <div className="col-12 col-lg-3">
                                     <div class="card mg-b-25 pointer" onClick={() => this.setState({ dep, visible: true })}>
                                         <div class="pos-relative">
                                             <div class="marker pos-absolute t-10 l-10 bg-primary tx-white">₦3,000</div>

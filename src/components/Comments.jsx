@@ -72,37 +72,41 @@ const CommentsC = props => {
             )}
 
             {loading === false && (
-                comments.map(row => (<CommentTemplate key={row.id} row={row} />))
+                comments.map(row => (<CommentTemplate key={row.id} row={row} {...props} />))
             )}
         </div>
     );
 };
 
 const CommentTemplate = props => {
-    const row = props.row;
+    const { auth: { logg } } = props;
+    const [row, setRow] = useState(props.row);
+    const action = (action) => {
+        func.post('comments/action', { action, comment: row.id, user: logg.id }).then(res => {
+            if (res.status === 200) {
+                setRow(res.data);
+            }
+        });
+    }
+
     return (
         <Comment
             actions={[
-                // <span key="comment-basic-like">
-                //     <Tooltip title="Like">
-                //         <LikeOutlined />
-                //     </Tooltip>
-                //     <span className="comment-action">0</span>
-                // </span>,
-                // <span key='key="comment-basic-dislike"'>
-                //     <Tooltip title="Dislike">
-
-                //     </Tooltip>
-                //     <span className="comment-action">0</span>
-                // </span>,
-                // <span key="comment-basic-reply-to">Reply to</span>
+                <span key="like" onClick={() => action('likes')}>
+                    <i className="fa fa-thumbs-up tet"></i>&nbsp;
+                    <span className="comment-action">{row.likes > 9999 ? row.likes_sf : row.likes_nf}</span>
+                </span>,
+                <span key="dislike" onClick={() => action('dislikes')}>
+                    <i className="fa fa-thumbs-down"></i>&nbsp;
+                    <span className="comment-action">{row.dislikes > 9999 ? row.dislikes_sf : row.dislikes_nf}</span>
+                </span>
             ]}
             author={<Link to={`/u/${row.user.username}`}>{row.user.username} - {row.crdate_ago}</Link>}
             avatar={<Avatar src={row.user.avatar_link} alt={row.user.fullname} />}
             content={<div dangerouslySetInnerHTML={{ __html: row.content }}></div>}
         >
         </Comment>
-    )
+    );
 }
 
 const Comments = Form.create()(CommentsC);
