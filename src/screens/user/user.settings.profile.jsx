@@ -114,7 +114,7 @@ const SetProfile = props => {
                                     })(
                                         <Select showSearch={true} autoComplete="off" size="large" disabled={submitting}>
                                             <Select.Option value="M">Male</Select.Option>
-                                            <Select.Option value="F">Male</Select.Option>
+                                            <Select.Option value="F">Female</Select.Option>
                                         </Select>
                                     )}
                                 </Form.Item>

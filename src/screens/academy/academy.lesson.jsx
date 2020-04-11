@@ -128,17 +128,17 @@ class AcademyLesson extends Component {
                                 <iframe src={`https://www.youtube-nocookie.com/embed/${lss.video}`} title={lss.title}
                                     height={isMobile ? '250px' : '550px'} width="100%" frameBorder="0"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{ background: '#000' }}
-                                ></iframe>
+                                />
                             )}
-                            <div className="mg-b-10">
+                            <div className="mg-b-40">
                                 <span className="pointer" id="strans" onClick={() => this.showTranscript()}><b>View Transcript</b></span>
                                 <span className="pointer" id="htrans" onClick={() => this.hideTranscript()} style={{ display: 'none' }}><b>Close Transcript</b></span>
                             </div>
-                            <h2>{lss.number}. {lss.title}</h2>
+                            <h2>{lss.title}</h2>
                             <p id="transcript" className="text-justifys pd-15 bg-gray-100 mg-b-25" style={{ display: 'none' }}>
                                 <span dangerouslySetInnerHTML={{ __html: lss.transcript }}></span>
                             </p>
-                            <p className="text-justifys mg-b-25">
+                            <p className="text-justifys mg-b-40">
                                 <span dangerouslySetInnerHTML={{ __html: lss.instruction }}></span>
                             </p>
                             <div className="mg-b-50">

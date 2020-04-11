@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import * as func from '../../utils/functions';
 
 class FocScreen extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: {},
-            loading: true
-        };
+    state = {
+        partners: [],
+        loading: true
     }
 
     componentDidMount() {
@@ -16,6 +14,12 @@ class FocScreen extends Component {
         this.props.setMetaTags({ title: 'Face of Campus', description: '', keywords: '' });
         this.props.setHeaderBottom({ h1: 'Face of Campus', h3: 'Become Famous, Rich & Admired', p: 'Jambites | Students | Graduates', image: 'foc/foc-home.jpg' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
+
+        func.post('partners', { status: 1 }).then(res => {
+            if (res.status === 200) {
+                this.setState({ partners: res.result });
+            }
+        });
     }
 
     render() {
@@ -47,6 +51,22 @@ class FocScreen extends Component {
                         </div>
                     ))}
                 </div>
+
+                <section className="mg-t-50 mg-b-50">
+                    <div className="text-center">
+                        <h3 className="mg-b-0">Partners</h3>
+                    </div>
+                    <div className="row mg-t-30">
+                        {this.state.partners.map(pat => (
+                            <div className="col-6 col-lg-2 text-center">
+                                <a href={pat.link} target="_blank" rel="noopener noreferrer">
+                                    <img src={pat.logo_link} alt={pat.name} className="img-fluid" />
+                                    <div>{pat.name}</div>
+                                </a>
+                            </div>
+                        ))}
+                    </div>
+                </section>
             </React.Fragment>
         )
     }
