@@ -183,80 +183,46 @@ class App extends React.Component {
                         {/* Academy */}
                         <Route exact path="/academy" render={(props) => <AcademyScreen {...props} {...this.props} />} />
                         <Route exact path="/academy/intro/:school/:department/:level" render={(props) => <AcademyIntro {...props} {...this.props} />} />
-                        {authenticated === true && (
-                          <Route exact path="/academy/enter/:school/:department/:level" render={(props) => <AcademyEnter {...props} {...this.props} />} />
-                        )}
-                        {authenticated === true && (
-                          <Route exact path="/academy/courses/:school/:department/:level/:year" render={(props) => <AcademyCourses {...props} {...this.props} />} />
-                        )}
-                        {authenticated === true && (
-                          <Route exact path="/academy/questions/:school/:department/:level/:year/:course" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
-                        )}
-                        {authenticated === true && (
-                          <Route exact path="/academy/lessons/:school/:department/:level" render={(props) => <AcademyLessons {...props} {...this.props} />} />
-                        )}
-                        {authenticated === true && (
-                          <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <AcademyChat {...props} {...this.props} />} />
-                        )}
-                        {authenticated === true && (
-                          <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <AcademyChat {...props} {...this.props} />} />
-                        )}
-                        {authenticated === true && (
-                          <Route exact path="/academy/lesson/:school/:department/:level/:course" render={(props) => <AcademyLesson {...props} {...this.props} />} />
-                        )}
-                        {authenticated === true && (
-                          <Route exact path="/academy/questions/:school/:department/:level/:year/:course/:lesson" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
-                        )}
-
-                        {authenticated === false && (
-                          <Route exact path="/academy/enter/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
-                        )}
-                        {authenticated === false && (
-                          <Route exact path="/academy/courses/:school/:department/:level/:year" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
-                        )}
-                        {authenticated === false && (
-                          <Route exact path="/academy/questions/:school/:department/:level/:year/:course" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
-                        )}
-                        {authenticated === false && (
-                          <Route exact path="/academy/lessons/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
-                        )}
-                        {authenticated === false && (
-                          <Route exact path="/academy/lesson/:school/:department/:level/:year/:course" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
-                        )}
-                        {authenticated === false && (
-                          <Route exact path="/academy/questions/:school/:department/:level/:year/:course/:lesson" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
-                        )}
-                        {authenticated === false && (
-                          <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
-                        )}
-                        {authenticated === false && (
-                          <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
-                        )}
 
                         {/* FOC / Photo */}
                         <Route exact path="/face-of-campus" render={(props) => <FocScreen {...props} {...this.props} />} />
-                        <Route exact path="/face-of-campus/photo/:slug/:id" render={(props) => <FocPhoto {...props} {...this.props} />} />
-                        <Route exact path="/face-of-campus/photo/:slug/:id/apply" render={(props) => <FocPhotoApply {...props} {...this.props} />} />
-                        <Route exact path="/face-of-campus/photo/school/:code/:school/:contest" render={(props) => <FocPhotoProfiles {...props} {...this.props} />} />
-                        <Route exact path="/face-of-campus/photo/profile/:username/:id/:contest" render={(props) => <FocPhotoProfile {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/photo/:contest" render={(props) => <FocPhoto {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/photo/:contest/apply" render={(props) => <FocPhotoApply {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/photo/school/:school/:contest" render={(props) => <FocPhotoProfiles {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/photo/profile/:contest/:user" render={(props) => <FocPhotoProfile {...props} {...this.props} />} />
 
-                        {/* User authed routes */}
-                        {authenticated === true && (
-                          <Route exact path="/user" render={(props) => <UserSettings {...props} {...this.props} />} />
-                        )}
-                        {authenticated === true && (
-                          <Route exact path="/user/academy" render={(props) => <UserAcademy {...props} {...this.props} />} />
-                        )}
-                        {authenticated === true && (
-                          <Route exact path="/post-article" render={(props) => <PostForm {...props} {...this.props} />} />
-                        )}
                         {authenticated === false && (
-                          <Route exact path="/post-article" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
-                        )}
-                        {authenticated === false && (
-                          <Route exact path="/user/academy" render={(props) => <UserSettings {...props} {...this.props} redirect={pathname} />} />
+                          <React.Fragment>
+                            <Route exact path="/academy/enter/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/academy/courses/:school/:department/:level/:year" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/academy/questions/:school/:department/:level/:year/:course" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/academy/lessons/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/academy/lesson/:school/:department/:level/:year/:course" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/academy/questions/:school/:department/:level/:year/:course/:lesson" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/post-article" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/user/academy" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                          </React.Fragment>
                         )}
 
+                        {authenticated === true && (
+                          <React.Fragment>
+                            <Route exact path="/post-article" render={(props) => <PostForm {...props} {...this.props} />} />
+                            <Route exact path="/academy/enter/:school/:department/:level" render={(props) => <AcademyEnter {...props} {...this.props} />} />
+                            <Route exact path="/academy/questions/:school/:department/:level/:year/:course" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
+                            <Route exact path="/academy/questions/:school/:department/:level/:year/:course" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
+                            <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <AcademyChat {...props} {...this.props} />} />
+                            <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <AcademyChat {...props} {...this.props} />} />
+                            <Route exact path="/academy/lesson/:school/:department/:level/:course" render={(props) => <AcademyLesson {...props} {...this.props} />} />
+                            <Route exact path="/academy/questions/:school/:department/:level/:year/:course/:lesson" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
+                            <Route exact path="/academy/courses/:school/:department/:level/:year" render={(props) => <AcademyCourses {...props} {...this.props} />} />
+                            <Route exact path="/academy/lessons/:school/:department/:level" render={(props) => <AcademyLessons {...props} {...this.props} />} />
+                            <Route exact path="/user" render={(props) => <UserSettings {...props} {...this.props} />} />
+                            <Route exact path="/user/academy" render={(props) => <UserAcademy {...props} {...this.props} />} />
+                          </React.Fragment>
+                        )}
+                        
                         <Route render={(props) => <NotFound {...props} {...this.props} />} />
                       </Switch>
                     </div>
@@ -264,7 +230,7 @@ class App extends React.Component {
                   <FooterTop {...this.props} />
                 </div>
               </div>
-              
+
               <Footer {...this.props} />
             </ConnectedRouter>
           </Router>

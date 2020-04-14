@@ -43,9 +43,9 @@ class FocScreen extends Component {
                                 </div>
                                 <div className="card-footer d-flex">
                                     {row.canapply === true && (
-                                        <Link to={`/face-of-campus/${row.type}/${row.slug}/${row.id}/apply`} className="btn btn-xs btn-primary pointer flex-fill mg-r-25">Apply</Link>
+                                        <Link to={`/face-of-campus/${row.type}/${row.slug}.${row.id}/apply`} className="btn btn-xs btn-primary pointer flex-fill mg-r-25">Apply</Link>
                                     )}
-                                    <Link to={`/face-of-campus/${row.type}/${row.slug}/${row.id}`} className="btn btn-xs btn-secondary pointer flex-fill">View</Link>
+                                    <Link to={`/face-of-campus/${row.type}/${row.slug}.${row.id}`} className="btn btn-xs btn-secondary pointer flex-fill">View</Link>
                                 </div>
                             </div>
                         </div>

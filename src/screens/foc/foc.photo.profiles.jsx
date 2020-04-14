@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import { Button, message } from 'antd';
 import * as func from '../../utils/functions';
 import { Loading } from '../../components';
-import FocPhotoProfileCard from './foc.photo.profile.card';
+import FocPhotoProfileCard from './components/foc.photo.profile.card';
 
 class FocPhotoProfiles extends Component {
 
@@ -10,7 +10,9 @@ class FocPhotoProfiles extends Component {
         super(props);
         this.state = {
             row: {}, data: [],
-            loading: true
+            loading: true,
+            school: parseInt(this.props.match.params.school.split('.')[1]),
+            contest: parseInt(this.props.match.params.contest.split('.')[1])
         };
     }
 
@@ -19,17 +21,17 @@ class FocPhotoProfiles extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'Photogenic Contest', description: 'Share Your Pics & Win', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+        this.props.setMetaTags({ title: 'Photogenic Contest', description: 'Share Your Pics & Win', keywords: 'photo contest, foc, campuspunch, campus photo contest' });
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
-        const { school, contest } = this.props.match.params;
+        const { school, contest } = this.state;
         func.post('foc', { id: parseInt(contest), status: 1, limit: 1 }).then(res => {
             if (res.status === 200) {
                 let row = res.result[0];
                 this.setState({ row });
-                this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
-                func.post('foc/users', { school: parseInt(school), contest: parseInt(contest), voter: this.props.auth.logg.id }).then(res => {
+                this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, campuspunch, campus photo contest' });
+                func.post('foc/users', { school, contest, voter: this.props.auth.logg.id }).then(res => {
                     this.setState({ loading: false });
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     if (res.status === 200) {

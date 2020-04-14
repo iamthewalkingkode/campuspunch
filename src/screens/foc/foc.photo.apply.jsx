@@ -9,7 +9,7 @@ class FocPhotoApply extends Component {
         super(props);
         this.state = {
             row: {}, loading: true,
-            contest: 0
+            contest: parseInt(this.props.match.params.contest.split('.')[1])
         };
     }
 
@@ -22,9 +22,10 @@ class FocPhotoApply extends Component {
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
-        const { auth: { logg }, match: { params: { id } } } = this.props;
-        func.post('foc/apply', { contest: parseInt(id), user: logg.id, school: logg.school.id }).then(res => {
-            this.setState({ loading: false, contest: parseInt(id) });
+        const { contest } = this.state;
+        const { auth: { logg } } = this.props;
+        func.post('foc/apply', { contest, user: logg.id, school: logg.school.id }).then(res => {
+            this.setState({ loading: false, contest });
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }

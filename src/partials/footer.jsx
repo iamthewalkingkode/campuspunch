@@ -11,8 +11,8 @@ const Footer = props => {
                 {/* <span>Hand-crafted by <a href="https://thewalkingkode.com" target="_blank" rel="noopener noreferrer">TheWalkingKode</a></span> */}
             </div>
             <div>
-                <nav class="nav">
-                    {/* <Link to="/apply-as-tutor" class="nav-link">Apply as tutor</Link> */}
+                <nav className="nav">
+                    {/* <Link to="/apply-as-tutor" className="nav-link">Apply as tutor</Link> */}
                 </nav>
             </div>
         </footer>

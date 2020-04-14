@@ -151,11 +151,11 @@ class AcademyIntro extends Component {
                                     <div className="list-group mg-t-50">
                                         <h4 className="text-center">Meet the tutor</h4>
                                         {tutors.map(tut => (
-                                            <div class="list-group-item d-flex align-items-centers">
-                                                <img src={tut.avatar_link} class="wd-80 ht-80 mg-r-15 rounded-circle" alt={tut.username} />
+                                            <div className="list-group-item d-flex align-items-centers">
+                                                <img src={tut.avatar_link} className="wd-80 ht-80 mg-r-15 rounded-circle" alt={tut.username} />
                                                 <div className="">
-                                                    <h6 class="tx-inverse tx-semibold mg-b-0">{tut.fullname}</h6>
-                                                    <span class="d-block text-muted mg-t-5">{tut.about}</span>
+                                                    <h6 className="tx-inverse tx-semibold mg-b-0">{tut.fullname}</h6>
+                                                    <span className="d-block text-muted mg-t-5">{tut.about}</span>
                                                 </div>
                                             </div>
                                         ))}

@@ -85,13 +85,13 @@ class AcademyHome extends Component {
                         <div className="row mg-t-30">
                             {skills.map(dep => (
                                 <div className="col-12 col-lg-3">
-                                    <div class="card mg-b-25 pointer" onClick={() => this.setState({ dep, visible: true })}>
-                                        <div class="pos-relative">
-                                            <div class="marker pos-absolute t-10 l-10 bg-primary tx-white">₦3,000</div>
-                                            <img src={dep.image_link} class="card-img-top" alt={dep.name} />
+                                    <div className="card mg-b-25 pointer" onClick={() => this.setState({ dep, visible: true })}>
+                                        <div className="pos-relative">
+                                            <div className="marker pos-absolute t-10 l-10 bg-primary tx-white">₦3,000</div>
+                                            <img src={dep.image_link} className="card-img-top" alt={dep.name} />
                                         </div>
-                                        <div class="card-bodys pd-15 text-center">
-                                            <h6 class="card-title mg-b-0">{dep.name}</h6>
+                                        <div className="card-bodys pd-15 text-center">
+                                            <h6 className="card-title mg-b-0">{dep.name}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@ class AcademyHome extends Component {
                     onCancel={() => this.setState({ visible: false, dep: {} })} style={{ top: 20 }}
                 >
                     {levels.map(lvl => (
-                        <button class="btn btn-xs btn-light btn-block text-left" onClick={() => this.openSkill(lvl)}>{lvl.name}</button>
+                        <button className="btn btn-xs btn-light btn-block text-left" onClick={() => this.openSkill(lvl)}>{lvl.name}</button>
                     ))}
                 </Modal>
             </React.Fragment>

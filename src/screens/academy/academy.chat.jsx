@@ -62,17 +62,17 @@ class AcademyChat extends Component {
                             <div className="col-lg-4 col-12">
                                 <div className="list-group mg-b-25">
                                     {tutors.map(tut => (
-                                        <div class={`list-group-item d-flex align-items-centers pointer ${tutor === tut.id ? 'bg-gray-100' : ''}`} onClick={() => {
+                                        <div className={`list-group-item d-flex align-items-centers pointer ${tutor === tut.id ? 'bg-gray-100' : ''}`} onClick={() => {
                                             if (tutor !== tut.id) {
                                                 this.setState({ tutor: 0 }, () => {
                                                     this.props.history.push(`${pathname}/${tut.username}.${tut.id}`);
                                                 });
                                             }
                                         }}>
-                                            <img src={tut.avatar_link} class="wd-30 ht-30 rounded-circle mg-r-15" alt={tut.username} />
+                                            <img src={tut.avatar_link} className="wd-30 ht-30 rounded-circle mg-r-15" alt={tut.username} />
                                             <div>
-                                                <h6 class="tx-inverse tx-semibold mg-b-0">{tut.fullname}</h6>
-                                                <span class="d-block text-muted">@{tut.username}</span>
+                                                <h6 className="tx-inverse tx-semibold mg-b-0">{tut.fullname}</h6>
+                                                <span className="d-block text-muted">@{tut.username}</span>
                                             </div>
                                         </div>
                                     ))}

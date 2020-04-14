@@ -174,10 +174,6 @@ export const getTimeRemaining = (startDate, endDate) => {
     var h = Math.floor((t / (1000 * 60 * 60)) % 24);
     var d = Math.floor(t / (1000 * 60 * 60 * 24));
     return {
-        't': t,
-        'd': d,
-        'h': h,
-        'm': m,
-        's': s
+        't': t, 'd': d, 'h': h, 'm': m, 's': s
     };
 }

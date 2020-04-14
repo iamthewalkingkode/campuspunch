@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import * as func from '../../utils/functions';
-import { Link } from 'react-router-dom';
 import { Loading } from '../../components';
+import FocPhotoSchool from './components/foc.photo.school';
 
 class FocPhoto extends Component {
 
@@ -10,8 +10,9 @@ class FocPhoto extends Component {
         super(props);
         this.state = {
             row: {}, cd: { d: '0', h: '0', m: '0', s: '0' }, data: [],
-            loading: true, applied: false,
-            interval: null
+            loading: true, applied: false, voting: false,
+            interval: null,
+            contest: parseInt(this.props.match.params.contest.split('.')[1])
         };
     }
 
@@ -24,17 +25,17 @@ class FocPhoto extends Component {
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
-        const { id } = this.props.match.params;
+        const { contest } = this.state;
         const { auth: { logg } } = this.props;
-        func.post('foc', { id: parseInt(id), status: 1, limit: 1 }).then(foc => {
+        func.post('foc', { id: contest, status: 1, limit: 1 }).then(foc => {
             if (foc.status === 200) {
                 let row = foc.result[0];
                 this.setState({ row });
-                func.post('foc/photoschool').then(sch => {
+                func.post('foc/photoschool', { voter: logg.id }).then(sch => {
                     if (sch.status === 200) {
                         this.setState({ data: sch.result });
 
-                        func.post('foc/users', { user: logg.id, constest: parseInt(id) }).then(usr => {
+                        func.post('foc/users', { user: logg.id, contest }).then(usr => {
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                             this.setState({ loading: false });
                             this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
@@ -74,8 +75,8 @@ class FocPhoto extends Component {
                 {loading === true && (<Loading text="loading contest ..." />)}
 
                 {loading === false && (
-                    <div style={{ minHeight: 550 }}>
-                        <div className="text-center mg-b-35 mg-t-10">
+                    <div>
+                        <div className="text-center mg-b-50 mg-t-20">
                             <h3>Application starts on {moment(row.apply_start).format('DD/MM/YY')} and ends on {moment(row.apply_end).format('DD/MM/YY')}</h3>
                             <h3>Voting starts on {moment(row.vote_start).format('DD/MM/YY')} and ends on {moment(row.vote_end).format('DD/MM/YY')}</h3>
                             {applied === false && (
@@ -88,18 +89,7 @@ class FocPhoto extends Component {
 
                         <div className="row">
                             {Object.keys(data).map(school => (
-                                <div className="col-12 col-sm-4 col-lg-4">
-                                    <Link to={`/face-of-campus/photo/school/${school}/${data[school][0].user.school.id}/${data[school][0].contest.id}`} key={school}>
-                                        <div className="bg-gray-100 pd-20 mg-b-25">
-                                            <div className="text-center text-uppercase mg-b-15"><b>{school}</b></div>
-                                            <div className="img-group">
-                                                {data[school].map(row => (
-                                                    <img src={row.user.avatar_link} alt={row.user.fullname} className="img wd-100 ht-100 rounded-circle" />
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </div>
+                                <FocPhotoSchool {...this.props} key={school} data={data} school={school} row={data[school][0]} />
                             ))}
                         </div>
                     </div>

@@ -13,39 +13,36 @@ class FocPhotoProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: 0, contest: 0,
             usr: {}, foc: {},
             loading: true, submitting: false,
-            username: '', lightImages: [], lightIndex: 0, lightOpen: false
+            lightImages: [], lightIndex: 0, lightOpen: false,
+            username: parseInt(this.props.match.params.contest.split('.')[0]),
+            contest: parseInt(this.props.match.params.contest.split('.')[1]),
+            user: parseInt(this.props.match.params.user.split('.')[1])
         };
     }
 
     componentDidMount() {
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
-        
-        var uri = this.props.location.pathname.split('/');
-        var username = uri[4], user = parseInt(uri[5]), contest = parseInt(uri[6]);
-        if (username) {
-            this.setState({ username, user, contest }, () => {
-                this.props.setMetaTags({ title: username, description: '', keywords: '' });
-                this.setState({ loading: true });
-                func.post('foc/users', { user, contest, voter: this.props.auth.logg.id, limit: 1 }).then(res => {
-                    if (res.status === 200) {
-                        var usr = res.result[0].user;
-                        setTimeout(() => {
-                            window.init();
-                        }, 200);
-                        this.props.setMetaTags({ title: usr.username, description: usr.about, keywords: '' });
-                        this.setState({ usr, foc: res.result[0], lightImages: [usr.avatar_link] }, () => {
-                            this.setState({ loading: false });
-                        });
-                    } else {
-                        this.setState({ loading: false });
-                    }
+
+        const { user, username, contest } = this.state;
+        this.props.setMetaTags({ title: username, description: '', keywords: '' });
+        this.setState({ loading: true });
+        func.post('foc/users', { user, contest, voter: this.props.auth.logg.id, limit: 1 }).then(res => {
+            if (res.status === 200) {
+                var usr = res.result[0].user;
+                setTimeout(() => {
+                    window.init();
+                }, 200);
+                this.props.setMetaTags({ title: usr.username, description: usr.about, keywords: '' });
+                this.setState({ usr, foc: res.result[0], lightImages: [usr.avatar_link] }, () => {
+                    this.setState({ loading: false });
                 });
-            });
-        }
+            } else {
+                this.setState({ loading: false });
+            }
+        });
     }
 
     vote = () => {
@@ -109,17 +106,19 @@ class FocPhotoProfile extends Component {
                                             </div>
                                         </div>
 
-                                        <div className="d-flex mg-b-25 mg-t-15">
-                                            <Button type="primary" className="flex-fill" loading={submitting} disabled={foc.voted} onClick={() => this.vote()}>Vote</Button>
-                                        </div>
+                                        {foc.contest.canvote === true && (
+                                            <div className="d-flex mg-b-25 mg-t-15">
+                                                <Button type="primary" className="flex-fill" loading={submitting} disabled={foc.voted} onClick={() => this.vote()}>Vote</Button>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="col-sm-6 col-md-5 col-lg mg-t-40">
                                         {(usr.twitter || usr.instagram || usr.facebook || usr.whatsapp) && (
                                             <label className="tx-sans tx-10 tx-semibold tx-uppercase tx-color-01 tx-spacing-1 mg-b-15">Websites &amp; Social Channel</label>
                                         )}
                                         <ul className="list-unstyled profile-info-list">
-                                            <li><i data-feather="star"></i> <Link to={`/face-of-campus/photo/${foc.contest.slug}/${foc.contest.id}`}>{foc.contest.name}</Link></li>
-                                            <li><i data-feather="home"></i> <Link to={`/face-of-campus/photo/school/${foc.school.code}/${foc.school.id}/${foc.contest.id}`}>{foc.school.name}</Link></li>
+                                            <li><i data-feather="star"></i> <Link to={`/face-of-campus/photo/${foc.contest.slug}.${foc.contest.id}`}>{foc.contest.name}</Link></li>
+                                            <li><i data-feather="home"></i> <Link to={`/face-of-campus/photo/school/${foc.school.slug}.${foc.school.id}/${foc.contest.slug}.${foc.contest.id}`}>{foc.school.name}</Link></li>
                                         </ul>
                                     </div>
                                 </div>

@@ -98,7 +98,7 @@ const HomeCard = props => {
                             )
                         ))}
                     </ul>
-                    <Link to={`/news/${ctg.id}`} class="btn btn-outline-primary mg-t-20">More {ctg.name}</Link>
+                    <Link to={`/news/${ctg.id}`} className="btn btn-outline-primary mg-t-20">More {ctg.name}</Link>
                 </div>
             </div>
         </div>

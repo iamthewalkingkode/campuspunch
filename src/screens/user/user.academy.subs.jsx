@@ -38,11 +38,11 @@ class UserAcademySubs extends Component {
                             const sch = dep.school;
                             const lvl = row.level;
                             return (
-                                <Link class={`list-group-item d-flex align-items-center pointer mg-b-5`} to={`/academy/enter/${sch.slug}.${sch.id}/${dep.slug}.${dep.id}/${lvl.slug}.${lvl.id}`}>
-                                    <img src={sch.image_link} class="wd-50 ht-50 rounded-circle mg-r-15" alt={sch.name} />
+                                <Link className={`list-group-item d-flex align-items-center pointer mg-b-5`} to={`/academy/enter/${sch.slug}.${sch.id}/${dep.slug}.${dep.id}/${lvl.slug}.${lvl.id}`}>
+                                    <img src={sch.image_link} className="wd-50 ht-50 rounded-circle mg-r-15" alt={sch.name} />
                                     <div>
-                                        <h6 class="tx-inverse tx-semibold mg-b-0">{sch.name} - {dep.name} - {lvl.name}</h6>
-                                        <span class="d-block text-muted">₦{row.amount_nf}</span>
+                                        <h6 className="tx-inverse tx-semibold mg-b-0">{sch.name} - {dep.name} - {lvl.name}</h6>
+                                        <span className="d-block text-muted">₦{row.amount_nf}</span>
                                     </div>
                                 </Link>
                             )
