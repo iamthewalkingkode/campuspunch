@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Header = props => {
-  const { auth: { logg } } = props;
+  const { _auth: { logg } } = props;
 
   return (
     <div className="aside-loggedin">

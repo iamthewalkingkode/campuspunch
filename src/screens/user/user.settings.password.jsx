@@ -18,7 +18,7 @@ const SetPassword = props => {
 
     const submit = (e) => {
         e.preventDefault();
-        const { form: { validateFields, resetFields }, auth: { logg } } = props;
+        const { form: { validateFields, resetFields }, _auth: { logg } } = props;
         validateFields((err, v) => {
             if (!err) {
                 setSubmitting(true);

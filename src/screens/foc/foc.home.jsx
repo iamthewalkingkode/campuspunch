@@ -35,19 +35,18 @@ class FocScreen extends Component {
                 <div className="row">
                     {focContests.map(row => (
                         <div className="col-12 col-sm-4 col-lg-4">
-                            <div key={row.id} className="card mg-b-25">
+                            <Link key={row.id} className="card mg-b-25" to={`/face-of-campus/${row.type}/${row.slug}.${row.id}`}>
                                 <img src={row.image_link} className="card-img-top" alt={row.name} />
-                                <div className="card-body">
+                                <div className="card-body text-center">
                                     <h6 className="card-title">{row.name}</h6>
-                                    <p className="card-text">{row.description}</p>
+                                    <p className="card-text text-muted">{row.description}</p>
                                 </div>
-                                <div className="card-footer d-flex">
-                                    {row.canapply === true && (
+                                {row.canapply === true && ['photo'].includes(row.type) && (
+                                    <div className="card-footer d-flex">
                                         <Link to={`/face-of-campus/${row.type}/${row.slug}.${row.id}/apply`} className="btn btn-xs btn-primary pointer flex-fill mg-r-25">Apply</Link>
-                                    )}
-                                    <Link to={`/face-of-campus/${row.type}/${row.slug}.${row.id}`} className="btn btn-xs btn-secondary pointer flex-fill">View</Link>
-                                </div>
-                            </div>
+                                    </div>
+                                )}
+                            </Link>
                         </div>
                     ))}
                 </div>

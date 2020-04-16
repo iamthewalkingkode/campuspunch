@@ -77,7 +77,7 @@ class PostFormScreen extends Component {
         });
     }
     _submitGo(v, image) {
-        const { auth: { logg }, form: { resetFields } } = this.props;
+        const { _auth: { logg }, form: { resetFields } } = this.props;
         v['user'] = logg.id;
         v['image'] = image;
         v['content'] = window.$('#content').val();
@@ -94,7 +94,7 @@ class PostFormScreen extends Component {
 
     render() {
         const { loading, submitting, image } = this.state;
-        const { data: { newsCategories, schools }, form: { getFieldDecorator }, auth: { logg } } = this.props;
+        const { data: { newsCategories, schools }, form: { getFieldDecorator }, _auth: { logg } } = this.props;
 
         return (
             <React.Fragment>

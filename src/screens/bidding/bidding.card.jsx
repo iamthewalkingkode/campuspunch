@@ -21,7 +21,7 @@ class BiddingCard extends Component {
     }
 
     componentDidMount() {
-        const { item, auth: { logg, authenticated } } = this.props;
+        const { item, _auth: { logg, authenticated } } = this.props;
         if (item.id && authenticated) {
             this.setState({ loading: true });
             func.post('bidding/logs', { user: logg.id, item: item.id, level: item.level, limit: 1 }).then(res => {
@@ -49,7 +49,7 @@ class BiddingCard extends Component {
     }
 
     apply() {
-        const { item, auth: { logg, token } } = this.props;
+        const { item, _auth: { logg, token } } = this.props;
         if (logg.wallet >= item.amount) {
             this.setState({ submitting: true });
             func.post('bidding/apply', { user: logg.id, item: item.id, level: item.level, amount: item.amount }).then(res => {
@@ -68,7 +68,7 @@ class BiddingCard extends Component {
     }
 
     bid = async () => {
-        const { item, auth: { logg, token }, data: { settings } } = this.props;
+        const { item, _auth: { logg, token }, data: { settings } } = this.props;
         let coins = parseInt(settings.coins_bidding);
         if (logg.coins > coins) {
             const ip = await publicIp.v4({ fallbackUrls: ['https://ifconfig.co/ip'] });
@@ -146,7 +146,7 @@ class BiddingCard extends Component {
                     title={`Recharge ${item.level} (₦${item.amount})`}
                     onCancel={() => this.setState({ applyVisible: false })}
                     paySuccess={(e) => {
-                        this.props.signInSuccess(this.props.auth.token, e.user);
+                        this.props.signInSuccess(this.props._auth.token, e.user);
                         setTimeout(() => {
                             this.apply();
                         }, 100);

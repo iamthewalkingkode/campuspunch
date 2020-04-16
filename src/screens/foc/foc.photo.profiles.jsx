@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import * as func from '../../utils/functions';
 import { Loading } from '../../components';
 import FocPhotoProfileCard from './components/foc.photo.profile.card';
+import { Link } from 'react-router-dom';
 
 class FocPhotoProfiles extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            row: {}, data: [],
+            data: [], foc: {},
             loading: true,
             school: parseInt(this.props.match.params.school.split('.')[1]),
             contest: parseInt(this.props.match.params.contest.split('.')[1])
@@ -28,15 +29,15 @@ class FocPhotoProfiles extends Component {
         const { school, contest } = this.state;
         func.post('foc', { id: parseInt(contest), status: 1, limit: 1 }).then(res => {
             if (res.status === 200) {
-                let row = res.result[0];
-                this.setState({ row });
-                this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, campuspunch, campus photo contest' });
-                func.post('foc/users', { school, contest, voter: this.props.auth.logg.id }).then(res => {
+                let foc = res.result[0];
+                this.setState({ foc });
+                this.props.setMetaTags({ title: foc.name, description: foc.description, keywords: 'photo contest, foc, campuspunch, campus photo contest' });
+                func.post('foc/users', { school, contest, voter: this.props._auth.logg.id }).then(res => {
                     this.setState({ loading: false });
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     if (res.status === 200) {
                         this.setState({ data: res.result });
-                        this.props.setHeaderBottom({ h1: row.name, h3: res.result[0].school.name, p: '', image: 'foc/photo-home.jpg' });
+                        this.props.setHeaderBottom({ h1: foc.name, h3: res.result[0].school.name, p: '', image: 'foc/photo-home.jpg' });
                     } else {
 
                     }
@@ -48,7 +49,8 @@ class FocPhotoProfiles extends Component {
     }
 
     render() {
-        const { data, loading } = this.state;
+        const { data, loading, foc } = this.state;
+        const row = data[0] || '';
 
         return (
             <React.Fragment>
@@ -56,6 +58,14 @@ class FocPhotoProfiles extends Component {
 
                 {loading === false && (
                     <div>
+                        <nav aria-label="breadcrumb">
+                            <ol className="breadcrumb breadcrumb-style2 bg-gray-100 pd-12">
+                                <li className="breadcrumb-item"><Link to="/face-of-campus">Face of campus</Link></li>
+                                <li className="breadcrumb-item"><Link to={`/face-of-campus/photo/${foc.slug}.${foc.id}`}>{foc.name}</Link></li>
+                                <li className="breadcrumb-item active">{(row.school || '').name}</li>
+                            </ol>
+                        </nav>
+
                         <div className="card-columns">
                             {data.map(row => (<FocPhotoProfileCard key={row.id} row={row} {...this.props} />))}
                         </div>

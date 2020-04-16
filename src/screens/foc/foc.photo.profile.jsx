@@ -14,7 +14,7 @@ class FocPhotoProfile extends Component {
         super(props);
         this.state = {
             usr: {}, foc: {},
-            loading: true, submitting: false,
+            loading: true,
             lightImages: [], lightIndex: 0, lightOpen: false,
             username: parseInt(this.props.match.params.contest.split('.')[0]),
             contest: parseInt(this.props.match.params.contest.split('.')[1]),
@@ -29,14 +29,16 @@ class FocPhotoProfile extends Component {
         const { user, username, contest } = this.state;
         this.props.setMetaTags({ title: username, description: '', keywords: '' });
         this.setState({ loading: true });
-        func.post('foc/users', { user, contest, voter: this.props.auth.logg.id, limit: 1 }).then(res => {
+        func.post('foc/users', { user, contest, voter: this.props._auth.logg.id, limit: 1 }).then(res => {
             if (res.status === 200) {
-                var usr = res.result[0].user;
+                const usr = res.result[0].user;
+                const foc = res.result[0];
                 setTimeout(() => {
                     window.init();
                 }, 200);
                 this.props.setMetaTags({ title: usr.username, description: usr.about, keywords: '' });
-                this.setState({ usr, foc: res.result[0], lightImages: [usr.avatar_link] }, () => {
+                this.props.setHeaderBottom({ h1: foc.contest.name, h3: '', p: '@' + usr.username, image: foc.contest.image_link });
+                this.setState({ usr, foc, lightImages: [usr.avatar_link] }, () => {
                     this.setState({ loading: false });
                 });
             } else {
@@ -47,16 +49,14 @@ class FocPhotoProfile extends Component {
 
     vote = () => {
         const { user, contest, foc } = this.state;
-        const { auth: { logg, authenticated } } = this.props;
+        const { _auth: { logg, authenticated } } = this.props;
         if (authenticated === true) {
-            this.setState({ submitting: true });
-            func.post('foc/vote', { contest, user, school: parseInt(foc.school.id), voter: logg.id, type: 'photo' }).then(res => {
-                this.setState({ submitting: false });
-                if (res.status === 200) {
+            this.props.focVote(user + contest, { contest, user, school: parseInt(foc.school.id), voter: logg.id, type: 'photo' }, (status, result) => {
+                if (status === 200) {
                     this.setState({ foc: { ...foc, voted: true } });
-                    message.success(res.result);
+                    message.success(result);
                 } else {
-                    message.error(res.result);
+                    message.error(result);
                 }
             });
         } else {
@@ -65,8 +65,8 @@ class FocPhotoProfile extends Component {
     }
 
     render() {
-        // const { auth: { logg } } = this.props;
-        const { loading, usr, foc, username, lightImages, lightIndex, lightOpen, user, contest, submitting } = this.state;
+        const { _foc: { voting } } = this.props;
+        const { loading, usr, foc, username, lightImages, lightIndex, lightOpen, user, contest } = this.state;
 
         return (
             <React.Fragment>
@@ -76,6 +76,16 @@ class FocPhotoProfile extends Component {
                 {(loading === false && usr.id) && (
                     <div>
                         <Advert position="top" />
+
+                        <nav aria-label="breadcrumb">
+                            <ol className="breadcrumb breadcrumb-style2 bg-gray-100 pd-12">
+                                <li className="breadcrumb-item"><Link to="/face-of-campus">Face of campus</Link></li>
+                                <li className="breadcrumb-item"><Link to={`/face-of-campus/photo/${foc.contest.slug}.${foc.contest.id}`}>{foc.contest.name}</Link></li>
+                                <li className="breadcrumb-item"><Link to={`/face-of-campus/photo/school/${foc.contest.slug}.${foc.contest.id}/${foc.school.slug}.${foc.school.id}`}>{foc.school.name}</Link></li>
+                                <li className="breadcrumb-item active">@{usr.username}</li>
+                            </ol>
+                        </nav>
+
                         <div className="media d-block d-lg-flex">
                             <div className="profile-sidebar pd-lg-r-25">
                                 <div className="row">
@@ -108,7 +118,7 @@ class FocPhotoProfile extends Component {
 
                                         {foc.contest.canvote === true && (
                                             <div className="d-flex mg-b-25 mg-t-15">
-                                                <Button type="primary" className="flex-fill" loading={submitting} disabled={foc.voted} onClick={() => this.vote()}>Vote</Button>
+                                                <Button type="primary" className="flex-fill" loading={voting === (user + contest)} disabled={foc.voted} onClick={() => this.vote()}>Vote</Button>
                                             </div>
                                         )}
                                     </div>
@@ -150,7 +160,7 @@ class FocPhotoProfile extends Component {
                                 </div>
                                 <div className="card mg-b-20 mg-lg-b-25">
                                     <div className="card-header pd-y-15 pd-x-20 d-flex align-items-center justify-content-between">
-                                        <h6 className="tx-uppercase tx-semibold mg-b-0">{usr.username}'s Posts</h6>
+                                        <h6 className="tx-uppercase tx-semibold mg-b-0">{usr.username}'s photos</h6>
                                     </div>
                                     <div className="card-body pd-20 pd-lg-25">
                                         <div className="row row-xxs">
@@ -167,7 +177,7 @@ class FocPhotoProfile extends Component {
                             </div>
                         </div>
                         <hr />
-                        <Comments item={`${user}-${contest}`} type="foc" {...this.props} />
+                        <Comments item={`${contest}-${user}`} type="foc-photo" {...this.props} />
                     </div>
                 )}
 

@@ -3,6 +3,7 @@ import moment from 'moment';
 import * as func from '../../utils/functions';
 import { Loading } from '../../components';
 import FocPhotoSchool from './components/foc.photo.school';
+import { Link } from 'react-router-dom';
 
 class FocPhoto extends Component {
 
@@ -26,32 +27,36 @@ class FocPhoto extends Component {
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         const { contest } = this.state;
-        const { auth: { logg } } = this.props;
+        const { _auth: { logg } } = this.props;
         func.post('foc', { id: contest, status: 1, limit: 1 }).then(foc => {
             if (foc.status === 200) {
                 let row = foc.result[0];
                 this.setState({ row });
-                func.post('foc/photoschool', { voter: logg.id }).then(sch => {
+                func.post('foc/photoschool', { contest, voter: logg.id }).then(sch => {
                     if (sch.status === 200) {
                         this.setState({ data: sch.result });
-
-                        func.post('foc/users', { user: logg.id, contest }).then(usr => {
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                            this.setState({ loading: false });
-                            this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
-                            this.props.setHeaderBottom({ h1: row.name, h3: row.description, p: 'Jambites | Students | Graduates', image: 'foc/photo-home.jpg' });
-                            if (row.canapply === true) {
-                                this.countDown();
-                                let interval = setInterval(() => {
-                                    this.countDown(interval);
-                                }, 4000);
-                            }
-                            if (usr.status === 200) {
-                                this.setState({ applied: true });
-                            }
-                        });
                     }
                 });
+                if (logg.id) {
+                    func.post('foc/users', { user: logg.id, contest }).then(usr => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        this.setState({ loading: false });
+                        this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+                        this.props.setHeaderBottom({ h1: row.name, h3: row.description, p: 'Jambites | Students | Graduates', image: row.image_link });
+                        if (row.canapply === true) {
+                            this.countDown();
+                            let interval = setInterval(() => {
+                                this.countDown(interval);
+                            }, 4000);
+                        }
+                        if (usr.status === 200) {
+                            this.setState({ applied: true });
+                        }
+                    });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    this.setState({ loading: false });
+                }
             }
         });
     }
@@ -75,11 +80,18 @@ class FocPhoto extends Component {
                 {loading === true && (<Loading text="loading contest ..." />)}
 
                 {loading === false && (
-                    <div>
+                    <section>
+                        <nav aria-label="breadcrumb">
+                            <ol className="breadcrumb breadcrumb-style2 bg-gray-100 pd-12">
+                                <li className="breadcrumb-item"><Link to="/face-of-campus">Face of campus</Link></li>
+                                <li className="breadcrumb-item active" aria-current="page">{row.name}</li>
+                            </ol>
+                        </nav>
+                        
                         <div className="text-center mg-b-50 mg-t-20">
                             <h3>Application starts on {moment(row.apply_start).format('DD/MM/YY')} and ends on {moment(row.apply_end).format('DD/MM/YY')}</h3>
                             <h3>Voting starts on {moment(row.vote_start).format('DD/MM/YY')} and ends on {moment(row.vote_end).format('DD/MM/YY')}</h3>
-                            {applied === false && (
+                            {row.canapply === true && applied === false && (
                                 <div>
                                     <p>You have <b className="text-danger">{cd.d}:{cd.h}:{cd.m}:{cd.s}</b> left to book your early entry</p>
                                     <span className="btn btn-xs btn-primary pointer">&nbsp; &nbsp; &nbsp; Apply &nbsp; &nbsp; &nbsp;</span>
@@ -92,7 +104,7 @@ class FocPhoto extends Component {
                                 <FocPhotoSchool {...this.props} key={school} data={data} school={school} row={data[school][0]} />
                             ))}
                         </div>
-                    </div>
+                    </section>
                 )}
             </React.Fragment>
         )

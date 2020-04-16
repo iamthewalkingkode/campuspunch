@@ -17,7 +17,7 @@ const SideBar = props => {
 
     const searchSchool = (sch) => {
         sch = sch.split('@');
-        window.location.replace(`/school/${sch[0]}/${sch[1]}`);
+        window.location.replace(`/school/${sch[0]}.${sch[1]}`);
     }
 
     useEffect(() => {
@@ -61,7 +61,7 @@ const SideBar = props => {
                             <div className="list-group-item d-flex align-items-centers">
                                 <img src={row.image_link} className="ht-30 mg-r-15 rounded-circles" alt={row.title} />
                                 <div className="">
-                                    <Link to={`/article/${row.slug}/${row.id}`}>
+                                    <Link to={`/article/${row.slug}.${row.id}`}>
                                         <h6 className="tx-inverse tx-semibold mg-b-0">{row.title}</h6>
                                     </Link>
                                 </div>

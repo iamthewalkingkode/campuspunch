@@ -25,7 +25,7 @@ class AcademyLesson extends Component {
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         const { department, level, course, school, path } = this.state;
-        func.post('academy/payments_total', { department, level, user: this.props.auth.logg.id }).then((res) => {
+        func.post('academy/payments_total', { department, level, user: this.props._auth.logg.id }).then((res) => {
             if (res.status === 200) {
                 if (res.result >= 3000) {
                     func.post('academy/lessons', { course, department, school, status: 1, orderby: 'number_asc' }).then((res) => {

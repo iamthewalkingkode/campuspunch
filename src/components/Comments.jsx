@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import publicIp from 'public-ip';
 
 const CommentsC = props => {
-    const { type, item, auth: { logg, authenticated } } = props;
+    const { type, item, _auth: { logg, authenticated } } = props;
 
     const [loading, setLoading] = useState(false);
     const [comments, setComments] = useState([]);
@@ -79,7 +79,7 @@ const CommentsC = props => {
 };
 
 const CommentTemplate = props => {
-    const { auth: { logg } } = props;
+    const { _auth: { logg } } = props;
     const [row, setRow] = useState(props.row);
     const action = (action) => {
         func.post('comments/action', { action, comment: row.id, user: logg.id }).then(res => {

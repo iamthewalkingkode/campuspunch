@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const FooterTop = props => {
-    const { utils: { footerTop: { h1, p, btnText, btnLink, image } } } = props;
+    const { _utils: { footerTop: { h1, p, btnText, btnLink, image } } } = props;
+    const bg = ['http', 'https'].includes(image.split('://')[0]) ? image : `/assets/img/${image || 'banner/footer.jpg'}`;
 
     return (
         (h1 || p || btnText) && (
             <div
                 className="footer__bottom d-flex justify-content-center align-items-center"
-                style={{ background: `linear-gradient(0deg, rgba(0,0,0, 0.6), rgba(0,0,0, 0.6)), url(/assets/img/${image || 'banner/footer.jpg'})` }}
+                style={{ background: `linear-gradient(0deg, rgba(0,0,0, 0.6), rgba(0,0,0, 0.6)), url(${bg})` }}
             >
                 <div className="text-center">
                     {h1 && (<h1 className="mg-b-10">{h1}</h1>)}

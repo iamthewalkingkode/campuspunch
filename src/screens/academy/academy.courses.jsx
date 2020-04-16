@@ -27,7 +27,7 @@ class AcademyCourses extends Component {
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         const { department, level, year } = this.state;
-        func.post('academy/payments_total', { department, level, user: this.props.auth.logg.id }).then((res) => {
+        func.post('academy/payments_total', { department, level, user: this.props._auth.logg.id }).then((res) => {
             if (res.status === 200) {
                 if (res.result > 0) {
                     func.post('academy/courses', { department, level, lessons: 'yess', status: 1 }).then((res) => {
@@ -64,7 +64,7 @@ class AcademyCourses extends Component {
     }
 
     startAcademy = (e) => {
-        const { auth: { authenticated } } = this.props;
+        const { _auth: { authenticated } } = this.props;
         if (authenticated === true) {
             if (this.state.ipaid > 0) {
                 this.enterAcademy();

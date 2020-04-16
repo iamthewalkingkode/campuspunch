@@ -3,7 +3,7 @@ import { Form, Input, Select, Button, message } from 'antd';
 import * as func from '../../utils/functions';
 
 const SetProfile = props => {
-    const { form: { getFieldDecorator }, data: { states, schools, studentCategories }, auth: { logg } } = props;
+    const { form: { getFieldDecorator }, data: { states, schools, studentCategories }, _auth: { logg } } = props;
     const [image, setImage] = useState(undefined);
     const [avatar, setAvatar] = useState(logg.avatar_link);
     const [submitting, setSubmitting] = useState(false);
@@ -22,7 +22,7 @@ const SetProfile = props => {
 
     const submit = (e) => {
         e.preventDefault();
-        const { form: { validateFields }, auth: { logg } } = props;
+        const { form: { validateFields }, _auth: { logg } } = props;
         validateFields((err, v) => {
             if (!err) {
                 setSubmitting(true);
@@ -42,7 +42,7 @@ const SetProfile = props => {
         });
     }
     const submitGo = (v, avatar) => {
-        const { auth: { token, logg } } = props;
+        const { _auth: { token, logg } } = props;
         v['id'] = logg.id;
         v['phone'] = '+234' + v['phone'];
         if (avatar) {

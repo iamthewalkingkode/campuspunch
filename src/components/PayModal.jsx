@@ -3,7 +3,7 @@ import { Form, Modal, Input, Button } from 'antd';
 import * as func from '../utils/functions';
 
 const PayModalScreen = props => {
-    const { amount, title, visible, type, payModeDefault, form: { getFieldDecorator, validateFields }, auth: { logg } } = props;
+    const { amount, title, visible, type, payModeDefault, form: { getFieldDecorator, validateFields }, _auth: { logg } } = props;
     const [submitting, setSubmitting] = useState(false);
     const [payMode, setPayMode] = useState(payModeDefault || '');
     const [interval, setIntervals] = useState(null);

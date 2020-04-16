@@ -175,8 +175,8 @@ class Authenticate extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.auth,
-    utils: state.utils,
+    _auth: state.auth,
+    _utils: state.utils,
     router: state.router
 });
 

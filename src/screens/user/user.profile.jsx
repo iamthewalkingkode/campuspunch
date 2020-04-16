@@ -55,7 +55,7 @@ class UserProfile extends Component {
     }
 
     render() {
-        const { auth: { logg } } = this.props;
+        const { _auth: { logg } } = this.props;
         const { loading, usr, username, loadingPosts, posts, lightImages, lightIndex, lightOpen } = this.state;
 
         return (

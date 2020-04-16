@@ -33,7 +33,7 @@ class AcademyEnter extends Component {
 
         const { department, level, school } = this.state;
 
-        func.post('academy/payments_total', { department, level, user: this.props.auth.logg.id }).then((res) => {
+        func.post('academy/payments_total', { department, level, user: this.props._auth.logg.id }).then((res) => {
             if (res.status === 200) {
                 this.setState({ ipaid: res.result });
                 func.post('academy/courses', { department, lessons: 'yes', status: 1 }).then((res) => {

@@ -47,7 +47,7 @@ class BiddingScreen extends Component {
 
     render() {
         const { visible, loading, items, winners } = this.state;
-        const { auth: { authenticated, logg } } = this.props;
+        const { _auth: { authenticated, logg } } = this.props;
 
         return (
             <React.Fragment>

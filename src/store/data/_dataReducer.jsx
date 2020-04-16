@@ -10,18 +10,19 @@ const initialState = {
     schools: func.getStorageJson('schools'),
     settings: func.getStorageJson('settings'),
     newsCategories: func.getStorageJson('newsCategories'),
+    musicGenres: func.getStorageJson('musicGenres'),
     focContests: func.getStorageJson('focContests'),
 
     menus: [
         { name: 'News', link: 'news' },
         { name: 'Bidding', link: 'bidding' },
         { name: 'FaceOfCampus', link: 'face-of-campus' },
-        { name: 'Post article', link: 'post-article', auth: true },
+        { name: 'Post article', link: 'post-article', _auth: true },
         { name: 'Academy', link: 'academy' },
-        { name: 'Sign In', link: 'user/signin', auth: false },
-        { name: 'Sign Up', link: 'user/signup', auth: false },
+        { name: 'Sign In', link: 'user/signin', _auth: false },
+        { name: 'Sign Up', link: 'user/signup', _auth: false },
         {
-            name: logg.username, link: 'user', auth: true, subs: [
+            name: logg.username, link: 'user', _auth: true, subs: [
                 { name: 'My profile', link: 'u/' + logg.username },
                 { name: 'Profile settings', link: 'user' },
                 { name: 'My academy', link: 'user/academy' },

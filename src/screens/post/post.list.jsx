@@ -51,8 +51,9 @@ class PostList extends Component {
                     });
                     break;
                 case 'school':
+                    const school = parseInt(this.props.match.params.school.split('.')[1]);
                     this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
-                    this.setState({ params: { school: this.props.match.params.id } }, () => {
+                    this.setState({ params: { school } }, () => {
                         this.getNews();
                     });
                     break;

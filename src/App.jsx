@@ -14,23 +14,19 @@ import * as func from './utils/functions';
 import * as authAct from "./store/auth/_authActions";
 import * as dataAct from "./store/data/_dataActions";
 import * as utilsAct from "./store/utils/_utilsActions";
+import * as focAct from "./store/foc/_focActions";
 
 import NotFound from './partials/404';
 import Menu from './partials/Menu';
 import Footer from './partials/Footer';
 import HeaderBottom from './partials/HeaderBottom';
+import FooterTop from './partials/FooterTop';
 
 import HomeScreen from './screens/home';
 
 import PostList from './screens/post/post.list';
 import PostDetails from './screens/post/post.details';
 import PostForm from './screens/post/post.form';
-
-import FocScreen from './screens/foc/foc.home';
-import FocPhoto from './screens/foc/foc.photo';
-import FocPhotoApply from './screens/foc/foc.photo.apply';
-import FocPhotoProfile from './screens/foc/foc.photo.profile';
-import FocPhotoProfiles from './screens/foc/foc.photo.profiles';
 
 import BiddingScreen from './screens/bidding/bidding';
 
@@ -50,7 +46,15 @@ import AcademyQuestions from './screens/academy/academy.questions';
 import AcademyLessons from './screens/academy/academy.lessons';
 import AcademyLesson from './screens/academy/academy.lesson';
 import AcademyChat from './screens/academy/academy.chat';
-import FooterTop from './partials/FooterTop';
+
+import FocScreen from './screens/foc/foc.home';
+import FocPhoto from './screens/foc/foc.photo';
+import FocPhotoApply from './screens/foc/foc.photo.apply';
+import FocPhotoProfile from './screens/foc/foc.photo.profile';
+import FocPhotoProfiles from './screens/foc/foc.photo.profiles';
+import FocMusic from './screens/foc/foc.music';
+import FocMusicApply from './screens/foc/foc.music.apply';
+import FocMusicProfile from './screens/foc/foc.music.profile';
 
 class App extends React.Component {
 
@@ -71,7 +75,7 @@ class App extends React.Component {
 
   initApp = () => {
     // ::: run some things before doingImportantStuffs the MainApp
-    const { auth: { logg, token } } = this.props;
+    const { _auth: { logg, token } } = this.props;
     this.setState({ doingImportantStuffs: true });
     if (logg.id) {
       func.post('users', { id: logg.id, limit: 1 }).then((res) => {
@@ -110,6 +114,12 @@ class App extends React.Component {
         func.setStorageJson('newsCategories', res.result);
       }
     });
+    func.post('settings/musicGenres').then((res) => {
+      if (res.status === 200) {
+        this.props.setSetSettings('musicGenres', res.result);
+        func.setStorageJson('musicGenres', res.result);
+      }
+    });
     func.post('foc', { status: 1 }).then((res) => {
       window.init();
       this.setState({ doingImportantStuffs: false });
@@ -122,7 +132,7 @@ class App extends React.Component {
 
   render() {
     const { doingImportantStuffs } = this.state;
-    const { utils: { lang, meta }, auth: { authenticated }, history: { location: { pathname } } } = this.props;
+    const { _utils: { lang, meta }, _auth: { authenticated }, history: { location: { pathname } } } = this.props;
 
     return (
       <React.Fragment>
@@ -153,7 +163,27 @@ class App extends React.Component {
                     </div>
                     <Menu {...this.props} />
                   </div>
-
+                  {/* <div class="navbar-right">
+                    <div class="dropdown dropdown-notification">
+                      <span class="dropdown-link new-indicator pointer" data-toggle="dropdown">
+                        <i data-feather="bell"></i>
+                        <span>2</span>
+                      </span>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-header">Notifications</div>
+                        <span class="dropdown-item">
+                          <div class="media">
+                            <div class="avatar avatar-sm avatar-online"><img src="../../assets/img/img6.jpg" class="rounded-circle" alt="" /></div>
+                            <div class="media-body mg-l-15">
+                              <p>Congratulate <strong>Socrates Itumay</strong> for work anniversaries</p>
+                              <span>Mar 15 12:32pm</span>
+                            </div>
+                          </div>
+                        </span>
+                        <div class="dropdown-footer"><Link to="">View all Notifications</Link></div>
+                      </div>
+                    </div>
+                  </div> */}
                 </header>
 
 
@@ -174,8 +204,8 @@ class App extends React.Component {
                         {/* News */}
                         <Route exact path="/news" render={(props) => <PostList {...props} {...this.props} />} />
                         <Route exact path="/news/:category" render={(props) => <PostList {...props} {...this.props} />} />
-                        <Route exact path="/school/:slug/:id" render={(props) => <PostList {...props} {...this.props} />} />
-                        <Route exact path="/article/:slug/:id" render={(props) => <PostDetails {...props} {...this.props} />} />
+                        <Route exact path="/school/:school" render={(props) => <PostList {...props} {...this.props} />} />
+                        <Route exact path="/article/:article" render={(props) => <PostDetails {...props} {...this.props} />} />
 
                         {/* Bidding */}
                         <Route exact path="/bidding" render={(props) => <BiddingScreen {...props} {...this.props} />} />
@@ -188,8 +218,12 @@ class App extends React.Component {
                         <Route exact path="/face-of-campus" render={(props) => <FocScreen {...props} {...this.props} />} />
                         <Route exact path="/face-of-campus/photo/:contest" render={(props) => <FocPhoto {...props} {...this.props} />} />
                         <Route exact path="/face-of-campus/photo/:contest/apply" render={(props) => <FocPhotoApply {...props} {...this.props} />} />
-                        <Route exact path="/face-of-campus/photo/school/:school/:contest" render={(props) => <FocPhotoProfiles {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/photo/school/:contest/:school" render={(props) => <FocPhotoProfiles {...props} {...this.props} />} />
                         <Route exact path="/face-of-campus/photo/profile/:contest/:user" render={(props) => <FocPhotoProfile {...props} {...this.props} />} />
+                        {/* FOC / Music */}
+                        <Route exact path="/face-of-campus/music/:contest" render={(props) => <FocMusic {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/music/:contest/apply" render={(props) => <FocMusicApply {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/music/:contest/:user" render={(props) => <FocMusicProfile {...props} {...this.props} />} />
 
                         {authenticated === false && (
                           <React.Fragment>
@@ -211,7 +245,6 @@ class App extends React.Component {
                             <Route exact path="/post-article" render={(props) => <PostForm {...props} {...this.props} />} />
                             <Route exact path="/academy/enter/:school/:department/:level" render={(props) => <AcademyEnter {...props} {...this.props} />} />
                             <Route exact path="/academy/questions/:school/:department/:level/:year/:course" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
-                            <Route exact path="/academy/questions/:school/:department/:level/:year/:course" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
                             <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <AcademyChat {...props} {...this.props} />} />
                             <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <AcademyChat {...props} {...this.props} />} />
                             <Route exact path="/academy/lesson/:school/:department/:level/:course" render={(props) => <AcademyLesson {...props} {...this.props} />} />
@@ -222,7 +255,7 @@ class App extends React.Component {
                             <Route exact path="/user/academy" render={(props) => <UserAcademy {...props} {...this.props} />} />
                           </React.Fragment>
                         )}
-                        
+
                         <Route render={(props) => <NotFound {...props} {...this.props} />} />
                       </Switch>
                     </div>
@@ -242,9 +275,10 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  _auth: state._auth,
+  _foc: state._foc,
+  _utils: state._utils,
   data: state.data,
-  utils: state.utils,
   router: state.router
 });
 
@@ -266,6 +300,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setSetSettings: (key, value) => {
     dispatch(dataAct.setSetSettings(key, value));
+  },
+  focVote: (key, data, onOK) => {
+    dispatch(focAct.focVote(key, data, onOK));
+  },
+  focVoteSchool: (key, data, onOK) => {
+    dispatch(focAct.focVoteSchool(key, data, onOK));
   }
 });
 

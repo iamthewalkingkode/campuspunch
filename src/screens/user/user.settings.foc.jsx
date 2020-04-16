@@ -3,12 +3,12 @@ import { Form, Input, Button, message } from 'antd';
 import * as func from '../../utils/functions';
 
 const SetProfile = props => {
-    const { form: { getFieldDecorator }, auth: { logg } } = props;
+    const { form: { getFieldDecorator }, _auth: { logg } } = props;
     const [submitting, setSubmitting] = useState(false);
 
     const submit = (e) => {
         e.preventDefault();
-        const { form: { validateFields }, auth: { token, logg } } = props;
+        const { form: { validateFields }, _auth: { token, logg } } = props;
         validateFields((err, v) => {
             if (!err) {
                 setSubmitting(true);

@@ -15,7 +15,7 @@ class UserAcademySubs extends Component {
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
-        func.post('academy/subscriptions', { user: this.props.auth.logg.id }).then(res => {
+        func.post('academy/subscriptions', { user: this.props._auth.logg.id }).then(res => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             this.setState({ loading: false });
             if (res.status === 200) {

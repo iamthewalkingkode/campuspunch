@@ -3,7 +3,7 @@ import * as func from '../../utils/functions';
 import { Link } from 'react-router-dom';
 import { Loading } from '../../components';
 
-class FocPhotoApply extends Component {
+class FocMusicApply extends Component {
 
     constructor(props) {
         super(props);
@@ -18,21 +18,26 @@ class FocPhotoApply extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'Photogenic Contest', description: 'Share Your Pics & Win', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+        this.props.setMetaTags({ title: 'Music Contest', description: 'Share Your Pics & Win', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         const { contest } = this.state;
-        const { _auth: { logg } } = this.props;
-        func.post('foc/photo_apply', { contest, user: logg.id, school: logg.school.id }).then(res => {
-            this.setState({ loading: false, contest });
+        func.post('foc', { id: contest, status: 1 }).then(res => {
+            if (res.status === 200) {
+                const foc = res.result[0];
+                this.setState({ foc });
+                this.props.setMetaTags({ title: foc.name, description: foc.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+                this.props.setHeaderBottom({ h1: foc.name, h3: foc.description, p: '', image: foc.image_link });
+            }
+            this.setState({ loading: false });
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
     render() {
         const { data: { settings }, _auth: { logg } } = this.props;
-        const { loading, contest } = this.state;
+        const { loading, foc } = this.state;
 
         return (
             <React.Fragment>
@@ -42,9 +47,9 @@ class FocPhotoApply extends Component {
                     <div>
                         <div className="card tx-whites bg-successs text-center mg-b-35 mg-t-10">
                             <div className="card-header tx-semibold"><h2 className="tx-whites">CONGRATULATIONS</h2></div>
-                            <div className="card-body tx-whites" dangerouslySetInnerHTML={{ __html: settings.foc_photo_apply }} />
+                            <div className="card-body tx-whites" dangerouslySetInnerHTML={{ __html: settings.foc_music_apply }} />
 
-                            <Link to={`/face-of-campus/photo/profile/${logg.username}/${logg.id}/${contest}`} className="btn btn-primary">Update your voting profile</Link>
+                            <Link to={`/face-of-campus/music/${foc.slug}.${foc.id}/${logg.username}${logg.id}`} className="btn btn-primary">Go to my profile</Link>
                         </div>
                     </div>
                 )}
@@ -54,4 +59,4 @@ class FocPhotoApply extends Component {
 
 }
 
-export default FocPhotoApply;
+export default FocMusicApply;

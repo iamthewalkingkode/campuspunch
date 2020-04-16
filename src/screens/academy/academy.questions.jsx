@@ -35,7 +35,7 @@ class AcademyQuestions extends Component {
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         const { department, level, year, course, lesson, path } = this.state;
-        func.post('academy/payments_total', { department, level, user: this.props.auth.logg.id }).then((res) => {
+        func.post('academy/payments_total', { department, level, user: this.props._auth.logg.id }).then((res) => {
             if (res.status === 200) {
                 if (res.result > 0) {
                     func.post('academy/questions', { year, course, lesson: lesson || undefined, type: 1, status: 1, category: 'radio', orderby: 'title_asc' }).then((res) => {
@@ -168,7 +168,7 @@ class AcademyQuestions extends Component {
         if (questions.length && (index + 1) > questions.length) {
             this.setState({ saved: true });
             const { school, level, department, year, course, lesson, pathname } = this.state;
-            func.post('academy/saveScore', { school, level, score, department, year, course, lesson: lesson || 0, user: this.props.auth.logg.id, answers: func.getStorageJson(`${pathname}.academy.answers`) });
+            func.post('academy/saveScore', { school, level, score, department, year, course, lesson: lesson || 0, user: this.props._auth.logg.id, answers: func.getStorageJson(`${pathname}.academy.answers`) });
         }
     }
 

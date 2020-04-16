@@ -19,7 +19,8 @@ class PostDetails extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
-        this.getNews(this.props.match.params.id);
+        const id = parseInt(this.props.match.params.article.split('.')[1]);
+        this.getNews(id);
     }
 
     getNews(id) {
@@ -55,7 +56,7 @@ class PostDetails extends Component {
                                         <span>Posted in {row.category.name} </span>
                                         <span>| {moment(row.crdate).format('LL')} </span>
                                         {row.schools[0].name ? <span>| {row.schools[0].name}</span> : ''}
-                                        <span>| by <Link to={`/u/${row.user.username}`}>{row.user.username}</Link> </span>
+                                        <span> | by <Link to={`/u/${row.user.username}`}>{row.user.username}</Link> </span>
                                     </small>
                                 </div>
                                 <p className="mg-t-20" dangerouslySetInnerHTML={{ __html: row.content }}></p>

@@ -43,7 +43,7 @@ class AcademyIntro extends Component {
             }
         });
 
-        func.post('academy/payments_total', { department, level, user: this.props.auth.logg.id }).then((res) => {
+        func.post('academy/payments_total', { department, level, user: this.props._auth.logg.id }).then((res) => {
             if (res.status === 200) {
                 this.setState({ ipaid: res.result });
             }
@@ -57,7 +57,7 @@ class AcademyIntro extends Component {
     }
 
     startAcademy = (e) => {
-        const { auth: { authenticated } } = this.props;
+        const { _auth: { authenticated } } = this.props;
         if (authenticated === true) {
             if (this.state.ipaid > 0) {
                 this.enterAcademy();

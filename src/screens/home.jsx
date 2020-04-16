@@ -83,7 +83,7 @@ const HomeCard = props => {
                                 <img className="img-fluid" src={main.image_link} alt={`${main.title} - CampusPunch`} />
                             </div>
                             <div className="col-12 col-lg-8">
-                                <Link to={`/article/${main.slug}/${main.id}`} className="tx-20 tx-inverse tx-semibold mg-b-0">{main.title}</Link>
+                                <Link to={`/article/${main.slug}.${main.id}`} className="tx-20 tx-inverse tx-semibold mg-b-0">{main.title}</Link>
                                 <p className="d-block tx-13 text-muteds">{main.content_small} ...</p>
                             </div>
                         </div>
@@ -92,7 +92,7 @@ const HomeCard = props => {
                         {(data[ctg.id] || []).map((row, i) => (
                             i > 1 && (
                                 <li className="list-group-item bd-0 pd-0 mg-b-5">
-                                    <Link to={`/article/${row.slug}/${row.id}`}>{row.title}</Link>{' '} | {' '}
+                                    <Link to={`/article/${row.slug}.${row.id}`}>{row.title}</Link>{' '} | {' '}
                                     <Link to={`/u/${row.user.username}`}><i className="fa fa-user"></i> {row.user.username}</Link>
                                 </li>
                             )
