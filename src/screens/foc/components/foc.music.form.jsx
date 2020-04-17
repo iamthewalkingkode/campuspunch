@@ -21,8 +21,10 @@ const FocMusicFormScreen = props => {
                     if (res.status === 200) {
                         resetFields();
                         props.onCancel();
-                        props.history.push(`/face-of-campus/music/${props.match.params.contest}/apply`);
-                        message.success('You application has been received');
+                        if(!row.id) {
+                            props.history.push(`/face-of-campus/music/${props.match.params.contest}/apply`);
+                            message.success('You application has been received');
+                        }
                     } else {
                         setErrMessage(res.result);
                     }
@@ -32,7 +34,7 @@ const FocMusicFormScreen = props => {
     }
 
     return (
-        <Modal visible={visible} title="Submit Music" width={600} closable={true} maskClosable={true} onCancel={props.onCancel}
+        <Modal visible={visible} title="Submit Music" width={600} closable={true} maskClosable={false} onCancel={props.onCancel}
             footer={[
                 <Button key="submit" type="primary" onClick={_submit}>Submit</Button>
             ]}

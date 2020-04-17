@@ -30,10 +30,10 @@ class FocMusicProfile extends Component {
         func.post('foc/musics', { user, contest, voter: this.props._auth.logg.id, limit: 1 }).then(res => {
             if (res.status === 200) {
                 const foc = res.result[0];
-                const usr = res.result[0].contestant.user;
+                const usr = res.result[0].user;
                 setTimeout(() => { window.init(); }, 200);
-                this.props.setHeaderBottom({ h1: foc.contestant.contest.name, h3: '', p: foc.title, image: foc.contestant.contest.image_link });
-                this.props.setMetaTags({ title: foc.title, description: usr.about, keywords: '' });
+                this.props.setHeaderBottom({ h1: foc.contest.name, h3: '', p: foc.music.title, image: foc.contest.image_link });
+                this.props.setMetaTags({ title: foc.music.title, description: usr.about, keywords: '' });
                 this.setState({ usr, foc, loading: false });
             } else {
                 this.setState({ loading: false });
@@ -45,9 +45,9 @@ class FocMusicProfile extends Component {
         const { user, contest, foc } = this.state;
         const { _auth: { logg, authenticated } } = this.props;
         if (authenticated === true) {
-            this.props.focVote(user + contest, { contest, user, school: parseInt(foc.contestant.school.id), voter: logg.id, type: 'photo' }, (status, result) => {
+            this.props.focVote(user + contest, { contest, user, school: parseInt(foc.school.id), voter: logg.id, type: 'music' }, (status, result) => {
                 if (status === 200) {
-                    this.setState({ foc: { ...foc, contestant: { ...foc.contestant, voted: true } } });
+                    this.setState({ foc: { ...foc, voted: true } });
                     message.success(result);
                 } else {
                     message.error(result);
@@ -73,24 +73,24 @@ class FocMusicProfile extends Component {
                         <nav aria-label="breadcrumb">
                             <ol className="breadcrumb breadcrumb-style2 bg-gray-100 pd-12">
                                 <li className="breadcrumb-item"><Link to="/face-of-campus">Face of campus</Link></li>
-                                <li className="breadcrumb-item"><Link to={`/face-of-campus/music/${foc.contestant.contest.slug}.${foc.contestant.contest.id}`}>{foc.contestant.contest.name}</Link></li>
-                                <li className="breadcrumb-item active" aria-current="page">{foc.title}</li>
+                                <li className="breadcrumb-item"><Link to={`/face-of-campus/music/${foc.contest.slug}.${foc.contest.id}`}>{foc.contest.name}</Link></li>
+                                <li className="breadcrumb-item active" aria-current="page">{foc.music.title}</li>
                             </ol>
                         </nav>
 
                         <div className="row mg-b-30">
                             <div className="col-12 col-lg-10">
-                                <div className="bg-gray-100" dangerouslySetInnerHTML={{ __html: foc.song_small }} />
+                                <div className="bg-gray-100" dangerouslySetInnerHTML={{ __html: foc.music.song_small }} />
                             </div>
                             <div className="col-12 col-lg-2">
-                                <div className="badge badge-primary mg-b-10" children={`${foc.contestant.votes_nf} votes`} />
-                                {foc.contestant.contest.canvote === true && (
-                                    <Button type="primary" size="small" block disabled={foc.contestant.voted} loading={this.props._foc.voting} onClick={this.vote}>Vote</Button>
+                                <div className="badge badge-primary mg-b-10" children={`${foc.votes_nf} votes`} />
+                                {foc.contest.canvote === true && (
+                                    <Button type="primary" size="small" block disabled={foc.voted} loading={this.props._foc.voting} onClick={this.vote}>Vote</Button>
                                 )}
                                 {foc.video && (
-                                    <Button type="primary" size="small" block className="mg-t-10" outline onClick={() => this.setState({ playVideo: foc.video_code })}><i className="fa fa-play mg-r-5"></i> Play video</Button>
+                                    <Button type="primary" size="small" block className="mg-t-10" outline onClick={() => this.setState({ playVideo: foc.music.video_code })}><i className="fa fa-play mg-r-5"></i> Play video</Button>
                                 )}
-                                {/* {logg.id === foc.contestant.user.id && (
+                                {/* {logg.id === foc.user.id && (
                                     <Button type="dark" size="small" className="mg-t-10" block outline onClick={() => this.setState({ musicModal: true })}>Edit profile</Button>
                                 )} */}
                             </div>

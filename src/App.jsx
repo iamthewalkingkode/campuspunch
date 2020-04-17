@@ -55,6 +55,7 @@ import FocPhotoProfiles from './screens/foc/foc.photo.profiles';
 import FocMusic from './screens/foc/foc.music';
 import FocMusicApply from './screens/foc/foc.music.apply';
 import FocMusicProfile from './screens/foc/foc.music.profile';
+import FocDance from './screens/foc/foc.dance';
 
 class App extends React.Component {
 
@@ -224,6 +225,10 @@ class App extends React.Component {
                         <Route exact path="/face-of-campus/music/:contest" render={(props) => <FocMusic {...props} {...this.props} />} />
                         <Route exact path="/face-of-campus/music/:contest/apply" render={(props) => <FocMusicApply {...props} {...this.props} />} />
                         <Route exact path="/face-of-campus/music/:contest/:user" render={(props) => <FocMusicProfile {...props} {...this.props} />} />
+                        {/* FOC / Music */}
+                        <Route exact path="/face-of-campus/dance/:contest" render={(props) => <FocDance {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/dance/:contest/apply" render={(props) => <FocMusicApply {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/dance/:contest/:user" render={(props) => <FocMusicProfile {...props} {...this.props} />} />
 
                         {authenticated === false && (
                           <React.Fragment>

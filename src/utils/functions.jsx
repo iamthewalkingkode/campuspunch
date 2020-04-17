@@ -1,4 +1,5 @@
 import moment from 'moment';
+import axios from 'axios';
 
 export const api = {
     space: 'of',
@@ -108,7 +109,6 @@ export const apnData = (obj) => {
 }
 export const post = async (action, data = {}, empty = false) => {
     let url = ((empty === false) ? api.apiURL + action : action);
-    // data['mobile'] = 1;
     try {
         let response = await fetch(url, {
             method: 'POST',
@@ -118,6 +118,24 @@ export const post = async (action, data = {}, empty = false) => {
                 'Authorization': api.apiKey + '.' + api.apiToken
             },
             body: JSON.stringify(data)
+        });
+        let responseJson = await response.json();
+        return responseJson;
+    } catch (error) {
+        return { status: 606, result: 'Network request failed', error: error };
+    }
+}
+export const get = async (action, data = {}, empty = false) => {
+    let url = ((empty === false) ? api.apiURL + action : action);
+    try {
+        let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': api.apiKey + '.' + api.apiToken
+            },
+            params: JSON.stringify(data)
         });
         let responseJson = await response.json();
         return responseJson;
@@ -140,18 +158,6 @@ export const postFile = async (action, data = {}, empty = false) => {
         return responseJson;
     } catch (error) {
         return { status: 606, result: 'Network request failed', error: error };
-    }
-}
-export const getData = async (action, data = {}) => {
-    try {
-        const response = await fetch(api.apiURL + action, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
-        });
-        return response.json();
-    }
-    catch (error) {
-        console.error(error);
     }
 }
 
