@@ -56,6 +56,8 @@ import FocMusic from './screens/foc/foc.music';
 import FocMusicApply from './screens/foc/foc.music.apply';
 import FocMusicProfile from './screens/foc/foc.music.profile';
 import FocDance from './screens/foc/foc.dance';
+import FocDanceApply from './screens/foc/foc.dance.apply';
+import FocDanceProfile from './screens/foc/foc.dance.profile';
 
 class App extends React.Component {
 
@@ -225,10 +227,10 @@ class App extends React.Component {
                         <Route exact path="/face-of-campus/music/:contest" render={(props) => <FocMusic {...props} {...this.props} />} />
                         <Route exact path="/face-of-campus/music/:contest/apply" render={(props) => <FocMusicApply {...props} {...this.props} />} />
                         <Route exact path="/face-of-campus/music/:contest/:user" render={(props) => <FocMusicProfile {...props} {...this.props} />} />
-                        {/* FOC / Music */}
+                        {/* FOC / Dance */}
                         <Route exact path="/face-of-campus/dance/:contest" render={(props) => <FocDance {...props} {...this.props} />} />
-                        <Route exact path="/face-of-campus/dance/:contest/apply" render={(props) => <FocMusicApply {...props} {...this.props} />} />
-                        <Route exact path="/face-of-campus/dance/:contest/:user" render={(props) => <FocMusicProfile {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/dance/:contest/apply" render={(props) => <FocDanceApply {...props} {...this.props} />} />
+                        <Route exact path="/face-of-campus/dance/:contest/:user" render={(props) => <FocDanceProfile {...props} {...this.props} />} />
 
                         {authenticated === false && (
                           <React.Fragment>

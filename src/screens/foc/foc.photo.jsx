@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import * as func from '../../utils/functions';
-import { Loading } from '../../components';
+import { Loading, Empty } from '../../components';
 import FocPhotoSchool from './components/foc.photo.school';
 import { Link } from 'react-router-dom';
+import FocPhotoForm from './components/foc.photo.form';
 
 class FocPhoto extends Component {
 
@@ -11,7 +12,7 @@ class FocPhoto extends Component {
         super(props);
         this.state = {
             row: {}, cd: { d: '0', h: '0', m: '0', s: '0' }, data: [],
-            loading: true, applied: false, voting: false,
+            loading: true, applied: false, voting: false, formModal: true,
             interval: null,
             contest: parseInt(this.props.match.params.contest.split('.')[1])
         };
@@ -43,12 +44,12 @@ class FocPhoto extends Component {
                         this.setState({ loading: false });
                         this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
                         this.props.setHeaderBottom({ h1: row.name, h3: row.description, p: 'Jambites | Students | Graduates', image: row.image_link });
-                        if (row.canapply === true) {
-                            this.countDown();
-                            let interval = setInterval(() => {
-                                this.countDown(interval);
-                            }, 4000);
-                        }
+                        // if (row.canapply === true) {
+                        //     this.countDown();
+                        //     let interval = setInterval(() => {
+                        //         this.countDown(interval);
+                        //     }, 4000);
+                        // }
                         if (usr.status === 200) {
                             this.setState({ applied: true });
                         }
@@ -73,7 +74,7 @@ class FocPhoto extends Component {
     }
 
     render() {
-        const { data, row, loading, applied, cd } = this.state;
+        const { data, row, loading, applied, formModal } = this.state;
 
         return (
             <React.Fragment>
@@ -87,16 +88,18 @@ class FocPhoto extends Component {
                                 <li className="breadcrumb-item active" aria-current="page">{row.name}</li>
                             </ol>
                         </nav>
-                        
+
                         <div className="text-center mg-b-50 mg-t-20">
                             <h3>Application starts on {moment(row.apply_start).format('DD/MM/YY')} and ends on {moment(row.apply_end).format('DD/MM/YY')}</h3>
                             <h3>Voting starts on {moment(row.vote_start).format('DD/MM/YY')} and ends on {moment(row.vote_end).format('DD/MM/YY')}</h3>
-                            {row.canapply === true && applied === false && (
-                                <div>
-                                    <p>You have <b className="text-danger">{cd.d}:{cd.h}:{cd.m}:{cd.s}</b> left to book your early entry</p>
-                                    <span className="btn btn-xs btn-primary pointer">&nbsp; &nbsp; &nbsp; Apply &nbsp; &nbsp; &nbsp;</span>
-                                </div>
-                            )}
+                            <div className="mg-b-50">
+                                {row.canapply === true && applied === false && (
+                                    <span className="btn btn-primary pointer" onClick={() => this.setState({ formModal: true })}>&nbsp; &nbsp; &nbsp; Submit Profile &nbsp; &nbsp; &nbsp;</span>
+                                )}
+                                {applied === true && (
+                                    <span className="btn btn-primary pointer mg-l-15" onClick={this.open}>&nbsp; &nbsp; &nbsp; View my profile &nbsp; &nbsp; &nbsp;</span>
+                                )}
+                            </div>
                         </div>
 
                         <div className="row">
@@ -104,7 +107,13 @@ class FocPhoto extends Component {
                                 <FocPhotoSchool {...this.props} key={school} data={data} school={school} row={data[school][0]} />
                             ))}
                         </div>
+
+                        <FocPhotoForm {...this.props} visible={formModal} row={{}} onCancel={() => this.setState({ formModal: false })} />
                     </section>
+                )}
+
+                {loading === false && data.length === 0 && (
+                    <Empty h1="No contestants" h5="No contestants have applied for this contest yet. Be the first!" />
                 )}
             </React.Fragment>
         )

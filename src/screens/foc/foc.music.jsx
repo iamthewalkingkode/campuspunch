@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { Pagination } from 'antd';
 import * as func from '../../utils/functions';
-import { Loading } from '../../components';
+import { Loading, Empty } from '../../components';
 import FocMusicForm from './components/foc.music.form';
 import FocMusicCard from './components/foc.music.card';
 import { Link } from 'react-router-dom';
@@ -117,6 +117,10 @@ class FocMusic extends Component {
 
                         <FocMusicForm {...this.props} visible={musicModal} contest={contest} row={{}} onCancel={() => this.setState({ musicModal: false })} />
                     </div>
+                )}
+
+                {loading === false && data.length === 0 && (
+                    <Empty h1="No contestants" h5="No contestants have applied for this contest yet. Be the first!" />
                 )}
             </React.Fragment>
         )

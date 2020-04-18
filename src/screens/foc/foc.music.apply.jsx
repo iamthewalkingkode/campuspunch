@@ -41,7 +41,7 @@ class FocMusicApply extends Component {
 
         return (
             <React.Fragment>
-                {loading === true && (<Loading text="applying to contest ..." />)}
+                {loading === true && (<Loading texts="applying to contest ..." />)}
 
                 {loading === false && (
                     <div>
@@ -49,7 +49,7 @@ class FocMusicApply extends Component {
                             <div className="card-header tx-semibold"><h2 className="tx-whites">CONGRATULATIONS</h2></div>
                             <div className="card-body tx-whites" dangerouslySetInnerHTML={{ __html: settings.foc_music_apply }} />
 
-                            <Link to={`/face-of-campus/music/${foc.slug}.${foc.id}/${logg.username}${logg.id}`} className="btn btn-primary">Go to my profile</Link>
+                            <Link to={`/face-of-campus/music/${foc.slug}.${foc.id}/${logg.username}.${logg.id}`} className="btn btn-primary">Go to my profile</Link>
                         </div>
                     </div>
                 )}

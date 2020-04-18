@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { Pagination } from 'antd';
+
 import * as func from '../../utils/functions';
-import { Loading } from '../../components';
-import FocVideoForm from './components/foc.video.form';
-import FocMusicCard from './components/foc.music.card';
-import { Link } from 'react-router-dom';
+import { Loading, Empty } from '../../components';
+import FocDanceCard from './components/foc.dance.card';
+import FocDanceForm from './components/foc.dance.form';
 
 const limit = 12;
 class FocDance extends Component {
@@ -14,7 +15,7 @@ class FocDance extends Component {
         super(props);
         this.state = {
             foc: {}, data: [],
-            loading: true, applied: false, musicModal: false,
+            loading: true, applied: false, formModal: false,
             interval: null,
             contest: parseInt(this.props.match.params.contest.split('.')[1]),
             step: 0, total: 0, currentStep: 1
@@ -57,7 +58,7 @@ class FocDance extends Component {
     getDances = () => {
         const { step, contest } = this.state;
         const { _auth: { logg } } = this.props;
-        func.post('foc/musics', { contest, voter: logg.id, status: 1, limit: `${step},${limit}` }).then(res => {
+        func.post('foc/dances', { contest, voter: logg.id, status: 1, limit: `${step},${limit}` }).then(res => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             this.setState({ loading: false });
             if (res.status === 200) {
@@ -76,11 +77,11 @@ class FocDance extends Component {
     open = () => {
         const { foc } = this.state;
         const { _auth: { logg } } = this.props;
-        this.props.history.push(`/face-of-campus/music/${foc.slug}.${foc.id}/${logg.username}.${logg.id}`);
+        this.props.history.push(`/face-of-campus/dance/${foc.slug}.${foc.id}/${logg.username}.${logg.id}`);
     }
 
     render() {
-        const { data, foc, loading, applied, musicModal, contest, total, currentStep } = this.state;
+        const { data, foc, loading, applied, total, currentStep, formModal } = this.state;
 
         return (
             <React.Fragment>
@@ -98,25 +99,28 @@ class FocDance extends Component {
                         <div className="text-center mg-b-50 mg-t-20">
                             <div className="mg-b-50">
                                 {foc.canapply === true && applied === false && (
-                                    <span className="btn btn-primary pointer" onClick={() => this.setState({ musicModal: true })}>&nbsp; &nbsp; &nbsp; Submit Video &nbsp; &nbsp; &nbsp;</span>
+                                    <span className="btn btn-primary pointer" onClick={() => this.setState({ formModal: true })}>&nbsp; &nbsp; &nbsp; Submit Video &nbsp; &nbsp; &nbsp;</span>
                                 )}
                                 {applied === true && (
                                     <span className="btn btn-primary pointer mg-l-15" onClick={this.open}>&nbsp; &nbsp; &nbsp; View my profile &nbsp; &nbsp; &nbsp;</span>
                                 )}
                             </div>
-                            {/* <h3>Hey! What song do you want to vote for?</h3> */}
                         </div>
 
-                        <div className="row">
+                        <div className="rows">
                             {data.map(row => (
-                                <FocMusicCard {...this.props} row={row} />
+                                <FocDanceCard {...this.props} row={row} />
                             ))}
                         </div>
 
                         {total > limit && !loading && (<Pagination total={total} pageSize={limit} current={currentStep} onChange={(e) => this.nextPrev(e)} />)}
 
-                        <FocVideoForm {...this.props} visible={musicModal} contest={contest} row={{}} onCancel={() => this.setState({ musicModal: false })} />
+                        <FocDanceForm {...this.props} visible={formModal} row={{}} onCancel={() => this.setState({ formModal: false })} />
                     </div>
+                )}
+
+                {loading === false && data.length === 0 && (
+                    <Empty h1="No contestants" h5="No contestants have applied for this contest yet. Be the first!" />
                 )}
             </React.Fragment>
         )

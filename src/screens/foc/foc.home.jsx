@@ -41,7 +41,7 @@ class FocScreen extends Component {
                                     <h6 className="card-title">{row.name}</h6>
                                     <p className="card-text text-muted">{row.description}</p>
                                 </div>
-                                {row.canapply === true && ['photo'].includes(row.type) && (
+                                {row.canapply === true && ['photos'].includes(row.type) && (
                                     <div className="card-footer d-flex">
                                         <Link to={`/face-of-campus/${row.type}/${row.slug}.${row.id}/apply`} className="btn btn-xs btn-primary pointer flex-fill mg-r-25">Apply</Link>
                                     </div>

@@ -30,11 +30,14 @@ const FocMusicCard = props => {
     return (
         <div className="col-12 col-lg-6 mg-b-25">
             <div className="card">
-                <div className="card-bodys bg-gray-100" dangerouslySetInnerHTML={{ __html: row.music.song_small }} />
+                <div>
+                    <div className="badge badge-secondary" children={`${row.votes_nf} votes`} />
+                    <div className="card-bodys bg-gray-100" dangerouslySetInnerHTML={{ __html: row.music.song_small }} />
+                </div>
                 <div className="card-footer pd-5 d-flex flex-row">
                     <Button block type="secondary" className="text-white" onClick={() => open(row)}>View</Button>
-                    {row.contest.canvote === true && (
-                        <Button block type="primary" className="mg-l-10" disabled={voted} loading={voting === (row.user.id + contest)} onClick={() => vote(row.user.id)}>Vote</Button>
+                    {row.contest.canvote === true && voted === false && (
+                        <Button block type="primary" className="mg-l-10" loading={voting === (row.user.id + contest)} onClick={() => vote(row.user.id)}>Vote</Button>
                     )}
                 </div>
             </div>

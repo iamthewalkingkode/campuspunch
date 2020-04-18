@@ -43,6 +43,7 @@ const FocMusicFormScreen = props => {
             {errMessage && (
                 <div className="alert alert-danger text-center">{errMessage}</div>
             )}
+            <div className="alert alert-info text-center">Kindly submit your own music not someone else' to avoid ban.</div>
             <Form.Item colon={false} label="Music title">
                 {getFieldDecorator('title', {
                     rules: [{ required: true }],
@@ -51,7 +52,7 @@ const FocMusicFormScreen = props => {
                     <Input autoComplete="off" size="large" disabled={submitting} />
                 )}
             </Form.Item>
-            <Form.Item colon={false} label="Music" help="SoundCloud embed code">
+            <Form.Item colon={false} label="Music" help="Only SoundCloud embed code">
                 {getFieldDecorator('song', {
                     rules: [{ required: true }],
                     initialValue: row.song
@@ -59,7 +60,7 @@ const FocMusicFormScreen = props => {
                     <Input.TextArea rows={6} autoComplete="off" size="large" placeholder={`<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/312399740&color=%2394948c&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>`} disabled={submitting} />
                 )}
             </Form.Item>
-            <Form.Item colon={false} label="Music video" help="Link to from youtube video">
+            <Form.Item colon={false} label="Music video" help="Only YouTube video links are supported">
                 {getFieldDecorator('video', {
                     initialValue: row.video
                 })(

@@ -38,7 +38,7 @@ class FocPhotoProfile extends Component {
                 }, 200);
                 this.props.setMetaTags({ title: usr.username, description: usr.about, keywords: '' });
                 this.props.setHeaderBottom({ h1: foc.contest.name, h3: '', p: '@' + usr.username, image: foc.contest.image_link });
-                this.setState({ usr, foc, lightImages: [usr.avatar_link] }, () => {
+                this.setState({ usr, foc, lightImages: usr.images_links }, () => {
                     this.setState({ loading: false });
                 });
             } else {

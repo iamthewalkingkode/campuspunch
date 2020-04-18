@@ -1,5 +1,5 @@
 import moment from 'moment';
-import axios from 'axios';
+// import axios from 'axios';
 
 export const api = {
     space: 'of',
@@ -183,3 +183,11 @@ export const getTimeRemaining = (startDate, endDate) => {
         't': t, 'd': d, 'h': h, 'm': m, 's': s
     };
 }
+
+export const asyncForEach = async (array, callback) => {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
+}
+
+export const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
