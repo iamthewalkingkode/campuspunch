@@ -12,7 +12,7 @@ class AcademyHome extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
-        this.props.setHeaderBottom({ h1: 'Academy', h3: '', p: '', image: 'banner/academy.png' });
+        this.props.setHeaderBottom({ h1: 'Academy', h3: 'More Than Just An Academy', p: 'We Teach You Jamb, University Courses & Vocational Skills', image: 'banner/academy1.jpg' });
         this.props.setFooterTop({ h1: 'SPONSOR A GROUP', p: 'Transform someone\'s life, a group, or your employees career skills by sponsoring them to learn a course', btnText: 'Get Started Now', btnLink: '', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -66,7 +66,7 @@ class AcademyHome extends Component {
                             onOK={e => this.introAcademy(e)}
                         />
                     </Accordion>
-                    <Accordion id="jambites" title={'<b>JAMBITES</b> - What exams are you taking this year?'} active={true}>
+                    <Accordion id="jambites" title={'<b>SSCE, JAMBITES</b> - What exams are you taking this year?'} active={true}>
                         <AcademySelector
                             schools={schools.filter(school => school.id === 499)}
                             faculty={27}

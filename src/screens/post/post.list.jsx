@@ -14,7 +14,7 @@ class PostList extends Component {
             screen: '',
             data: [], school: '%', title: '%', params: {},
             loading: true,
-            step: 0, total: 0, currentStep: 1, limit: props.utils.limit
+            step: 0, total: 0, currentStep: 1, limit: props._utils.limit
         };
     }
 

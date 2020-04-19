@@ -37,7 +37,7 @@ const FocPhotoFormScreen = props => {
                 if (!err) {
                     setSubmitting(true);
                     setErrMessage('');
-                    var payload = { 'Authorizations': func.api.apiKey + '.' + func.api.apiToken, folder: 'user', filename: logg.username };
+                    var payload = { folder: 'user', filename: logg.username };
                     window.$.each(files, (f) => {
                         payload['file[' + f + ']'] = files[f];
                     });

@@ -21,6 +21,7 @@ import Menu from './partials/Menu';
 import Footer from './partials/Footer';
 import HeaderBottom from './partials/HeaderBottom';
 import FooterTop from './partials/FooterTop';
+import Notifications from './partials/Notifications';
 
 import HomeScreen from './screens/home';
 
@@ -37,6 +38,7 @@ import ResetForm from './screens/auth/reset';
 import UserProfile from './screens/user/user.profile';
 import UserSettings from './screens/user/user.settings';
 import UserAcademy from './screens/user/user.academy';
+import UserNotifications from './screens/user/user.notifications';
 
 import AcademyScreen from './screens/academy/academy.home';
 import AcademyIntro from './screens/academy/academy.intro';
@@ -166,27 +168,9 @@ class App extends React.Component {
                     </div>
                     <Menu {...this.props} />
                   </div>
-                  {/* <div class="navbar-right">
-                    <div class="dropdown dropdown-notification">
-                      <span class="dropdown-link new-indicator pointer" data-toggle="dropdown">
-                        <i data-feather="bell"></i>
-                        <span>2</span>
-                      </span>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-header">Notifications</div>
-                        <span class="dropdown-item">
-                          <div class="media">
-                            <div class="avatar avatar-sm avatar-online"><img src="../../assets/img/img6.jpg" class="rounded-circle" alt="" /></div>
-                            <div class="media-body mg-l-15">
-                              <p>Congratulate <strong>Socrates Itumay</strong> for work anniversaries</p>
-                              <span>Mar 15 12:32pm</span>
-                            </div>
-                          </div>
-                        </span>
-                        <div class="dropdown-footer"><Link to="">View all Notifications</Link></div>
-                      </div>
-                    </div>
-                  </div> */}
+                  <div class="navbar-right" style={{ justifyContent: 'flex-start' }}>
+                    <Notifications {...this.props} />
+                  </div>
                 </header>
 
 
@@ -244,6 +228,7 @@ class App extends React.Component {
                             <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                             <Route exact path="/post-article" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                             <Route exact path="/user/academy" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/user/notifications" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                           </React.Fragment>
                         )}
 
@@ -260,6 +245,7 @@ class App extends React.Component {
                             <Route exact path="/academy/lessons/:school/:department/:level" render={(props) => <AcademyLessons {...props} {...this.props} />} />
                             <Route exact path="/user" render={(props) => <UserSettings {...props} {...this.props} />} />
                             <Route exact path="/user/academy" render={(props) => <UserAcademy {...props} {...this.props} />} />
+                            <Route exact path="/user/notifications" render={(props) => <UserNotifications {...props} {...this.props} />} />
                           </React.Fragment>
                         )}
 

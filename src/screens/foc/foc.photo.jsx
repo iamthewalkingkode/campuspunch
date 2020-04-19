@@ -12,7 +12,7 @@ class FocPhoto extends Component {
         super(props);
         this.state = {
             row: {}, cd: { d: '0', h: '0', m: '0', s: '0' }, data: [],
-            loading: true, applied: false, voting: false, formModal: true,
+            loading: true, applied: false, voting: false, formModal: false,
             interval: null,
             contest: parseInt(this.props.match.params.contest.split('.')[1])
         };
@@ -71,6 +71,12 @@ class FocPhoto extends Component {
         } else {
             clearInterval(this.state.interval);
         }
+    }
+
+    open = () => {
+        const { row } = this.state;
+        const { _auth: { logg } } = this.props;
+        this.props.history.push(`/face-of-campus/photo/profile/${row.slug}.${row.id}/${logg.username}.${logg.id}`);
     }
 
     render() {

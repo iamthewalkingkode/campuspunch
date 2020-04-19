@@ -38,7 +38,7 @@ class AcademyQuestions extends Component {
         func.post('academy/payments_total', { department, level, user: this.props._auth.logg.id }).then((res) => {
             if (res.status === 200) {
                 if (res.result > 0) {
-                    func.post('academy/questions', { year, course, lesson: lesson || undefined, type: 1, status: 1, category: 'radio', orderby: 'title_asc' }).then((res) => {
+                    func.post('academy/questions', { year, course, lesson: lesson || undefined, type: 1, status: 1, category: 'radio', orderby: 'title_asc', limit: 3 }).then((res) => {
                         if (res.status === 200) {
                             const crs = res.result[0].course;
                             const questions = res.result;
@@ -289,7 +289,7 @@ class AcademyQuestions extends Component {
                         </div>
                         <div className="mg-t-25 text-center">
                             <Button type="primary" onClick={() => this.nextLesson(score)}>
-                                &nbsp; &nbsp; &nbsp; &nbsp; {score >= 70 ? 'Next' : 'Repeat'} {lesson ? 'Lesson' : 'Course'} &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; &nbsp; &nbsp; {score >= 70 ? 'Next' : 'Repeat'} {lesson ? 'Lesson' : 'Question'} &nbsp; &nbsp; &nbsp; &nbsp;
                             </Button>
                         </div>
                     </div>

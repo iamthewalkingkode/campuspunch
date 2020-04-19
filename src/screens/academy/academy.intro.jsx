@@ -23,7 +23,7 @@ class AcademyIntro extends Component {
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         const { department, level } = this.state;
-        func.post('academy/courses', { department, lessons: 'yes', status: 1 }).then((res) => {
+        func.post('academy/courses', { department, level, lessons: 'yes', status: 1 }).then((res) => {
             this.setState({ loading: false });
             if (res.status === 200) {
                 let crs = res.result[0];
