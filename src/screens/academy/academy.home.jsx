@@ -44,7 +44,7 @@ class AcademyHome extends Component {
     }
 
     render() {
-        const { data: { schools } } = this.props;
+        const { _data: { schools } } = this.props;
         const { skills, levels, visible } = this.state;
 
         return (

@@ -36,7 +36,7 @@ class FocDanceApply extends Component {
     }
 
     render() {
-        const { data: { settings }, _auth: { logg } } = this.props;
+        const { _data: { settings }, _auth: { logg } } = this.props;
         const { loading, foc } = this.state;
 
         return (

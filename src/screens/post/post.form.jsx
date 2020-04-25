@@ -94,7 +94,7 @@ class PostFormScreen extends Component {
 
     render() {
         const { loading, submitting, image } = this.state;
-        const { data: { newsCategories, schools }, form: { getFieldDecorator }, _auth: { logg } } = this.props;
+        const { _data: { newsCategories, schools }, form: { getFieldDecorator }, _auth: { logg } } = this.props;
 
         return (
             <React.Fragment>

@@ -3,7 +3,7 @@ import { Button, message, Form, Input, Modal, Select } from 'antd';
 import * as func from '../../../utils/functions';
 
 const FocMusicFormScreen = props => {
-    const { visible, contest, row, data: { musicGenres }, _auth: { logg }, form: { getFieldDecorator, validateFields, resetFields } } = props;
+    const { visible, contest, row, _data: { musicGenres }, _auth: { logg }, form: { getFieldDecorator, validateFields, resetFields } } = props;
     const [submitting, setSubmitting] = useState(false);
     const [errMessage, setErrMessage] = useState('');
 
@@ -43,7 +43,7 @@ const FocMusicFormScreen = props => {
             {errMessage && (
                 <div className="alert alert-danger text-center">{errMessage}</div>
             )}
-            <div className="alert alert-info text-center">Kindly submit your own music not someone else' to avoid ban.</div>
+            <div className="alert alert-info text-center">Kindly submit your own music not someone else' to avoid ban. <br /> <b>Once you submit you have successfully applied for this contest.</b></div>
             <Form.Item colon={false} label="Music title">
                 {getFieldDecorator('title', {
                     rules: [{ required: true }],

@@ -3,7 +3,7 @@ import { Form, Input, Select, Button, message } from 'antd';
 import * as func from '../../utils/functions';
 
 const SetProfile = props => {
-    const { form: { getFieldDecorator }, data: { states, schools, studentCategories }, _auth: { logg } } = props;
+    const { form: { getFieldDecorator }, _data: { states, schools, studentCategories }, _auth: { logg } } = props;
     const [image, setImage] = useState(undefined);
     const [avatar, setAvatar] = useState(logg.avatar_link);
     const [submitting, setSubmitting] = useState(false);

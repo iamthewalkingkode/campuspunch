@@ -68,7 +68,7 @@ class BiddingCard extends Component {
     }
 
     bid = async () => {
-        const { item, _auth: { logg, token }, data: { settings } } = this.props;
+        const { item, _auth: { logg, token }, _data: { settings } } = this.props;
         let coins = parseInt(settings.coins_bidding);
         if (logg.coins > coins) {
             const ip = await publicIp.v4({ fallbackUrls: ['https://ifconfig.co/ip'] });

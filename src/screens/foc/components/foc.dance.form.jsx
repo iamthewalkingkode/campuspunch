@@ -31,7 +31,7 @@ const FocDanceFormScreen = props => {
             }
         });
     }
-
+    
     return (
         <Modal visible={visible} title="Submit Dance Video" width={600} closable={true} maskClosable={false} onCancel={props.onCancel}
             footer={[
@@ -42,7 +42,7 @@ const FocDanceFormScreen = props => {
             {errMessage && (
                 <div className="alert alert-danger text-center">{errMessage}</div>
             )}
-            <div className="alert alert-info text-center">Kindly submit your own video not someone else' to avoid ban.</div>
+            <div className="alert alert-info text-center">Kindly submit your own video not someone else' to avoid ban. <br /> <b>Once you submit you have successfully applied for this contest.</b></div>
             <Form.Item colon={false} label="Title">
                 {getFieldDecorator('title', {
                     rules: [{ required: true }],

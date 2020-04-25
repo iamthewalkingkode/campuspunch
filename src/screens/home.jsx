@@ -28,7 +28,7 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const { data: { newsCategories } } = this.props;
+        const { _data: { newsCategories } } = this.props;
         const { loading, data } = this.state;
 
         return (

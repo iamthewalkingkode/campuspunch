@@ -134,13 +134,13 @@ class AcademyLesson extends Component {
                                 <span className="pointer" id="strans" onClick={() => this.showTranscript()}><b>View Transcript</b></span>
                                 <span className="pointer" id="htrans" onClick={() => this.hideTranscript()} style={{ display: 'none' }}><b>Close Transcript</b></span>
                             </div>
-                            <h2>{lss.title}</h2>
                             <p id="transcript" className="text-justifys pd-15 bg-gray-100 mg-b-25" style={{ display: 'none' }}>
                                 <span dangerouslySetInnerHTML={{ __html: lss.transcript }}></span>
                             </p>
                             <p className="text-justifys mg-b-40">
                                 <span dangerouslySetInnerHTML={{ __html: lss.instruction }}></span>
                             </p>
+                            <h2>{lss.title}</h2>
                             <div className="mg-b-50">
                                 {index > 0 && (
                                     <Button type="primary" size="small" className="float-left" onClick={() => this.navigateLesson('-')}>&laquo; Previous lesson</Button>

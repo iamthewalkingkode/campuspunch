@@ -5,13 +5,12 @@ import { PayModal, Loading } from '../../components';
 import { Modal } from 'antd';
 
 const cards = [
-    {
-        icon: 'abc', name: 'ABC Questions', link: 'abc-questions', desc: 'Gain access to 1000\'s of practice questions'
-    },
+    {icon: 'abc', name: 'ABC Questions', link: 'abc-questions', desc: 'Gain access to 1000\'s of practice questions'},
     // { icon: 'theory', name: 'Theory Questions', link: 'theory-questions' },
     { icon: 'lessons', name: 'Lessons', link: 'lessons', desc: 'Best illustrative & interactive video lessons' },
-    { icon: 'chat', name: 'Lecturer\'s chat', link: 'chat', desc: 'Chat one-on-one with your instructor' },
-    { icon: 'resources', name: 'Resources', link: 'resources', desc: 'All course materials you need in mp4, mp3, pdf, doc format' }
+    { icon: 'chat', name: 'Lecturer\'s Chat', link: 'chat', desc: 'Chat one-on-one with your instructor' },
+    { icon: 'buddy', name: 'Study Buddy', link: 'buddy', desc: 'Find the perfect Study Buddy near you' },
+    // { icon: 'resources', name: 'Resources', link: 'resources', desc: 'All course materials you need in mp4, mp3, pdf, doc format' }
 ];
 
 class AcademyEnter extends Component {
@@ -86,6 +85,9 @@ class AcademyEnter extends Component {
                             break;
                         case 'lessons':
                             history.push(`${pathname.split('enter').join('lessons')}`);
+                            break;
+                        case 'buddy':
+                            history.push(`${pathname.split('enter').join('buddy')}`);
                             break;
                         case 'resources':
                             history.push(`${pathname.split('enter').join('ressources')}`);

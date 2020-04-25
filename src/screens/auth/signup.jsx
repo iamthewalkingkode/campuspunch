@@ -56,7 +56,7 @@ class SignupForm extends Component {
     }
 
     render() {
-        const { form: { getFieldDecorator }, data: { studentCategories, states, schools } } = this.props;
+        const { form: { getFieldDecorator }, _data: { studentCategories, states, schools } } = this.props;
         const { submitting, errorMessage } = this.state;
 
         return (

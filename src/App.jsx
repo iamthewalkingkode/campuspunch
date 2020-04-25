@@ -48,6 +48,7 @@ import AcademyQuestions from './screens/academy/academy.questions';
 import AcademyLessons from './screens/academy/academy.lessons';
 import AcademyLesson from './screens/academy/academy.lesson';
 import AcademyChat from './screens/academy/academy.chat';
+import AcademyBuddy from './screens/academy/academy.buddy';
 
 import FocScreen from './screens/foc/foc.home';
 import FocPhoto from './screens/foc/foc.photo';
@@ -226,6 +227,8 @@ class App extends React.Component {
                             <Route exact path="/academy/questions/:school/:department/:level/:year/:course/:lesson" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                             <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                             <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/academy/buddy/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            <Route exact path="/academy/buddy/:school/:department/:level/:buddy" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                             <Route exact path="/post-article" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                             <Route exact path="/user/academy" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                             <Route exact path="/user/notifications" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
@@ -239,6 +242,8 @@ class App extends React.Component {
                             <Route exact path="/academy/questions/:school/:department/:level/:year/:course" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
                             <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <AcademyChat {...props} {...this.props} />} />
                             <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <AcademyChat {...props} {...this.props} />} />
+                            <Route exact path="/academy/buddy/:school/:department/:level" render={(props) => <AcademyBuddy {...props} {...this.props} />} />
+                            <Route exact path="/academy/buddy/:school/:department/:level/:buddy" render={(props) => <AcademyBuddy {...props} {...this.props} />} />
                             <Route exact path="/academy/lesson/:school/:department/:level/:course" render={(props) => <AcademyLesson {...props} {...this.props} />} />
                             <Route exact path="/academy/questions/:school/:department/:level/:year/:course/:lesson" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
                             <Route exact path="/academy/courses/:school/:department/:level/:year" render={(props) => <AcademyCourses {...props} {...this.props} />} />
@@ -271,7 +276,7 @@ const mapStateToProps = (state) => ({
   _auth: state._auth,
   _foc: state._foc,
   _utils: state._utils,
-  data: state.data,
+  _data: state.data,
   router: state.router
 });
 

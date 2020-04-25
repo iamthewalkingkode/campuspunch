@@ -23,7 +23,7 @@ class FocScreen extends Component {
     }
 
     render() {
-        const { data: { focContests } } = this.props;
+        const { _data: { focContests } } = this.props;
 
         return (
             <React.Fragment>

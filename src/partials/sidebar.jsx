@@ -7,7 +7,7 @@ import * as func from '../utils/functions';
 import { Advert } from '../components';
 
 const SideBar = props => {
-    const { data: { schools } } = props;
+    const { _data: { schools } } = props;
     const parsed = qs.parse(window.location.search);
     const [posts, setPosts] = useState([]);
 
