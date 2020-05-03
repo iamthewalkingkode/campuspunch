@@ -5,6 +5,7 @@ import * as func from '../../utils/functions';
 import { PayModal } from '../../components';
 import publicIp from 'public-ip';
 
+const successMsg = ['You\'re a pro in bidding!', 'You\'re a few coins from winning!', 'You\'re not far from winning, keep bidding!'];
 class BiddingCard extends Component {
 
     constructor(props) {
@@ -12,7 +13,7 @@ class BiddingCard extends Component {
         this.state = {
             loading: false, submitting: false, applyVisible: false, applied: false,
             last: {}, cd: { d: '0', h: '0', m: '0', s: '0' },
-            interval: null
+            interval: null, myBid: 0
         };
     }
 
@@ -24,11 +25,19 @@ class BiddingCard extends Component {
         const { item, _auth: { logg, authenticated } } = this.props;
         if (item.id && authenticated) {
             this.setState({ loading: true });
+            func.post('settings/countdown', { to: item.end_date }).then(res => {
+                this.setState({ cd: res.result });
+            });
             func.post('bidding/logs', { user: logg.id, item: item.id, level: item.level, limit: 1 }).then(res => {
                 this.setState({ loading: false });
                 this.countDown();
                 if (res.status === 200) {
                     this.setState({ applied: true });
+                }
+            });
+            func.post('bidding/users', { user: logg.id, item: item.id, limit: 1 }).then(res => {
+                if (res.status === 200) {
+                    this.setState({ myBid: res.result[0].coins });
                 }
             });
         }
@@ -71,12 +80,13 @@ class BiddingCard extends Component {
         const { item, _auth: { logg, token }, _data: { settings } } = this.props;
         let coins = parseInt(settings.coins_bidding);
         if (logg.coins > coins) {
-            const ip = await publicIp.v4({ fallbackUrls: ['https://ifconfig.co/ip'] });
             this.setState({ submitting: true });
+            const ip = await publicIp.v4({ fallbackUrls: ['https://ifconfig.co/ip'] });
             func.post('bidding/bid', { user: logg.id, item: item.id, level: item.level, coins, ip }).then(res => {
                 this.setState({ submitting: false });
                 if (res.status === 200) {
-                    message.success(`Bid placed. You were debited ${coins} coins`);
+                    func.shuffle(successMsg);
+                    message.success(successMsg[0], 3);
                     this.props.signInSuccess(token, res.user);
                 } else {
                     message.error(res.result);
@@ -89,7 +99,7 @@ class BiddingCard extends Component {
 
     render() {
         const { loading, submitting, applyVisible, applied, cd, last } = this.state;
-        const { item } = this.props;
+        const { item, _data: { settings } } = this.props;
 
         return (
             <React.Fragment>
@@ -116,7 +126,7 @@ class BiddingCard extends Component {
                                     </div>
                                     {cd.s > 0 && (<h1 className="pd-t-10 text-danger"><b>{cd.d}:{cd.h}:{cd.m}:{cd.s}</b></h1>)}
                                     {cd.s <= 0 && (<h1 className="pd-t-10 text-danger"><b>0:0:0:0</b></h1>)}
-                                    {last.id && (<p>Last Bidder: {last.user.username}</p>)}
+                                    {last.user && (<p>Last Bidder: {last.user.username} ({last.coins_nf})</p>)}
                                     <div className="text-left m-lg">
                                         <p className="pd-t-10" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                                         <p><b className="text-primary">Bid Expiration:</b> {moment(item.end_date).format('LLLL')}</p> <p></p>
@@ -128,7 +138,7 @@ class BiddingCard extends Component {
                                             <Button type="primary" block onClick={() => this.apply()} loading={submitting}>Apply ₦{item.amount}</Button>
                                         )}
                                         {(applied === true) && (
-                                            <Button type="primary" block outline disabled={cd.s <= 0} loading={submitting} onClick={() => this.bid()}>Bid</Button>
+                                            <Button type="primary" block outline disabled={cd.s <= 0} loading={submitting} onClick={() => this.bid()}>Bid ({settings.coins_bidding} coins)</Button>
                                         )}
                                     </div>
                                 </div>

@@ -3,7 +3,7 @@ import { Form, Modal, Input, Button } from 'antd';
 import * as func from '../utils/functions';
 
 const PayModalScreen = props => {
-    const { amount, title, visible, type, payModeDefault, form: { getFieldDecorator, validateFields }, _auth: { logg } } = props;
+    const { amount, title, visible, type, payModeDefault, form: { getFieldDecorator, validateFields }, _auth: { logg, authenticated } } = props;
     const [submitting, setSubmitting] = useState(false);
     const [payMode, setPayMode] = useState(payModeDefault || '');
     const [interval, setIntervals] = useState(null);
@@ -32,7 +32,7 @@ const PayModalScreen = props => {
         // pk_live_dcaf413908c1d27a2dc2ea9e3c09609a39a99bc0
         // pk_test_dfa5385701ceb816ad272ce79e4f257b1d0cd805
         var payStack = window.PaystackPop.setup({
-            key: 'pk_test_dfa5385701ceb816ad272ce79e4f257b1d0cd805',
+            key: ['of', 'qa'].includes(func.api.space) ? 'pk_test_dfa5385701ceb816ad272ce79e4f257b1d0cd805' : 'pk_live_dcaf413908c1d27a2dc2ea9e3c09609a39a99bc0',
             email: logg.email,
             amount: amount + '00',
             currency: 'NGN',
@@ -41,7 +41,11 @@ const PayModalScreen = props => {
                 if (pay.status === 'success') {
                     _success(pay.reference, {}, pay, 1);
                 } else {
-
+                    Modal.info({
+                        title: 'Payment failed',
+                        content: `The payment you just made failed.`,
+                        // okText: 'Go back'
+                    });
                 }
             },
             onClose: function () {
@@ -102,7 +106,7 @@ const PayModalScreen = props => {
 
     return (
         <React.Fragment>
-            <Modal visible={visible} onCancel={props.onCancel} title={title} closable={submitting || verifying} footer={[
+            <Modal visible={visible && authenticated} onCancel={props.onCancel} title={title} closable={submitting || verifying} footer={[
                 <Button key="back" onClick={_cancel} disabled={verifying}>
                     Cancel
                 </Button>

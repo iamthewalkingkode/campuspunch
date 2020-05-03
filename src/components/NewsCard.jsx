@@ -13,7 +13,7 @@ const NewsCard = props => {
                     <div className="list-group-item d-flex align-items-center bd-0 pd-0">
                         <div className="row row-sm">
                             <div className="col-12 col-lg-3">
-                                <img className="img-fluid" src={row.image_link} alt={`${row.title} - CampusPunch`} />
+                                <img className="img-fluid mg-b-15" src={row.image_link} alt={`${row.title} - CampusPunch`} />
                             </div>
                             <div className="col-12 col-lg-9">
                                 <Link to={`/article/${row.slug}.${row.id}`} className="tx-20 tx-inverse tx-semibold mg-b-0">{row.title}</Link>

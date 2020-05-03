@@ -5,8 +5,8 @@ export const api = {
     space: 'of',
     apiKey: 'cnVgTUU8JEsvFJUGq7LGxBuxzW2ncmRdYZHPPBj7PWBR1177a5KINwgJMHgGTxN5',
     server_of: 'http://localhost/campuspunch.api/v1/',
-    server_on: 'https://restapi.campuspunch.com/v1/',
-    server_qa: 'http://api.redesign.campuspunch.com/v1/'
+    server_on: 'https://api.campuspunch.com/v1/',
+    server_qa: 'https://qa.campuspunch.com/api/v1/'
 }
 
 export const initialize = () => {
@@ -191,3 +191,7 @@ export const asyncForEach = async (array, callback) => {
 }
 
 export const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
+
+export const shuffle = (array) => {
+    array.sort(() => Math.random() - 0.5);
+}

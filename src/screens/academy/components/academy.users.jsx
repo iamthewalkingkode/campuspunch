@@ -50,7 +50,7 @@ const AcademyUsers = props => {
                         {errMessage && (
                             <div className="alert alert-danger text-center">{errMessage}</div>
                         )}
-                        <div class="list-group">
+                        <div className="list-group">
                             {data.map(row => (
                                 <Buddycard {...props} row={row} setErrMessage={(e) => setErrMessage(e)} />
                             ))}
@@ -86,13 +86,13 @@ const Buddycard = props => {
 
     return (
         <React.Fragment>
-            <div class="list-group-item d-flex align-items-center">
-                <img src={row.user.avatar_link} class="wd-30 rounded-circle mg-r-15" alt={row.user.username} />
+            <div className="list-group-item d-flex align-items-center">
+                <img src={row.user.avatar_link} className="wd-30 rounded-circle mg-r-15" alt={row.user.username} />
                 <div className="wd-100p">
                     <div className="row">
                         <div className="col-8">
-                            <h6 class="tx-13 tx-inverse tx-semibold mg-b-0">@{row.user.username}</h6>
-                            <span class="d-block tx-11 text-muted">
+                            <h6 className="tx-13 tx-inverse tx-semibold mg-b-0">@{row.user.username}</h6>
+                            <span className="d-block tx-11 text-muted">
                                 {row.user.school.name} &sdot; {row.user.category}
                             </span>
                         </div>

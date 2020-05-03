@@ -28,17 +28,17 @@ const Notifications = props => {
     return (
         <React.Fragment>
             {logg.id && (
-                <div class="dropdown dropdown-notification">
-                    <span class="dropdown-link new-indicator pointer" data-toggle="dropdown">
+                <div className="dropdown dropdown-notification">
+                    <span className="dropdown-link new-indicator pointer" data-toggle="dropdown">
                         <i data-feather="bell"></i>
                         {unread > 0 && (<span>{unread}</span>)}
                     </span>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-header">Notifications</div>
+                    <div className="dropdown-menu dropdown-menu-right">
+                        <div className="dropdown-header">Notifications</div>
                         {data.map(row => (
                             <NotificationsCard {...props} key={row.key} row={row} />
                         ))}
-                        <div class="dropdown-footer"><Link to="/user/notifications">View all Notifications</Link></div>
+                        <div className="dropdown-footer"><Link to="/user/notifications">View all Notifications</Link></div>
                     </div>
                 </div>
             )}

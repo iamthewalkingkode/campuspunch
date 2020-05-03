@@ -100,7 +100,7 @@ class PostList extends Component {
                                 <div className="col-12 col-sm-9 col-lg-9"><Loading size="small" text={`loading news...`} /></div>
                             )}
                             {!loading && (
-                                <div className="col-12 col-sm-9 col-lg-9">
+                                <div className="col-12 col-sm-9 col-lg-9 mg-b-30">
                                     {data.map(row => (
                                         <NewsCard key={row.id} row={row} />
                                     ))}

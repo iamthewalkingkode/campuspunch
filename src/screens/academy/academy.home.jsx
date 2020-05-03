@@ -84,7 +84,7 @@ class AcademyHome extends Component {
                         </div>
                         <div className="row mg-t-30">
                             {skills.map(dep => (
-                                <div className="col-12 col-lg-3">
+                                <div key={dep.id} className="col-12 col-lg-3">
                                     <div className="card mg-b-25 pointer" onClick={() => this.setState({ dep, visible: true })}>
                                         <div className="pos-relative">
                                             <div className="marker pos-absolute t-10 l-10 bg-primary tx-white">₦3,000</div>
@@ -129,7 +129,7 @@ class AcademyHome extends Component {
                     onCancel={() => this.setState({ visible: false, dep: {} })} style={{ top: 20 }}
                 >
                     {levels.map(lvl => (
-                        <button className="btn btn-xs btn-light btn-block text-left" onClick={() => this.openSkill(lvl)}>{lvl.name}</button>
+                        <button key={lvl.id} className="btn btn-xs btn-light btn-block text-left" onClick={() => this.openSkill(lvl)}>{lvl.name}</button>
                     ))}
                 </Modal>
             </React.Fragment>

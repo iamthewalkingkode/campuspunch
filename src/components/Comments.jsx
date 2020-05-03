@@ -46,7 +46,7 @@ const CommentsC = props => {
 
     return (
         <div className="mg-b-20 df-examples" data-label="Comments">
-            {type !== 'chat' && (
+            {['chat', 'buddy'].includes(type) === false && (
                 <h6 className="tx-uppercase tx-semibold mg-b-10">Comment(s)</h6>
             )}
             {authenticated && (
@@ -68,7 +68,7 @@ const CommentsC = props => {
             )}
 
             {loading === true && (
-                <div className="text-center">loading {type === 'chat' ? 'chats' : 'comments'}...</div>
+                <div className="text-center">loading {['chat', 'buddy'].includes(type) === true ? 'chats' : 'comments'}...</div>
             )}
 
             {loading === false && (

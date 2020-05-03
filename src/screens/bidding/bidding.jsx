@@ -19,7 +19,7 @@ class BiddingScreen extends Component {
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Bidding', description: '', keywords: '' });
-        this.props.setHeaderBottom({ h1: 'Bidding', h3: '', p: '', image: 'banner/bidding.png' });
+        this.props.setHeaderBottom({ h1: 'Bidding', h3: '', p: '', image: 'banner/bidding.jpg' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -51,7 +51,7 @@ class BiddingScreen extends Component {
 
         return (
             <React.Fragment>
-                <Advert position="top" />
+                {/* <Advert position="top" /> */}
                 <div className="row">
                     <div className="col-12 col-sm-9 col-lg-9">
                         <div>

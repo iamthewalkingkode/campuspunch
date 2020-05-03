@@ -56,7 +56,7 @@ const Screen = props => {
                             })(
                                 <Select showSearch={true} size="large" loading={loading} optionFilterProp="children" placeholder="Choose a school" onChange={e => getDepartmentsLevels(e)}>
                                     {schools.map(sch => (
-                                        <Select.Option value={sch.id}>{sch.name}</Select.Option>
+                                        <Select.Option key={sch.id} value={sch.id}>{sch.name}</Select.Option>
                                     ))}
                                 </Select>
                             )}
@@ -70,7 +70,7 @@ const Screen = props => {
                         })(
                             <Select showSearch={true} size="large" loading={loading} disabled={loading} optionFilterProp="children" placeholder="Choose an exam" onChange={department => setFinal({ ...final, department })}>
                                 {departments.map(dep => (
-                                    <Select.Option value={dep.id}>{dep.name}</Select.Option>
+                                    <Select.Option key={dep.id} value={dep.id}>{dep.name}</Select.Option>
                                 ))}
                             </Select>
                         )}
@@ -83,7 +83,7 @@ const Screen = props => {
                         })(
                             <Select showSearch={true} size="large" loading={loading} disabled={loading} optionFilterProp="children" placeholder="Choose a level" onChange={level => setFinal({ ...final, level })}>
                                 {levels.map(lvl => (
-                                    <Select.Option value={lvl.id}>{lvl.name}</Select.Option>
+                                    <Select.Option key={lvl.id} value={lvl.id}>{lvl.name}</Select.Option>
                                 ))}
                             </Select>
                         )}

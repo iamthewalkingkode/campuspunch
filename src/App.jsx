@@ -169,7 +169,7 @@ class App extends React.Component {
                     </div>
                     <Menu {...this.props} />
                   </div>
-                  <div class="navbar-right" style={{ justifyContent: 'flex-start' }}>
+                  <div className="navbar-right" style={{ justifyContent: 'flex-start' }}>
                     <Notifications {...this.props} />
                   </div>
                 </header>

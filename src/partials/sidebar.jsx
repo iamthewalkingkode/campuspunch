@@ -36,11 +36,11 @@ const SideBar = props => {
                 <hr />
             </div>
 
-            <div className="mg-b-20">
+            {/* <div className="mg-b-20">
                 <h6 className="tx-uppercase tx-semibold mg-b-5">Pic of the Day</h6>
                 <img className="img-thumbnail" src="http://sample.campuspunch.com/assets/img/campuspic.jpg" alt="pic of the day - CampusPunch" />
                 <hr />
-            </div>
+            </div> */}
 
             <div className="mg-b-20">
                 <h6 className="tx-uppercase tx-semibold mg-b-5">Select a school</h6>

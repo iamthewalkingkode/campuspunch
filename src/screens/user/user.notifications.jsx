@@ -55,7 +55,7 @@ class UserNotifications extends Component {
                             <Skeleton avatar active paragraph={{ rows: 1, style: { margin: 0 } }} />
                         )}
                         {!loading && (
-                            <div class="mg-b-20 dropdown-notification">
+                            <div className="mg-b-20 dropdown-notification">
                                 {data.map(row => (
                                     <NotificationsCard {...this.props} key={row.key} row={row} />
                                 ))}
