@@ -128,7 +128,7 @@ class BiddingCard extends Component {
                         </div>
                     )}
                     {(loading === false && item.id) && (
-                        <div className="card">
+                        <div className={`card`}>
                             <div className="card-body">
                                 <div className="text-center">
                                     <div className="pos-relative">
