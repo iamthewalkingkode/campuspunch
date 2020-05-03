@@ -29,7 +29,7 @@ class BiddingScreen extends Component {
 
     bidItems() {
         this.setState({ loading: true });
-        func.post('bidding', { status: 1, limit: 3, active: 'yes', orderby: 'level_asc' }).then(res => {
+        func.post('bidding', { status: 1, limit: 4, active: 'yes', orderby: 'level_asc' }).then(res => {
             this.setState({ loading: false });
             if (res.status === 200) {
                 this.setState({ items: res.result });
@@ -91,6 +91,9 @@ class BiddingScreen extends Component {
                             </div>
                             <div className="col-12 col-sm-6 col-lg-6">
                                 {(loading === true || (items[2] || {}).id) && (<BiddingCard item={items[2] || {}} {...this.props} />)}
+                            </div>
+                            <div className="col-12 col-sm-6 col-lg-6">
+                                {(loading === true || (items[3] || {}).id) && (<BiddingCard item={items[3] || {}} {...this.props} />)}
                             </div>
                         </div>
                     </div>

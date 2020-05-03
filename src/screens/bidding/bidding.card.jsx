@@ -11,7 +11,7 @@ class BiddingCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false, submitting: false, applyVisible: false, applied: false,
+            loading: false, submitting: false, applyVisible: false, applied: false, lastMinute: false,
             last: {}, cd: { d: '0', h: '0', m: '0', s: '0' },
             interval: null, myBid: 0
         };
@@ -27,6 +27,9 @@ class BiddingCard extends Component {
             this.setState({ loading: true });
             func.post('settings/countdown', { to: item.end_date }).then(res => {
                 this.setState({ cd: res.result });
+                if (res.result.d === 0 && res.result.h === 0 && res.result.m <= 10) {
+                    this.setState({ lastMinute: true });
+                }
             });
             func.post('bidding/logs', { user: logg.id, item: item.id, level: item.level, limit: 1 }).then(res => {
                 this.setState({ loading: false });
@@ -48,6 +51,9 @@ class BiddingCard extends Component {
         let interval = setInterval(() => {
             func.post('settings/countdown', { to: item.end_date }).then(res => {
                 this.setState({ cd: res.result, interval });
+                if (res.result.d === 0 && res.result.h === 0 && res.result.m <= 10) {
+                    this.setState({ lastMinute: true });
+                }
             });
             func.post('bidding/users', { item: item.id, limit: 1 }).then(res => {
                 if (res.status === 200) {
@@ -77,28 +83,33 @@ class BiddingCard extends Component {
     }
 
     bid = async () => {
+        const { myBid, lastMinute } = this.state;
         const { item, _auth: { logg, token }, _data: { settings } } = this.props;
         let coins = parseInt(settings.coins_bidding);
         if (logg.coins > coins) {
-            this.setState({ submitting: true });
-            const ip = await publicIp.v4({ fallbackUrls: ['https://ifconfig.co/ip'] });
-            func.post('bidding/bid', { user: logg.id, item: item.id, level: item.level, coins, ip }).then(res => {
-                this.setState({ submitting: false });
-                if (res.status === 200) {
-                    func.shuffle(successMsg);
-                    message.success(successMsg[0], 3);
-                    this.props.signInSuccess(token, res.user);
-                } else {
-                    message.error(res.result);
-                }
-            });
+            if (!lastMinute || (lastMinute && myBid >= 500)) {
+                this.setState({ submitting: true });
+                const ip = await publicIp.v4({ fallbackUrls: ['https://ifconfig.co/ip'] });
+                func.post('bidding/bid', { user: logg.id, item: item.id, level: item.level, coins, ip }).then(res => {
+                    this.setState({ submitting: false });
+                    if (res.status === 200) {
+                        func.shuffle(successMsg);
+                        message.success(successMsg[0], 3);
+                        this.props.signInSuccess(token, res.user);
+                    } else {
+                        message.error(res.result);
+                    }
+                });
+            } else {
+                message.error(`Your total bid is ${myBid}. You needed to bid 500 or more coins to bid at this moment`);
+            }
         } else {
             message.error('You do not have enough coins to bid');
         }
     }
 
     render() {
-        const { loading, submitting, applyVisible, applied, cd, last } = this.state;
+        const { loading, submitting, applyVisible, applied, cd, last, lastMinute, myBid } = this.state;
         const { item, _data: { settings } } = this.props;
 
         return (
@@ -138,7 +149,9 @@ class BiddingCard extends Component {
                                             <Button type="primary" block onClick={() => this.apply()} loading={submitting}>Apply ₦{item.amount}</Button>
                                         )}
                                         {(applied === true) && (
-                                            <Button type="primary" block outline disabled={cd.s <= 0} loading={submitting} onClick={() => this.bid()}>Bid ({settings.coins_bidding} coins)</Button>
+                                            <Button type="primary" block outline disabled={cd.s <= 0 || (lastMinute && myBid < 500)} loading={submitting} onClick={() => this.bid()}>
+                                                Bid ({settings.coins_bidding} coins)
+                                            </Button>
                                         )}
                                     </div>
                                 </div>
