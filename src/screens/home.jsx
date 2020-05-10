@@ -67,11 +67,11 @@ export default HomeScreen;
 
 
 const HomeCard = props => {
-    const { ctg, data } = props;
+    const { ctg, data, key } = props;
     let main = ((data[ctg.id] || [])[0] || {});
 
     return (
-        <div className="card mg-b-25">
+        <div key={key} className="card mg-b-25">
             <div className="card-header pd-y-15 pd-x-20 d-flex align-items-center justify-content-between bg-gray-100">
                 <h6 className="tx-uppercase tx-semibold mg-b-0">Campus {ctg.name}</h6>
             </div>
@@ -91,7 +91,7 @@ const HomeCard = props => {
                     <ul className="list-group">
                         {(data[ctg.id] || []).map((row, i) => (
                             i > 1 && (
-                                <li className="list-group-item bd-0 pd-0 mg-b-5">
+                                <li key={row.id} className="list-group-item bd-0 pd-0 mg-b-5">
                                     <Link to={`/article/${row.slug}.${row.id}`}>{row.title}</Link>{' '} | {' '}
                                     <Link to={`/u/${row.user.username}`}><i className="fa fa-user"></i> {row.user.username}</Link>
                                 </li>

@@ -21,7 +21,7 @@ const NotificationsCard = props => {
         <React.Fragment>
             <div className="dropdown-item" style={{ borderBottom: '1px solid #eee' }}>
                 <div className="media">
-                    <div class={`avatar avatar-sm ${status === 0 && 'avatar-online'}`}>
+                    <div className={`avatar avatar-sm ${status === 0 && 'avatar-online'}`}>
                         <Link to={`/u/${row.initiator.username}`}><img src={row.initiator.avatar_link} className="rounded-circle" alt={row.username} /></Link>
                     </div>
                     <div className="media-body mg-l-15">

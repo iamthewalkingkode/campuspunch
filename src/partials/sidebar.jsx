@@ -58,7 +58,7 @@ const SideBar = props => {
                     <h6 className="tx-uppercase tx-semibold mg-b-5">Popular posts</h6>
                     <div className="list-group">
                         {posts.map(row => (
-                            <div className="list-group-item d-flex align-items-centers">
+                            <div key={row.id} className="list-group-item d-flex align-items-centers">
                                 <img src={row.image_link} className="ht-30 mg-r-15 rounded-circles" alt={row.title} />
                                 <div className="">
                                     <Link to={`/article/${row.slug}.${row.id}`}>

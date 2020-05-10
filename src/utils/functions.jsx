@@ -6,7 +6,7 @@ export const api = {
     apiKey: 'cnVgTUU8JEsvFJUGq7LGxBuxzW2ncmRdYZHPPBj7PWBR1177a5KINwgJMHgGTxN5',
     server_of: 'http://localhost/campuspunch.api/v1/',
     server_on: 'https://api.campuspunch.com/v1/',
-    server_qa: 'https://qa.campuspunch.com/api/v1/'
+    server_qa: 'https://api.qa.campuspunch.com/v1/'
 }
 
 export const initialize = () => {
