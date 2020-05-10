@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 const SigninForm = React.lazy(() => import('../auth/signup'));
-
+const NotFound = React.lazy(() => import('../../partials/404'));
 const AcademyScreen = React.lazy(() => import('./academy.home'));
 const AcademyIntro = React.lazy(() => import('./academy.intro'));
 const AcademyEnter = React.lazy(() => import('./academy.enter'));
@@ -35,7 +35,8 @@ export default class Academy extends React.Component {
                         <Route exact path="/academy/chat/:school/:department/:level/:tutor" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                         <Route exact path="/academy/buddy/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                         <Route exact path="/academy/buddy/:school/:department/:level/:buddy" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
-                        {/* <Route exact path="/post-article" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} /> */}
+
+                        <Route render={(props) => <NotFound {...props} {...this.props} />} />
                     </React.Fragment>
                 )}
 
@@ -52,6 +53,8 @@ export default class Academy extends React.Component {
                         <Route exact path="/academy/questions/:school/:department/:level/:year/:course/:lesson" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
                         <Route exact path="/academy/courses/:school/:department/:level/:year" render={(props) => <AcademyCourses {...props} {...this.props} />} />
                         <Route exact path="/academy/lessons/:school/:department/:level" render={(props) => <AcademyLessons {...props} {...this.props} />} />
+
+                        <Route render={(props) => <NotFound {...props} {...this.props} />} />
                     </React.Fragment>
                 )}
             </React.Fragment>

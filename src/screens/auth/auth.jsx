@@ -181,8 +181,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    signInSuccess: (token, data) => {
-        dispatch(authAct.signInSuccess(token, data));
+    signInSuccess: (data) => {
+        dispatch(authAct.signInSuccess(data));
     },
     setSetSettings: (key, value) => {
         dispatch(utilsAct.setSetSettings(key, value));

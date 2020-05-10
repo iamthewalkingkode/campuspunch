@@ -26,7 +26,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 authenticated: true,
-                token: action.token,
+                // token: action.token,
                 logg: action.data
             };
         case SIGNOUT_SUCCESS:

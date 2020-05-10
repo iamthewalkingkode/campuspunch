@@ -8,7 +8,7 @@ const SetProfile = props => {
 
     const submit = (e) => {
         e.preventDefault();
-        const { form: { validateFields }, _auth: { token, logg } } = props;
+        const { form: { validateFields }, _auth: { logg } } = props;
         validateFields((err, v) => {
             if (!err) {
                 setSubmitting(true);
@@ -16,7 +16,7 @@ const SetProfile = props => {
                 func.post('users/update', v).then(res => {
                     setSubmitting(false);
                     if (res.status === 200) {
-                        props.signInSuccess(token, res.user);
+                        props.signInSuccess(res.user);
                         message.success('FOC details updated');
                     } else {
                         message.error(res.result);

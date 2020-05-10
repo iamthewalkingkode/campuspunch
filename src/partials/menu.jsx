@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Menu = props => {
   const root = props.router.location.pathname.split('/')[1];
   const { _data: { menus }, _auth: { authenticated } } = props;
+
+  useEffect(() => {
+    window.init();
+  }, []);
 
   return (
     <ul className="nav navbar-menu">

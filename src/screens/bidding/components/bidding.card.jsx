@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Button, message } from 'antd';
-import * as func from '../../utils/functions';
-import { PayModal } from '../../components';
+import * as func from '../../../utils/functions';
+import { PayModal } from '../../../components';
 import publicIp from 'public-ip';
 
 const successMsg = ['You\'re a pro in bidding!', 'You\'re a few coins from winning!', 'You\'re not far from winning, keep bidding!'];
@@ -64,7 +64,7 @@ class BiddingCard extends Component {
     }
 
     apply() {
-        const { item, _auth: { logg, token } } = this.props;
+        const { item, _auth: { logg } } = this.props;
         if (logg.wallet >= item.amount) {
             this.setState({ submitting: true });
             func.post('bidding/apply', { user: logg.id, item: item.id, level: item.level, amount: item.amount }).then(res => {
@@ -72,7 +72,7 @@ class BiddingCard extends Component {
                 if (res.status === 200) {
                     this.setState({ applied: true });
                     message.success(`You have applied`);
-                    this.props.signInSuccess(token, res.user);
+                    this.props.signInSuccess(res.user);
                 } else {
                     message.error(res.result);
                 }
@@ -84,7 +84,7 @@ class BiddingCard extends Component {
 
     bid = async () => {
         const { myBid, lastMinute } = this.state;
-        const { item, _auth: { logg, token }, _data: { settings } } = this.props;
+        const { item, _auth: { logg }, _data: { settings } } = this.props;
         let coins = parseInt(settings.coins_bidding);
         if (logg.coins > coins) {
             if (!lastMinute || (lastMinute && myBid >= 500)) {
@@ -95,7 +95,7 @@ class BiddingCard extends Component {
                     if (res.status === 200) {
                         func.shuffle(successMsg);
                         message.success(successMsg[0], 3);
-                        this.props.signInSuccess(token, res.user);
+                        this.props.signInSuccess(res.user);
                     } else {
                         message.error(res.result);
                     }
@@ -169,7 +169,7 @@ class BiddingCard extends Component {
                     title={`Recharge ${item.level} (₦${item.amount})`}
                     onCancel={() => this.setState({ applyVisible: false })}
                     paySuccess={(e) => {
-                        this.props.signInSuccess(this.props._auth.token, e.user);
+                        this.props.signInSuccess(e.user);
                         setTimeout(() => {
                             this.apply();
                         }, 100);

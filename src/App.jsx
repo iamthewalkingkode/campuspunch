@@ -16,7 +16,8 @@ import * as dataAct from './store/data/_dataActions';
 import * as utilsAct from './store/utils/_utilsActions';
 import * as focAct from './store/foc/_focActions';
 
-// import PostForm from './screens/post/post.form';
+import PostForm from './screens/post/post.form';
+const SigninForm = React.lazy(() => import('./screens/auth/signup'));
 
 const NotFound = React.lazy(() => import('./partials/404'));
 const Menu = React.lazy(() => import('./partials/Menu'));
@@ -33,7 +34,7 @@ const FaceOfCampus = React.lazy(() => import('./screens/foc'));
 const PostList = React.lazy(() => import('./screens/post/post.list'));
 const PostDetails = React.lazy(() => import('./screens/post/post.details'));
 
-const BiddingScreen = React.lazy(() => import('./screens/bidding/bidding'));
+const Bidding = React.lazy(() => import('./screens/bidding'));
 const UserProfile = React.lazy(() => import('./screens/user/user.profile'));
 
 class App extends React.Component {
@@ -46,17 +47,19 @@ class App extends React.Component {
     this.initApp();
   }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     const loc = window.location.pathname.split('/');
-    if ((loc[1] === 'user' && loc[2] === 'signout') && func.getStorage('token')) {
+    if ((loc[1] === 'user' && loc[2] === 'signout')) {
       this.props.signOutSuccess();
       // throw {};
     }
+
+    // window.init();
   }
 
   initApp = () => {
     // ::: run some things before doingImportantStuffs the MainApp
-    const { _auth: { logg, token } } = this.props;
+    const { _auth: { logg } } = this.props;
     this.setState({ doingImportantStuffs: true });
     if (logg.id) {
       func.post('users', { id: logg.id, limit: 1 }).then((res) => {
@@ -65,7 +68,7 @@ class App extends React.Component {
         if (res.status === 200) {
           let usr = res.result[0];
           if (usr.status !== 2) {
-            this.props.signInSuccess(token, usr);
+            this.props.signInSuccess(usr);
             func.setStorageJson('user', usr);
           }
         }
@@ -113,7 +116,7 @@ class App extends React.Component {
 
   render() {
     const { doingImportantStuffs } = this.state;
-    const { _utils: { lang, meta } } = this.props;
+    const { _utils: { lang, meta }, _auth: { authenticated }, history: { location: { pathname } } } = this.props;
 
     return (
       <React.Fragment>
@@ -159,22 +162,24 @@ class App extends React.Component {
                             <Route exact path="/" render={(props) => <HomeScreen {...props} {...this.props} row={{}} />} />
 
                             {/* User unauth routes */}
-                            <Route path="/user" render={(props) => <User {...props} {...this.props} />} />
+                            <Route path="/user" render={() => <User {...this.props} />} />
                             <Route exact path="/u/:username" render={(props) => <UserProfile {...props} {...this.props} />} />
+                            {authenticated === false && (
+                              <Route exact path="/post-article" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
+                            )}
+                            {authenticated === true && (
+                              <Route exact path="/post-article" render={(props) => <PostForm {...props} {...this.props} redirect={pathname} />} />
+                            )}
 
                             {/* News */}
                             <Route exact path="/news" render={(props) => <PostList {...props} {...this.props} />} />
                             <Route exact path="/news/:category" render={(props) => <PostList {...props} {...this.props} />} />
                             <Route exact path="/school/:school" render={(props) => <PostList {...props} {...this.props} />} />
                             <Route exact path="/article/:article" render={(props) => <PostDetails {...props} {...this.props} />} />
-
-                            {/* Bidding */}
-                            <Route exact path="/bidding" render={(props) => <BiddingScreen {...props} {...this.props} />} />
-
-                            {/* Academy */}
-                            <Route path="/academy" render={(props) => <Academy {...props} {...this.props} />} />
-
-                            <Route path="/face-of-campus" render={(props) => <FaceOfCampus {...props} {...this.props} />} />
+                            
+                            <Route path="/bidding" render={() => <Bidding {...this.props} />} />
+                            <Route path="/academy" render={() => <Academy {...this.props} />} />
+                            <Route path="/face-of-campus" render={() => <FaceOfCampus {...this.props} />} />
 
                             <Route render={(props) => <NotFound {...props} {...this.props} />} />
                           </Switch>
@@ -205,8 +210,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  signInSuccess: (token, data) => {
-    dispatch(authAct.signInSuccess(token, data));
+  signInSuccess: (data) => {
+    dispatch(authAct.signInSuccess(data));
   },
   signOutSuccess: () => {
     dispatch(authAct.signOutSuccess());

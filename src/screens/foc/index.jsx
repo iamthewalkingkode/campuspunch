@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 // const SigninForm = React.lazy(() => import('../auth/signup'));
 
+const NotFound = React.lazy(() => import('../../partials/404'));
 const FocScreen = React.lazy(() => import('./foc.home'));
 const FocPhoto = React.lazy(() => import('./foc.photo'));
 const FocPhotoApply = React.lazy(() => import('./foc.photo.apply'));
@@ -39,6 +40,8 @@ export default class FaceOfCampus extends React.Component {
                     <Route exact path="/face-of-campus/dance/:contest" render={(props) => <FocDance {...props} {...this.props} />} />
                     <Route exact path="/face-of-campus/dance/:contest/apply" render={(props) => <FocDanceApply {...props} {...this.props} />} />
                     <Route exact path="/face-of-campus/dance/:contest/:user" render={(props) => <FocDanceProfile {...props} {...this.props} />} />
+
+                    <Route render={(props) => <NotFound {...props} {...this.props} />} />
                 </Switch>
             </React.Fragment>
         )

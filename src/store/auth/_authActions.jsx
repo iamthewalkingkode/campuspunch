@@ -2,9 +2,9 @@ import { SIGNIN_SUCCESS, SIGNOUT_SUCCESS } from '../_types';
 import * as func from '../../utils/functions';
 import { message } from 'antd';
 
-export function signInSuccess(token, data) {
+export function signInSuccess(data) {
     return dispatch => {
-        dispatch({ type: SIGNIN_SUCCESS, data, token });
+        dispatch({ type: SIGNIN_SUCCESS, data });
     }
 };
 

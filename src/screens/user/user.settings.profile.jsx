@@ -42,7 +42,7 @@ const SetProfile = props => {
         });
     }
     const submitGo = (v, avatar) => {
-        const { _auth: { token, logg } } = props;
+        const { _auth: { logg } } = props;
         v['id'] = logg.id;
         v['phone'] = '+234' + v['phone'];
         if (avatar) {
@@ -52,7 +52,7 @@ const SetProfile = props => {
         func.post('users/update', v).then(res => {
             setSubmitting(false);
             if (res.status === 200) {
-                props.signInSuccess(token, res.user);
+                props.signInSuccess(res.user);
                 message.success('Profile details updated');
             } else {
                 message.error(res.result);
