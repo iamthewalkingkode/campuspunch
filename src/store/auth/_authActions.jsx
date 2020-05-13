@@ -13,7 +13,7 @@ export function signOutSuccess() {
         message.success('success', 'You are now logged out!');
         func.delStorage('user');
         func.delStorage('token');
-        func.redirect('/');
+        // func.redirect('/');
         dispatch({ type: SIGNOUT_SUCCESS });
     }
 };

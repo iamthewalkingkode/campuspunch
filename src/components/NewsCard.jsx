@@ -21,7 +21,9 @@ const NewsCard = props => {
                                     <small>
                                         <span>{moment(row.crdate, 'YYYY-MM-DD').format('LL')} </span>
                                         {sch.name ? <span>| <Link to={`/school/${sch.slug}.${sch.id}`}>{sch.name}</Link> </span> : ''}
-                                        <span>| by <Link to={`/u/${row.user.username}`}>{row.user.username}</Link></span>
+                                        {row.anonymous === 0 && (
+                                            <span>| by <Link to={`/u/${row.user.username}`}>{row.user.username}</Link></span>
+                                        )}
                                     </small>
                                 </div>
                                 <p className="d-block tx-13 text-muteds">{row.content_small} ...</p>

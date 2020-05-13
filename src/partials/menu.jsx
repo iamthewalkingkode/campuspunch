@@ -29,6 +29,9 @@ const Menu = props => {
             )
         )
       ))}
+      {authenticated === true && (
+        <li className={`nav-item`}><span className="nav-link pointer" onClick={() => props.signOutSuccess()}>Sign out</span></li>
+      )}
     </ul>
   );
 

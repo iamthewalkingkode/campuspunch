@@ -66,6 +66,7 @@ class PostList extends Component {
         this.setState({ loading: true });
         const { step, limit, params } = this.state;
         params['status'] = 1;
+        params['orderby'] = 'psdate_desc';
         params['limit'] = `${step},${limit}`;
         func.post('posts', params).then(res => {
             this.setState({ loading: false });

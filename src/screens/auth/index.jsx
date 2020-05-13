@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+const NotFound = React.lazy(() => import('../../partials/404'));
 const SigninForm = React.lazy(() => import('./signin'));
 const SignupForm = React.lazy(() => import('./signup'));
 const ResetForm = React.lazy(() => import('./reset'));
@@ -26,6 +27,8 @@ export default class User extends React.Component {
                         <Route exact path="/user/signup" render={(props) => <SignupForm {...props} {...this.props} />} />
                         <Route exact path="/user/reset" render={(props) => <ResetForm {...props} {...this.props} />} />
                         <Route exact path="/user/reset/:token" render={(props) => <ResetForm {...props} {...this.props} />} />
+
+                        <Route render={(props) => <NotFound {...props} {...this.props} />} />
                     </Switch>
                 )}
 
@@ -39,6 +42,8 @@ export default class User extends React.Component {
                         <Route exact path="/user/signup" render={(props) => <SignupForm {...props} {...this.props} />} />
                         <Route exact path="/user/reset" render={(props) => <ResetForm {...props} {...this.props} />} />
                         <Route exact path="/user/reset/:token" render={(props) => <ResetForm {...props} {...this.props} />} />
+
+                        <Route render={(props) => <NotFound {...props} {...this.props} />} />
                     </Switch>
                 )}
             </React.Fragment>

@@ -2,7 +2,7 @@ import moment from 'moment';
 // import axios from 'axios';
 
 export const api = {
-    space: 'of',
+    space: 'on',
     apiKey: 'cnVgTUU8JEsvFJUGq7LGxBuxzW2ncmRdYZHPPBj7PWBR1177a5KINwgJMHgGTxN5',
     server_of: 'http://localhost/campuspunch.api/v1/',
     server_on: 'https://api.campuspunch.com/v1/',
@@ -10,6 +10,13 @@ export const api = {
 }
 
 export const initialize = () => {
+    if (window.location.host.match(/localhost:/i)) {
+        api.space = 'of';
+    } else if (window.location.host === 'qa.campuspunch.com') {
+        api.space = 'qa';
+    } else if (window.location.host === 'campuspunch.com') {
+        api.space = 'on';
+    }
     api.apiURL = api[`server_${api.space}`];
     api.apiToken = getStorage('token');
 }

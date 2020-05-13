@@ -47,16 +47,6 @@ class App extends React.Component {
     this.initApp();
   }
 
-  componentDidUpdate() {
-    const loc = window.location.pathname.split('/');
-    if ((loc[1] === 'user' && loc[2] === 'signout')) {
-      this.props.signOutSuccess();
-      // throw {};
-    }
-
-    // window.init();
-  }
-
   initApp = () => {
     // ::: run some things before doingImportantStuffs the MainApp
     const { _auth: { logg } } = this.props;

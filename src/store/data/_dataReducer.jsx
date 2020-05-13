@@ -26,7 +26,7 @@ const initialState = {
                 { name: 'My profile', link: 'u/' + logg.username },
                 { name: 'Profile settings', link: 'user' },
                 { name: 'My academy', link: 'user/academy' },
-                { name: 'Sign out', link: 'user/signout' },
+                // { name: 'Sign out', link: 'user/signout' }
             ]
         },
     ]

@@ -19,6 +19,7 @@ class BiddingHome extends Component {
     }
 
     componentDidMount() {
+        const { _auth: { authenticated, logg } } = this.props;
         this.props.setMetaTags({ title: 'Bidding', description: '', keywords: '' });
         this.props.setHeaderBottom({ h1: 'Bidding', h3: '', p: '', image: 'banner/bidding.jpg' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
@@ -27,16 +28,23 @@ class BiddingHome extends Component {
         this.bidItems();
         this.prevWinners();
 
-        func.post('bidding.pro/logs', { user: this.props._auth.logg.id }).then(res => {
-            if (res.status === 200) {
-                this.setState({ appliedPro: true });
-            }
-        });
-        func.post('bidding.pro/referrers', { referrer: this.props._auth.logg.id }).then(res => {
-            if (res.status === 200) {
-                this.setState({ referralTotal: res.count });
-            }
-        });
+        if (this.state.user) {
+            this.props.setMetaTags({ title: 'Bidding PRO', description: 'Own a free student Apple MacBook Laptop with N3,200', keywords: '' });
+            this.props.setHeaderBottom({ h1: 'Bidding PRO', h3: '', p: '', image: 'banner/bidding.jpg' });
+        }
+
+        if (authenticated === true) {
+            func.post('bidding.pro/logs', { user: logg.id }).then(res => {
+                if (res.status === 200) {
+                    this.setState({ appliedPro: true });
+                }
+            });
+            func.post('bidding.pro/referrers', { referrer: logg.id }).then(res => {
+                if (res.status === 200) {
+                    this.setState({ referralTotal: res.count });
+                }
+            });
+        }
     }
 
     bidItems() {
@@ -109,7 +117,7 @@ class BiddingHome extends Component {
                                     You need to <Link to="/user/signin?redirect=bidding">Sign in</Link> or <Link to="/user/signup?redirect=bidding">Sign up</Link> to be able to bid
                                 </div>
                             )}
-                            {!loading && appliedPro === false && (
+                            {!loading && appliedPro === false && authenticated === true && (
                                 <div className="card mg-b-20">
                                     <div className="card-body bg-gray-200 d-flex flex-row justify-content-around">
                                         <div className="profile-skillset flex-fills text-center">
@@ -122,7 +130,7 @@ class BiddingHome extends Component {
                                     </div>
                                 </div>
                             )}
-                            {!loading && appliedPro === true && (
+                            {!loading && appliedPro === true && authenticated === true && (
                                 <div className="card mg-b-20">
                                     <div className="card-body bg-gray-200 d-flex flex-row justify-content-around">
                                         <div className="profile-skillset flex-fills text-center">
@@ -159,7 +167,8 @@ class BiddingHome extends Component {
                     <div className="col-12 col-sm-3 col-lg-3">
                         <div className="mg-b-20">
                             <h6 className="tx-uppercase tx-semibold mg-b-5">Campus bidding</h6>
-                            <p>Though, the Board also made efforts at training the blind candidates on the equipment before the examination, it is apparent that the two days to one week training and exposure to the sophisticated gadgets are inadequate and have little impact on them before the examination. The Association pleaded that the Board takes another look at our approach in order to have value for the resources that we are committing to their teaching, learning and assessment. <span className="text-primary pointer" onClick={() => this.setState({ visible: true })}>Read more</span></p>
+                            <div><b>Fresher Bidding</b>: is the bidding where the highest bidder goes home with the latest phones, tablets and laptops using either N100, N200 or N300 only.</div>
+                            <div><b>Bidding Pro</b>: is the bidding affiliate program where one registers with N3,200, then invites just 2 people and get to own the latest laptops, tablets and phones within a month. <span className="text-primary pointer" onClick={() => this.setState({ visible: true })}>Read more</span></div>
                             <hr />
 
                             <Advert position="sidebar" />
@@ -181,15 +190,42 @@ class BiddingHome extends Component {
                     </div>
                 </div>
 
-                <Modal title="Campus bidding" visible={visible} onCancel={() => this.setState({ visible: false })} footer={[
+                <Modal title="Campus bidding" visible={visible} width={600} onCancel={() => this.setState({ visible: false })} footer={[
                     <Button key="back" onClick={() => this.setState({ visible: false })}>
                         Okay
                     </Button>
                 ]}>
-                    <p>Though, the Board also made efforts at training the blind candidates on the equipment before the examination, it is apparent that the two days to one week training and exposure to the sophisticated gadgets are inadequate and have little impact on them before the examination. The Association pleaded that the Board takes another look at our approach in order to have value for the resources that we are committing to their teaching, learning and assessment.</p>
-                    <p>Firstly after our interaction, the Board appealed to some universities and other tertiary institutions to admit all the blind candidates that met the minimum requirement for registration in the 2016 Unified Tertiary Matriculation Examination and I am happy to inform this august gathering that all candidates who fall into this category have been admitted. I thank the Vice Chancellors and Provosts who graciously partnered with us to admit the blind candidates into their institutions.</p>
-                    <p>Secondly, the Board has approached the Digital Bridge Institute to partner with it to set up Visually Impaired Candidates centres where the blind candidates can be trained all year round and which can also serve as examination centres for them. The Institute has agreed to set up these dedicated centres in Abuja, Lagos and Kano in 2018 and the Board will support the centres with all necessary inputs that would make teaching, learning and assessment at the centres seamless.</p>
-                    <p>The centres would also have residential accommodation for the blind candidates and their guides.</p>
+                    <div className="text-muted"><h4>How Bidding Works</h4></div>
+                    <div>&nbsp;</div>
+                    <div>Campus Bidding is presented in two models: <b>Fresher Bidding</b> and <b>Bidding Pro</b></div>
+                    <div><b>Fresher Bidding</b>: is the bidding where the highest bidder goes home with the latest phones, tablets and laptops using either N100, N200 or N300 only.</div>
+                    <div><b>Bidding Pro</b>: is the bidding affiliate program where one registers with N3,200, then invites just 2 people and get to own the latest laptops, tablets and phones within a month.</div>
+                    
+                    <div>&nbsp;</div>
+                    <div className="text-muted"><h4>How to Bid in Fresher Bidding</h4></div>
+                    <div>&nbsp;</div>
+                    <div>They are 3 levels in Fresher Bidding where you pay either N100, N200 or N300 to bid in level 1, 2 and 3 respectively.</div>
+                    <ul>
+                        <li>Decide which level you want to bid in</li>
+                        <li>Apply for the level</li>
+                        <li>Gather coins by making comments and post on the news page</li>
+                        <li>Now go to the bidding page and bid the coins you have gathered.</li>
+                        <li>Bid at least 500 coins</li>
+                        <li>Then come back 10mins to the bid expiration time to complete your bidding</li>
+                        <li>Make sure to be the highest bidder to win the bid item</li>
+                    </ul>
+                    <div>This looks like some fun game, but you’d be surprised to learn that <b>Bidding Pro</b> is where the real fun gets started</div>
+                    
+                    <div>&nbsp;</div>
+                    <div className="text-muted"><h4>How to Bid in Bidding Pro</h4></div>
+                    <div>&nbsp;</div>
+                    <div>Here is the bidding affiliate program where with just N3,200 you are entitled to an Apple laptop, a Samsung tablet, an Iphone and the latest Tecno phone within a month. How?</div>
+                    <ul>
+                        <li>Apply for Bidding Pro with N3,200</li>
+                        <li>Get your bidding affiliate referral link instantly</li>
+                        <li>Then move sharply to invite 2 persons with your referral link</li>
+                        <li>Once you invite 2 persons your N3,200 is refunded back to you and from that 2 referral you make six climbs to own a Macpro book Apple laptop, a Samsung tablet and 2 phones</li>
+                    </ul>
                 </Modal>
 
                 <Modal title={null} visible={applyingPro} footer={null} closable={false} maskClosable={false} centered>

@@ -53,10 +53,10 @@ class PostDetails extends Component {
                                 <h2>{row.title}</h2>
                                 <div className="bd-t bd-b mg-t-4 mg-b-4 text-muted">
                                     <small>
-                                        <span>Posted in {row.category.name} </span>
+                                        <span>Posted in <Link to={`news/${row.category.id}`}>{row.category.name}</Link> </span>
                                         <span>| {moment(row.crdate).format('LL')} </span>
                                         {row.schools[0].name ? <span>| {row.schools[0].name}</span> : ''}
-                                        <span> | by <Link to={`/u/${row.user.username}`}>{row.user.username}</Link> </span>
+                                        {row.anonymous === 0 && (<span> | by <Link to={`/u/${row.user.username}`}>{row.user.username}</Link> </span>)}
                                     </small>
                                 </div>
                                 <p className="mg-t-20" dangerouslySetInnerHTML={{ __html: row.content }}></p>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 const SigninForm = React.lazy(() => import('../auth/signup'));
 const NotFound = React.lazy(() => import('../../partials/404'));
@@ -20,11 +20,11 @@ export default class Academy extends React.Component {
 
         return (
             <React.Fragment>
-                <Route exact path="/academy" render={(props) => <AcademyScreen {...props} {...this.props} />} />
-                <Route exact path="/academy/intro/:school/:department/:level" render={(props) => <AcademyIntro {...props} {...this.props} />} />
-
                 {authenticated === false && (
-                    <React.Fragment>
+                    <Switch>
+                        <Route exact path="/academy" render={(props) => <AcademyScreen {...props} {...this.props} />} />
+                        <Route exact path="/academy/intro/:school/:department/:level" render={(props) => <AcademyIntro {...props} {...this.props} />} />
+
                         <Route exact path="/academy/enter/:school/:department/:level" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                         <Route exact path="/academy/courses/:school/:department/:level/:year" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
                         <Route exact path="/academy/questions/:school/:department/:level/:year/:course" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
@@ -37,12 +37,14 @@ export default class Academy extends React.Component {
                         <Route exact path="/academy/buddy/:school/:department/:level/:buddy" render={(props) => <SigninForm {...props} {...this.props} redirect={pathname} />} />
 
                         <Route render={(props) => <NotFound {...props} {...this.props} />} />
-                    </React.Fragment>
+                    </Switch>
                 )}
 
                 {authenticated === true && (
-                    <React.Fragment>
-                        {/* <Route exact path="/post-article" render={(props) => <PostForm {...props} {...this.props} />} /> */}
+                    <Switch>
+                        <Route exact path="/academy" render={(props) => <AcademyScreen {...props} {...this.props} />} />
+                        <Route exact path="/academy/intro/:school/:department/:level" render={(props) => <AcademyIntro {...props} {...this.props} />} />
+                        
                         <Route exact path="/academy/enter/:school/:department/:level" render={(props) => <AcademyEnter {...props} {...this.props} />} />
                         <Route exact path="/academy/questions/:school/:department/:level/:year/:course" render={(props) => <AcademyQuestions {...props} {...this.props} />} />
                         <Route exact path="/academy/chat/:school/:department/:level" render={(props) => <AcademyChat {...props} {...this.props} />} />
@@ -55,7 +57,7 @@ export default class Academy extends React.Component {
                         <Route exact path="/academy/lessons/:school/:department/:level" render={(props) => <AcademyLessons {...props} {...this.props} />} />
 
                         <Route render={(props) => <NotFound {...props} {...this.props} />} />
-                    </React.Fragment>
+                    </Switch>
                 )}
             </React.Fragment>
         )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Select, Button, message } from 'antd';
+import { Form, Input, Select, Button, message, Checkbox } from 'antd';
 import * as func from '../../utils/functions';
 
 import { Loading } from '../../components';
@@ -80,11 +80,13 @@ class PostFormScreen extends Component {
         const { _auth: { logg }, form: { resetFields } } = this.props;
         v['user'] = logg.id;
         v['image'] = image;
+        v['anonymous'] = v.anonymous ? 1 : 0;
         v['content'] = window.$('#content').val();
         func.post(`posts/${this.state.action}`, v).then(res => {
             this.setState({ submitting: false });
             if (res.status === 200) {
                 resetFields();
+                window.$('#content').val('');
                 message.success('Your article has been posted');
             } else {
                 message.error(res.result);
@@ -128,7 +130,7 @@ class PostFormScreen extends Component {
                                                     )}
                                                 </Form.Item>
                                             </div>
-                                            <div className="col-12 col-sm-6 col-lg-6">
+                                            <div className="col-12 col-sm-6 col-lg-3">
                                                 <Form.Item colon={false} label="Post category">
                                                     {getFieldDecorator('category', {
                                                         rules: [{ required: true }]
@@ -152,6 +154,14 @@ class PostFormScreen extends Component {
                                                                 <Select.Option key={sch.id} value={sch.id}>{sch.name}</Select.Option>
                                                             ))}
                                                         </Select>
+                                                    )}
+                                                </Form.Item>
+                                            </div>
+                                            <div className="col-12 col-sm-6 col-lg-3">
+                                                <Form.Item colon={false} label={<span>&nbsp;</span>}>
+                                                    {getFieldDecorator('anonymous', {
+                                                    })(
+                                                        <Checkbox>Post as anonymous</Checkbox>
                                                     )}
                                                 </Form.Item>
                                             </div>

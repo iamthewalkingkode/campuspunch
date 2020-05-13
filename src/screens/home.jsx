@@ -88,12 +88,17 @@ const HomeCard = props => {
                             </div>
                         </div>
                     )}
-                    <ul className="list-group">
+                    <ul className="list-group mg-t-5">
                         {(data[ctg.id] || []).map((row, i) => (
-                            i > 1 && (
+                            i > 0 && (
                                 <li key={row.id} className="list-group-item bd-0 pd-0 mg-b-5">
-                                    <Link to={`/article/${row.slug}.${row.id}`}>{row.title}</Link>{' '} | {' '}
-                                    <Link to={`/u/${row.user.username}`}><i className="fa fa-user"></i> {row.user.username}</Link>
+                                    <Link to={`/article/${row.slug}.${row.id}`}>{row.title}</Link>
+                                    {row.anonymous === 0 && (
+                                        <span>
+                                            {' '} | {' '}
+                                            <Link to={`/u/${row.user.username}`}><i className="fa fa-user"></i> {row.user.username}</Link>
+                                        </span>
+                                    )}
                                 </li>
                             )
                         ))}
