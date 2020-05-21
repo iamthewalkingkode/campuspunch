@@ -27,7 +27,7 @@ class FocDance extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'Dance Contest', description: 'It\'s time for the world to see your dance moves', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+        this.props.setMetaTags({ title: 'Face Of Campus Dance Contest', description: 'It\'s time for the world to see your dance moves', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 

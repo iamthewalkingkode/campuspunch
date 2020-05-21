@@ -23,7 +23,7 @@ class FocPhoto extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'Photogenic Contest', description: 'Share Your Pics & Win', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+        this.props.setMetaTags({ title: 'Face Of Campus Photogenic Contest', description: 'Share your pics and win N2 million', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 

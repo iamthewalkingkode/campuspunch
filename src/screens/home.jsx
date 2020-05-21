@@ -16,7 +16,7 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: '', description: '', keywords: '' });
+        this.props.setMetaTags({ title: 'Campus Most Entertaining Student Community', description: '', keywords: '' });
         this.setState({ loading: true });
         func.post('posts/home', { limit: 9 }).then(res => {
             window.scrollTo({ top: 0, behavior: 'smooth' });

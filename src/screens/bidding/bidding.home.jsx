@@ -20,7 +20,7 @@ class BiddingHome extends Component {
 
     componentDidMount() {
         const { _auth: { authenticated, logg } } = this.props;
-        this.props.setMetaTags({ title: 'Bidding', description: '', keywords: '' });
+        this.props.setMetaTags({ title: 'Bid and win free laptops, tablets & phones', description: 'Campus Bidding goal is to help students get all the gadgets they need to learn', keywords: '' });
         this.props.setHeaderBottom({ h1: 'Bidding', h3: '', p: '', image: 'banner/bidding.jpg' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
@@ -29,7 +29,7 @@ class BiddingHome extends Component {
         this.prevWinners();
 
         if (this.state.user) {
-            this.props.setMetaTags({ title: 'Bidding PRO', description: 'Own a free student Apple MacBook Laptop with N3,200', keywords: '' });
+            this.props.setMetaTags({ title: 'Get a Free Macbook Apple Pro Laptop | Students Only', description: 'Register with N3,200 and win free Macbook Apple Pro Laptop', keywords: '' });
             this.props.setHeaderBottom({ h1: 'Bidding PRO', h3: '', p: '', image: 'banner/bidding.jpg' });
         }
 
@@ -90,7 +90,7 @@ class BiddingHome extends Component {
         return (
             <React.Fragment>
                 <div className="row">
-                    <div className="col-12 col-sm-9 col-lg-9">
+                    <div className="col-12 col-sm-9 col-lg-9 mg-b-25">
                         <div>
                             {authenticated && (
                                 <div className="card mg-b-20">
@@ -117,7 +117,7 @@ class BiddingHome extends Component {
                                     You need to <Link to="/user/signin?redirect=bidding">Sign in</Link> or <Link to="/user/signup?redirect=bidding">Sign up</Link> to be able to bid
                                 </div>
                             )}
-                            {!loading && appliedPro === false && authenticated === true && (
+                            {!loading && appliedPro === false && (
                                 <div className="card mg-b-20">
                                     <div className="card-body bg-gray-200 d-flex flex-row justify-content-around">
                                         <div className="profile-skillset flex-fills text-center">
@@ -125,7 +125,7 @@ class BiddingHome extends Component {
                                             <div className="mg-b-20 mg-t-20" style={{ fontSize: 14 }}>
                                                 Bid and win instant Laptops &amp; Smartphones in a Month
                                             </div>
-                                            <Button type="primary" onClick={this.applyPro}>Apply to Bidding PRO (₦3,200)</Button>
+                                            <Button type="primary" disabled={!authenticated} onClick={this.applyPro}>Apply to Bidding PRO (₦3,200)</Button>
                                         </div>
                                     </div>
                                 </div>
@@ -226,6 +226,9 @@ class BiddingHome extends Component {
                         <li>Then move sharply to invite 2 persons with your referral link</li>
                         <li>Once you invite 2 persons your N3,200 is refunded back to you and from that 2 referral you make six climbs to own a Macpro book Apple laptop, a Samsung tablet and 2 phones</li>
                     </ul>
+                    <div className="mg-t-20 text-center">
+                        <Link to="/article/bidding-pro-all-you-need-to-know.4308">Learn more</Link>
+                    </div>
                 </Modal>
 
                 <Modal title={null} visible={applyingPro} footer={null} closable={false} maskClosable={false} centered>

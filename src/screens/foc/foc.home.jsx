@@ -11,7 +11,7 @@ class FocScreen extends Component {
 
     componentDidMount() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        this.props.setMetaTags({ title: 'Face of Campus', description: '', keywords: '' });
+        this.props.setMetaTags({ title: 'Face Of Campus - Official Site of FOC', description: 'Face Of Campus - Official Site of FOC', keywords: '' });
         this.props.setHeaderBottom({ h1: 'Face of Campus', h3: 'Become Famous, Rich & Admired', p: 'Jambites | Students | Graduates', image: 'foc/foc-home.jpg' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 

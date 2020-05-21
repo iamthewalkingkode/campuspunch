@@ -23,6 +23,7 @@ class BiddingCard extends Component {
 
     componentDidMount() {
         const { item, _auth: { logg, authenticated } } = this.props;
+        this.countDown();
         if (item.id && authenticated) {
             this.setState({ loading: true });
             func.post('settings/countdown', { to: item.end_date }).then(res => {
@@ -32,8 +33,6 @@ class BiddingCard extends Component {
                 }
             });
             func.post('bidding/logs', { user: logg.id, item: item.id, level: item.level, limit: 1 }).then(res => {
-                this.setState({ loading: false });
-                this.countDown();
                 if (res.status === 200) {
                     this.setState({ applied: true });
                 }
@@ -110,7 +109,7 @@ class BiddingCard extends Component {
 
     render() {
         const { loading, submitting, applyVisible, applied, cd, last, lastMinute, myBid } = this.state;
-        const { item, _data: { settings } } = this.props;
+        const { item, _data: { settings }, _auth: { authenticated } } = this.props;
 
         return (
             <React.Fragment>
@@ -146,7 +145,7 @@ class BiddingCard extends Component {
                                     </div>
                                     <div style={{}}>
                                         {applied === false && (
-                                            <Button type="primary" block onClick={() => this.apply()} loading={submitting}>Apply ₦{item.amount}</Button>
+                                            <Button type="primary" block disabled={!authenticated} onClick={() => this.apply()} loading={submitting}>Apply ₦{item.amount}</Button>
                                         )}
                                         {(applied === true) && (
                                             <Button type="primary" block outline disabled={cd.s <= 0 || (lastMinute && myBid < 500)} loading={submitting} onClick={() => this.bid()}>

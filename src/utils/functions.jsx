@@ -10,11 +10,11 @@ export const api = {
 }
 
 export const initialize = () => {
-    if (window.location.host.match(/localhost:/i)) {
+    if (window.location.host.match(/localhost/i)) {
         api.space = 'of';
     } else if (window.location.host === 'qa.campuspunch.com') {
         api.space = 'qa';
-    } else if (window.location.host === 'campuspunch.com') {
+    } else {
         api.space = 'on';
     }
     api.apiURL = api[`server_${api.space}`];

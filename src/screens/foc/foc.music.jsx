@@ -26,7 +26,7 @@ class FocMusic extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'Music Contest', description: 'Take Your First To Become A Music Superstar', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+        this.props.setMetaTags({ title: 'Face Of Campus Music Contest', description: 'Take your first step to be a superstar', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 

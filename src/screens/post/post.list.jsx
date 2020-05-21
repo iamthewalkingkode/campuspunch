@@ -33,7 +33,20 @@ class PostList extends Component {
             switch (pathname[1]) {
                 default:
                     if (pathname[2]) {
-                        this.props.setMetaTags({ title: 'News', description: '', keywords: '' });
+                        switch (pathname[2]) {
+                            default:
+                                this.props.setMetaTags({ title: 'Latest Campus Gist', description: 'Latest Campus Gist', keywords: '' });
+                                break;
+                            case 'news':
+                                this.props.setMetaTags({ title: 'Latest Campus Admission, Jamb, Post-Utme News', description: 'Latest Campus Admission, Jamb, Post-Utme News', keywords: '' });
+                                break;
+                            case 'entertainment':
+                                this.props.setMetaTags({ title: 'Latest Campus Entertainment News', description: 'Latest Campus Entertainment News', keywords: '' });
+                                break;
+                            case 'fasion':
+                                this.props.setMetaTags({ title: 'Latest Campus Fashion & Lifestyle News', description: 'Latest Campus Fashion & Lifestyle News', keywords: '' });
+                                break;
+                        }
                         this.setState({ params: { category: pathname[2], title: `%${parsed.query || ''}%` } }, () => {
                             this.getNews();
                         });
