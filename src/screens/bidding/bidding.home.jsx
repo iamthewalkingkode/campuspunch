@@ -123,7 +123,7 @@ class BiddingHome extends Component {
                                         <div className="profile-skillset flex-fills text-center">
                                             <h5><i className="fa fa-star"></i> <br /> Bidding PRO</h5>
                                             <div className="mg-b-20 mg-t-20" style={{ fontSize: 14 }}>
-                                                Bid and win instant Laptops &amp; Smartphones in a Month
+                                                Win an instant MacBook Apple Laptop in a month
                                             </div>
                                             <Button type="primary" disabled={!authenticated} onClick={this.applyPro}>Apply to Bidding PRO (₦3,200)</Button>
                                         </div>

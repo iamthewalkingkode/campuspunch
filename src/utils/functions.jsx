@@ -11,7 +11,7 @@ export const api = {
 
 export const initialize = () => {
     if (window.location.host.match(/localhost/i)) {
-        api.space = 'of';
+        // api.space = 'of';
     } else if (window.location.host === 'qa.campuspunch.com') {
         api.space = 'qa';
     } else {
