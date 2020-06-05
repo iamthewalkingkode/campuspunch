@@ -25,7 +25,7 @@ class BiddingCard extends Component {
         const { item, _auth: { logg, authenticated } } = this.props;
         this.countDown();
         if (item.id && authenticated) {
-            this.setState({ loading: true });
+            // this.setState({ loading: true });
             func.post('settings/countdown', { to: item.end_date }).then(res => {
                 this.setState({ cd: res.result });
                 if (res.result.d === 0 && res.result.h === 0 && res.result.m <= 10) {
