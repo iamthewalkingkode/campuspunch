@@ -1,53 +1,29 @@
-import React from 'react';
 import moment from 'moment';
+// import axios from 'axios';
 
 export const api = {
     space: 'on',
-    headers: {},
-    headersFile: {},
-
-    key_of: 'cnVgTUU8JEsvFJUGq7LGxBuxzW2ncmRdYZHPPBj7PWBR1177a5KINwgJMHgGTfgh',
-    key_qa: 'ZLECSY8vfeSQRGY75dAry54jCgVNGHbpdtUy2Cb6bIXk9JhxjTmXFwb7NP3VG7g5',
-    key_on: 'bFjDe5kl61hv5z52CI1UMpw6R46tlT5yqjMzPheu87h82rdnUvUYdpnraEfaGwtU',
-
-    server_of: 'http://localhost/campuspunch/api/v1/',
+    apiKey: 'cnVgTUU8JEsvFJUGq7LGxBuxzW2ncmRdYZHPPBj7PWBR1177a5KINwgJMHgGTxN5',
+    server_of: 'http://localhost/campuspunch.api/v1/',
     server_on: 'https://api.campuspunch.com/v1/',
-    server_qa: 'https://qa-api.campuspunch.com/v1/',
-
-    platform_of: 'localhost',
-    platform_qa: 'qa-admin.campuspunch.com',
-    platform_on: 'admin.campuspunch.com',
-}
-
-export const app = {
-    version: '1.0.0',
-    dbpref: 'cp_'
+    server_qa: 'https://api.qa.campuspunch.com/v1/'
 }
 
 export const initialize = () => {
     if (window.location.host.match(/localhost/i)) {
-        api.space = 'of';
-    } else if (window.location.host === 'qa-admin.campuspunch.com') {
+        // api.space = 'of';
+    } else if (window.location.host === 'qa.campuspunch.com') {
         api.space = 'qa';
     } else {
         api.space = 'on';
     }
     api.apiURL = api[`server_${api.space}`];
-    api.apiKey = api[`key_${api.space}`];
-    api.apiPlatform = api[`platform_${api.space}`];
     api.apiToken = getStorage('token');
+}
 
-    api.headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Platform': `${api.apiPlatform}/${app.version}`,
-        'cp-access-token': `${api.apiKey}.${api.apiToken}`
-    };
-    api.headersFile = {
-        'Accept': 'application/json',
-        'Platform': `${api.apiPlatform}/${app.version}`,
-        'cp-access-token': `${api.apiKey}.${api.apiToken}`
-    };
+export const app = {
+    version: '2.0.0',
+    dbpref: 'cp_'
 }
 
 export const dates = {
@@ -57,7 +33,7 @@ export const dates = {
 
 // Storage
 export const setStorage = (key, value) => {
-    if (key && value) {
+    if (key) {
         localStorage.setItem(app.dbpref + key, value);
     }
 }
@@ -83,13 +59,6 @@ export const delStorage = (key) => {
 }
 
 
-export const inArray = (needle, haystack) => {
-    var length = haystack.length;
-    for (var i = 0; i < length; i++) {
-        if (haystack[i] === needle) return true;
-    }
-    return false;
-}
 export const mergeObj = (obj, src) => {
     for (var key in src) {
         if (src.hasOwnProperty(key)) obj[key] = src[key];
@@ -99,6 +68,14 @@ export const mergeObj = (obj, src) => {
 export const getFileExtension = (filename) => {
     var ext = /^.+\.([^.]+)$/.exec(filename);
     return ext === null ? '' : ext[1];
+}
+
+
+export const hasAccess = (find, access) => {
+    if (access) {
+        return access.includes('*') || access.includes(find);
+    }
+    return false;
 }
 
 
@@ -142,8 +119,30 @@ export const post = async (action, data = {}, empty = false) => {
     try {
         let response = await fetch(url, {
             method: 'POST',
-            headers: api.headers,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': api.apiKey + '.' + api.apiToken
+            },
             body: JSON.stringify(data)
+        });
+        let responseJson = await response.json();
+        return responseJson;
+    } catch (error) {
+        return { status: 606, result: 'Network request failed', error: error };
+    }
+}
+export const get = async (action, data = {}, empty = false) => {
+    let url = ((empty === false) ? api.apiURL + action : action);
+    try {
+        let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': api.apiKey + '.' + api.apiToken
+            },
+            params: JSON.stringify(data)
         });
         let responseJson = await response.json();
         return responseJson;
@@ -156,7 +155,10 @@ export const postFile = async (action, data = {}, empty = false) => {
     try {
         let response = await fetch(url, {
             method: 'POST',
-            headers: api.headersFile,
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': api.apiKey + '.' + api.apiToken
+            },
             body: apnData(data)
         });
         let responseJson = await response.json();
@@ -165,23 +167,6 @@ export const postFile = async (action, data = {}, empty = false) => {
         return { status: 606, result: 'Network request failed', error: error };
     }
 }
-export const getData = async (action, data = {}) => {
-    try {
-        const response = await fetch(api.apiURL + action, {
-            method: 'POST',
-            headers: api.headers
-        });
-        return response.json();
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
-
-// Spinners
-export const fspinner = <div style={{ textAlign: 'center', color: '#999', lineHeight: 320 + 'px', width: 100 + '%' }}><i className="fa fa-spin fa-circle-o-notch fa-5x"></i></div>;
-export const fspinner_sm = <div style={{ textAlign: 'center', color: '#999', lineHeight: 120 + 'px', width: 100 + '%' }}><i className="fa fa-spin fa-circle-o-notch fa-3x"></i></div>;
-export const fspinner_xs = <i className="fa fa-spin fa-circle-o-notch"></i>;
 
 export const redirect = (to) => {
     window.location = to;
@@ -195,12 +180,24 @@ export const generateOptions = (length, step = 1) => {
     return arr;
 };
 
-export const hasAccess = (find, access) => {
-    if (access) {
-        return access.includes('*') || access.includes(find);
-    }
-    return false;
+export const getTimeRemaining = (startDate, endDate) => {
+    var t = Date.parse(endDate) - Date.parse(startDate);
+    var s = Math.floor((t / 1000) % 60);
+    var m = Math.floor((t / 1000 / 60) % 60);
+    var h = Math.floor((t / (1000 * 60 * 60)) % 24);
+    var d = Math.floor(t / (1000 * 60 * 60 * 24));
+    return {
+        't': t, 'd': d, 'h': h, 'm': m, 's': s
+    };
 }
+
+export const asyncForEach = async (array, callback) => {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
+}
+
+export const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
 
 export const shuffle = (array) => {
     array.sort(() => Math.random() - 0.5);

@@ -17,6 +17,7 @@ import * as utilsAct from './store/utils/_utilsActions';
 import * as focAct from './store/foc/_focActions';
 
 import PostForm from './screens/post/post.form';
+import { notification } from 'antd';
 const SigninForm = React.lazy(() => import('./screens/auth/signup'));
 
 const NotFound = React.lazy(() => import('./partials/404'));
@@ -60,6 +61,11 @@ class App extends React.Component {
           if (usr.status !== 2) {
             this.props.signInSuccess(usr);
             func.setStorageJson('user', usr);
+          }
+        } else {
+          if (res.status === 505) {
+            this.props.signOutSuccess();
+            notification.warning({ message: 'Your access token has expired' });
           }
         }
       });
@@ -166,7 +172,7 @@ class App extends React.Component {
                             <Route exact path="/news/:category" render={(props) => <PostList {...props} {...this.props} />} />
                             <Route exact path="/school/:school" render={(props) => <PostList {...props} {...this.props} />} />
                             <Route exact path="/article/:article" render={(props) => <PostDetails {...props} {...this.props} />} />
-                            
+
                             <Route path="/bidding" render={() => <Bidding {...this.props} />} />
                             <Route path="/academy" render={() => <Academy {...this.props} />} />
                             <Route path="/face-of-campus" render={() => <FaceOfCampus {...this.props} />} />
