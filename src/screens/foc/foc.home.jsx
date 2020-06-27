@@ -13,7 +13,7 @@ class FocScreen extends Component {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.props.setMetaTags({ title: 'Face Of Campus - Official Site of FOC', description: 'Face Of Campus - Official Site of FOC', keywords: '' });
         this.props.setHeaderBottom({ h1: 'Face of Campus', h3: 'Become Famous, Rich & Admired', p: 'Jambites | Students | Graduates', image: 'foc/foc-home.jpg' });
-        this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
+        this.props.setFooterTop({ h1: 'Become a Partner', p: 'Transform someone\'s life, a group, or your employees career skills by sponsoring them to learn a course', btnText: 'Get Started Now', btnAction: 'partner-form', image: '' });
 
         func.post('partners', { status: 1 }).then(res => {
             if (res.status === 200) {
@@ -53,7 +53,7 @@ class FocScreen extends Component {
 
                 <section className="mg-t-50 mg-b-50">
                     <div className="text-center">
-                        <h3 className="mg-b-0">Partners</h3>
+                        <h3 className="mg-b-0">Our Partners</h3>
                     </div>
                     <div className="row mg-t-30">
                         {this.state.partners.map(pat => (

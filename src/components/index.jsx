@@ -5,5 +5,6 @@ import Comments from './Comments';
 import PayModal from './PayModal';
 import Empty from './Empty';
 import * as Tabs from './Tabs';
+import PartnerForm from './PartnerForm';
 
-export { Loading, NewsCard, Advert, Comments, PayModal, Tabs, Empty };
+export { Loading, NewsCard, Advert, Comments, PayModal, Tabs, Empty, PartnerForm };

@@ -108,7 +108,7 @@ class PostFormScreen extends Component {
                             <div className="text-center mg-b-10s">
                                 <h2>Post campus related news, stories, events, gossips, and experiences</h2>
                                 <p>(Original contents earns extra 200 coins and above)</p>
-                                <p classname="text-muted">Kindly Post an article Here. (This will be shown after moderation by Our Admin)</p>
+                                <p className="text-muted">Kindly Post an article Here. (This will be shown after moderation by Our Admin)</p>
                             </div>
                             <hr />
 

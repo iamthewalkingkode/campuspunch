@@ -11,7 +11,7 @@ export function signOutSuccess() {
     return dispatch => {
         func.delStorage('user');
         func.delStorage('token');
-        // func.redirect('/');
+        func.redirect(window.location.href);
         dispatch({ type: SIGNOUT_SUCCESS });
     }
 };

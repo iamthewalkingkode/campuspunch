@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import { Pagination } from 'antd';
 
 import * as func from '../../utils/functions';
@@ -38,7 +37,7 @@ class FocDance extends Component {
                 const foc = res.result[0];
                 this.setState({ foc }, () => {
                     this.props.setMetaTags({ title: foc.name, description: foc.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
-                    this.props.setHeaderBottom({ h1: foc.name, h3: foc.description, p: `Contest starts ${moment(foc.apply_start).format('MMM DD YYYY')}`, image: foc.image_link });
+                    this.props.setHeaderBottom({ h1: foc.name, h3: foc.description, p: foc.canvote ? 'Voting Started. Vote Now!' : 'Application still ongoing. Apply Now!', image: foc.image_link });
                     this.getDances();
                     if (logg.id) {
                         func.post('foc/users', { user: logg.id, contest }).then(usr => {
@@ -81,6 +80,7 @@ class FocDance extends Component {
     }
 
     render() {
+        const { _auth: { authenticated }, history } = this.props;
         const { data, foc, loading, applied, total, currentStep, formModal } = this.state;
 
         return (
@@ -98,10 +98,13 @@ class FocDance extends Component {
 
                         <div className="text-center mg-b-50 mg-t-20">
                             <div className="mg-b-50">
-                                {foc.canapply === true && applied === false && (
+                                {((foc.canapply === true && applied === false) && authenticated) && (
                                     <span className="btn btn-primary pointer" onClick={() => this.setState({ formModal: true })}>&nbsp; &nbsp; &nbsp; Submit Video &nbsp; &nbsp; &nbsp;</span>
                                 )}
-                                {applied === true && (
+                                {(!authenticated) && (
+                                    <span className="btn btn-primary pointer" onClick={() => history.push(`/user/signin?redirect=${window.location.href}`)}>&nbsp; &nbsp; &nbsp; Sign in to Submit Video &nbsp; &nbsp; &nbsp;</span>
+                                )}
+                                {applied === true && authenticated === true && (
                                     <span className="btn btn-primary pointer mg-l-15" onClick={this.open}>&nbsp; &nbsp; &nbsp; View my profile &nbsp; &nbsp; &nbsp;</span>
                                 )}
                             </div>
