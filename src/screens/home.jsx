@@ -7,18 +7,15 @@ import SideBar from '../partials/Sidebar';
 
 class HomeScreen extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: {},
-            loading: true
-        };
+    state = {
+        data: {},
+        loading: true
     }
 
     componentDidMount() {
         this.props.setMetaTags({ title: 'Campus Most Entertaining Student Community', description: '', keywords: '' });
         this.setState({ loading: true });
-        func.post('posts/home', { limit: 9 }).then(res => {
+        func.post('posts/home', { limit: 4 }).then(res => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             this.setState({ loading: false });
             if (res.status === 200) {
@@ -47,7 +44,7 @@ class HomeScreen extends Component {
                         <div className="row">
                             <div className="col-12 col-sm-9 col-lg-9">
                                 {newsCategories.map(ctg => (
-                                    <HomeCard key={ctg.code} ctg={ctg} data={data} />
+                                    <HomeCard key={ctg.id} ctg={ctg} data={data} />
                                 ))}
                             </div>
 

@@ -43,7 +43,7 @@ const FocMusicFormScreen = props => {
             {errMessage && (
                 <div className="alert alert-danger text-center">{errMessage}</div>
             )}
-            <div className="alert alert-info text-center">Kindly submit your own music not someone else' to avoid ban. <br /> <b>Once you submit you have successfully applied for this contest.</b></div>
+            {/* <div className="alert alert-info text-center">Kindly submit your own music not someone else' to avoid ban. <br /> <b>Once you submit you have successfully applied for this contest.</b></div> */}
             <Form.Item colon={false} label="Music title">
                 {getFieldDecorator('title', {
                     rules: [{ required: true }],

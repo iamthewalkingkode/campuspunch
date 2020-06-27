@@ -36,7 +36,7 @@ const Notifications = props => {
                     <div className="dropdown-menu dropdown-menu-right">
                         <div className="dropdown-header">Notifications</div>
                         {data.map(row => (
-                            <NotificationsCard {...props} key={row.key} row={row} />
+                            <NotificationsCard {...props} key={row.id} row={row} />
                         ))}
                         <div className="dropdown-footer"><Link to="/user/notifications">View all Notifications</Link></div>
                     </div>

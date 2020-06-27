@@ -26,7 +26,7 @@ export const app = {
 
 export const initialize = () => {
     if (window.location.host.match(/localhost/i)) {
-        api.space = 'of';
+        // api.space = 'of';
     } else if (window.location.host === 'qa-admin.campuspunch.com') {
         api.space = 'qa';
     } else {
@@ -41,11 +41,13 @@ export const initialize = () => {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Platform': `${api.apiPlatform}/${app.version}`,
+        'Authorization': `${api.apiKey}.${api.apiToken}`,
         'cp-access-token': `${api.apiKey}.${api.apiToken}`
     };
     api.headersFile = {
         'Accept': 'application/json',
         'Platform': `${api.apiPlatform}/${app.version}`,
+        'Authorization': `${api.apiKey}.${api.apiToken}`,
         'cp-access-token': `${api.apiKey}.${api.apiToken}`
     };
 }

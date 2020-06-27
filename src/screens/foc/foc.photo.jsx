@@ -96,8 +96,8 @@ class FocPhoto extends Component {
                         </nav>
 
                         <div className="text-center mg-b-50 mg-t-20">
-                            <h3>Application starts on {moment(row.apply_start).format('DD/MM/YY')} and ends on {moment(row.apply_end).format('DD/MM/YY')}</h3>
-                            <h3>Voting starts on {moment(row.vote_start).format('DD/MM/YY')} and ends on {moment(row.vote_end).format('DD/MM/YY')}</h3>
+                            {/* <h3>Application starts on {moment(row.apply_start).format('DD/MM/YY')} and ends on {moment(row.apply_end).format('DD/MM/YY')}</h3>
+                            <h3>Voting starts on {moment(row.vote_start).format('DD/MM/YY')} and ends on {moment(row.vote_end).format('DD/MM/YY')}</h3> */}
                             <div className="mg-b-50">
                                 {row.canapply === true && applied === false && (
                                     <span className="btn btn-primary pointer" onClick={() => this.setState({ formModal: true })}>&nbsp; &nbsp; &nbsp; Submit Profile &nbsp; &nbsp; &nbsp;</span>
