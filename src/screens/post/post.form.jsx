@@ -32,12 +32,12 @@ class PostFormScreen extends Component {
         setTimeout(() => {
             window.$('.summernote').summernote({
                 height: 250,
-                toolbar: [
-                    ['headline', ['style']],
-                    ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
-                    ['textsize', ['fontsize']],
-                    ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
-                ]
+                // toolbar: [
+                //     ['headline', ['style']],
+                //     ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+                //     ['textsize', ['fontsize']],
+                //     ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
+                // ]
             });
         }, 0);
     }

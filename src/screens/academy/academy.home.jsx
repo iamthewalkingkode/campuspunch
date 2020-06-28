@@ -13,7 +13,7 @@ class AcademyHome extends Component {
     componentDidMount() {
         this.props.setMetaTags({ title: 'Academy', description: '', keywords: '' });
         this.props.setHeaderBottom({ h1: 'Academy', h3: 'More Than Just An Academy', p: 'We Teach You Jamb, University Courses & Vocational Skills', image: 'banner/academy1.jpg' });
-        this.props.setFooterTop({ h1: 'Become a Partner', p: 'Transform someone\'s life, a group, or your employees career skills by sponsoring them to learn a course', btnText: 'Get Started Now', btnAction: 'partner-form', image: '' });
+        this.props.setFooterTop({ h1: 'Sponsor a Group', p: 'Register your school, group or employees to learn a course at affordable rate.', btnText: 'Get Started Now', btnAction: 'partner-form', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.getSkills();

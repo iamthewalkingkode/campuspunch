@@ -43,7 +43,7 @@ class FocPhoto extends Component {
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                             this.setState({ loading: false });
                             this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
-                            this.props.setHeaderBottom({ h1: row.name, h3: row.description, p: 'Jambites | Students | Graduates', image: row.image_link });
+                            this.props.setHeaderBottom({ h1: row.name, h3: row.description, p: `Jambites | Students | Graduates <br />  <br /> <a class="text-white" href="${window.location.pathname}#rules">See Rules</a>`, image: row.image_link });
                             // if (row.canapply === true) {
                             //     this.countDown();
                             //     let interval = setInterval(() => {
@@ -126,6 +126,25 @@ class FocPhoto extends Component {
                 {loading === false && Object.keys(data).length === 0 && (
                     <Empty h1="No contestants" h5="No contestants have applied for this contest yet. Be the first!" />
                 )}
+
+                <hr />
+                <section id="rules" className="mg-t-50 mg-b-50">
+                    <div className="text-center">
+                        <h3 className="mg-b-0">Rules</h3>
+                    </div>
+                    <div className="text-center mg-t-30">
+                        <div>1. Make sure to upload your own pics.</div>
+                        <div>2. Contestants can upload as many pics as they want</div>
+                        <div>3. Endeavour to upload attractive, quality pics, if possible studio pics</div>
+                        <div>4. Kindly avoid porn pictures</div>
+                        <div>5. Winners are selected purely by number of votes</div>
+                        <div>6. Judges can disqualify any contestant who floats the rules at their own discretion</div>
+                        <div>7. Don’t mention other brands in your descriptions, posts, images or videos</div>
+                        <div>8. A vote from a judge counts as 50 votes. Feel free to follow judge’s social media pages and beckon for their votes</div>
+                        <div>9. Prizes: 100k – 1st winner; 50k – 2nd winner; 50k – 3rd winner; 5k - 4th to 14th winners</div>
+                        <div>10. More Prizes: there would be other prizes from our partners</div>
+                    </div>
+                </section>
             </React.Fragment>
         )
     }

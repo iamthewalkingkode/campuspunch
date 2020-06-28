@@ -40,7 +40,7 @@ const PartnerForm = props => {
 
     return (
         <React.Fragment>
-            <Modal visible={visible} onCancel={_cancel} title={'Become a partner'} destroyOnClose={true} footer={[
+            <Modal visible={visible} onCancel={_cancel} title="Contact us" destroyOnClose={true} footer={[
                 <Button key="back" onClick={_cancel} disabled={submitting}>
                     Cancel
                 </Button>

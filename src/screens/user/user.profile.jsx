@@ -99,10 +99,10 @@ class UserProfile extends Component {
                                             <h4>{usr.coins_sf}</h4>
                                             <label>Coins</label>
                                         </div>
-                                        <div className="profile-skillset flex-fill">
+                                        {/* <div className="profile-skillset flex-fill">
                                             <h4>437</h4>
                                             <label>Following</label>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="col-sm-6 col-md-5 col-lg mg-t-40">

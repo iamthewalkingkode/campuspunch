@@ -37,7 +37,7 @@ class FocDance extends Component {
                 const foc = res.result[0];
                 this.setState({ foc }, () => {
                     this.props.setMetaTags({ title: foc.name, description: foc.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
-                    this.props.setHeaderBottom({ h1: foc.name, h3: foc.description, p: foc.canvote ? 'Voting Started. Vote Now!' : 'Application still ongoing. Apply Now!', image: foc.image_link });
+                    this.props.setHeaderBottom({ h1: foc.name, h3: foc.description, p: `${foc.canvote ? 'Voting Started. Vote Now!' : 'Application still ongoing. Apply Now!'} <br />  <br /> <a class="text-white" href="${window.location.pathname}#rules">See Rules</a>`, image: foc.image_link });
                     this.getDances();
                     if (logg.id) {
                         func.post('foc/users', { user: logg.id, contest }).then(usr => {
@@ -125,6 +125,26 @@ class FocDance extends Component {
                 {loading === false && data.length === 0 && (
                     <Empty h1="No contestants" h5="No contestants have applied for this contest yet. Be the first!" />
                 )}
+
+
+                <hr />
+                <section id="rules" className="mg-t-50 mg-b-50">
+                    <div className="text-center">
+                        <h3 className="mg-b-0">Rules</h3>
+                    </div>
+                    <div className="text-center mg-t-30">
+                        <div>1. Each dance team will download this featured song and create their own dance moves to the song</div>
+                        <div>2. Publish your video on YouTube with hashtags #FaceOfCampus #NameOfSong #FocDanceContest in your titles and descriptions</div>
+                        <div>3. Contestants can get as many dance team members as they want</div>
+                        <div>4. Add all your dance team members when submitting your video</div>
+                        <div>5. Make sure your dance team have an account on the site</div>
+                        <div>6. Winners are selected purely by number of votes</div>
+                        <div>7. Judges can disqualify any contestant who floats the rules at their own discretion</div>
+                        <div>8. Don’t mention other brands in your descriptions, posts, images or videos</div>
+                        <div>9. A vote from a judge counts as 50 votes. Feel free to follow judge’s social media pages and beckon for their votes</div>
+                        <div>10. Prizes: 100k – 1st winner; 50k – 2nd winner; 50k – 3rd winner</div>
+                    </div>
+                </section>
             </React.Fragment>
         )
     }

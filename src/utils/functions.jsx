@@ -8,15 +8,15 @@ export const api = {
 
     key_of: 'cnVgTUU8JEsvFJUGq7LGxBuxzW2ncmRdYZHPPBj7PWBR1177a5KINwgJMHgGTfgh',
     key_qa: 'ZLECSY8vfeSQRGY75dAry54jCgVNGHbpdtUy2Cb6bIXk9JhxjTmXFwb7NP3VG7g5',
-    key_on: 'bFjDe5kl61hv5z52CI1UMpw6R46tlT5yqjMzPheu87h82rdnUvUYdpnraEfaGwtU',
+    key_on: 'cnVgTUU8JEsvFJUGq7LGxBuxzW2ncmRdYZHPPBj7PWBR1177a5KINwgJMHgGTxN5',
 
     server_of: 'http://localhost/campuspunch/api/v1/',
     server_on: 'https://api.campuspunch.com/v1/',
     server_qa: 'https://qa-api.campuspunch.com/v1/',
 
     platform_of: 'localhost',
-    platform_qa: 'qa-admin.campuspunch.com',
-    platform_on: 'admin.campuspunch.com',
+    platform_qa: 'qa.campuspunch.com',
+    platform_on: 'campuspunch.com',
 }
 
 export const app = {
@@ -27,7 +27,7 @@ export const app = {
 export const initialize = () => {
     if (window.location.host.match(/localhost/i)) {
         // api.space = 'of';
-    } else if (window.location.host === 'qa-admin.campuspunch.com') {
+    } else if (window.location.host === 'qa.campuspunch.com') {
         api.space = 'qa';
     } else {
         api.space = 'on';

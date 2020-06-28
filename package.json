@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
     "antd": "^3.25.0",
     "axios": "^0.19.2",
     "babel-plugin-import": "^1.12.2",

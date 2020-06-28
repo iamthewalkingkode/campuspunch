@@ -15,8 +15,8 @@ const FooterTop = props => {
                     style={{ background: `linear-gradient(0deg, rgba(0,0,0, 0.6), rgba(0,0,0, 0.6)), url(${bg})` }}
                 >
                     <div className="text-center">
-                        {h1 && (<h1 className="mg-b-10">{h1}</h1>)}
-                        {p && (<h3>{p}</h3>)}
+                        {h1 && (<h1 dangerouslySetInnerHTML={{ __html: h1 }} className="mg-b-10" />)}
+                        {p && (<h3 dangerouslySetInnerHTML={{ __html: p }} />)}
                         {h1 && p && btnText && (
                             <span onClick={() => btnAction && setAction(btnAction)} className="btn btn-warning pointer mg-t-25">{btnText}</span>
                         )}

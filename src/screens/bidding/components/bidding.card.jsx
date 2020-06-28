@@ -47,19 +47,21 @@ class BiddingCard extends Component {
 
     countDown() {
         const { item } = this.props;
-        let interval = setInterval(() => {
-            func.post('settings/countdown', { to: item.end_date }).then(res => {
-                this.setState({ cd: res.result, interval });
-                if (res.result.d === 0 && res.result.h === 0 && res.result.m <= 10) {
-                    this.setState({ lastMinute: true });
-                }
-            });
-            func.post('bidding/users', { item: item.id, limit: 1 }).then(res => {
-                if (res.status === 200) {
-                    this.setState({ last: res.result[0] });
-                }
-            });
-        }, 4000);
+        if (item.id) {
+            let interval = setInterval(() => {
+                func.post('settings/countdown', { to: item.end_date }).then(res => {
+                    this.setState({ cd: res.result, interval });
+                    if (res.result.d === 0 && res.result.h === 0 && res.result.m <= 10) {
+                        this.setState({ lastMinute: true });
+                    }
+                });
+                func.post('bidding/users', { item: item.id, limit: 1 }).then(res => {
+                    if (res.status === 200) {
+                        this.setState({ last: res.result[0] });
+                    }
+                });
+            }, 4000);
+        }
     }
 
     apply() {

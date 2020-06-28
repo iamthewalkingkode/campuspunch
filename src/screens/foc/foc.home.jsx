@@ -13,7 +13,7 @@ class FocScreen extends Component {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         this.props.setMetaTags({ title: 'Face Of Campus - Official Site of FOC', description: 'Face Of Campus - Official Site of FOC', keywords: '' });
         this.props.setHeaderBottom({ h1: 'Face of Campus', h3: 'Become Famous, Rich & Admired', p: 'Jambites | Students | Graduates', image: 'foc/foc-home.jpg' });
-        this.props.setFooterTop({ h1: 'Become a Partner', p: 'Transform someone\'s life, a group, or your employees career skills by sponsoring them to learn a course', btnText: 'Get Started Now', btnAction: 'partner-form', image: '' });
+        this.props.setFooterTop({ h1: 'Become a Partner', p: 'Join our list of partners/sponsors and reach more than a million people with your product or services.', btnText: 'Get Started Now', btnAction: 'partner-form', image: '' });
 
         func.post('partners', { status: 1 }).then(res => {
             if (res.status === 200) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as func from '../../utils/functions';
 
-import { Loading, Advert, Comments } from '../../components';
+import { Loading, Advert, Comments, Share } from '../../components';
 import SideBar from '../../partials/Sidebar';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -43,14 +43,14 @@ class PostDetails extends Component {
             <React.Fragment>
                 {loading === true && (<Loading text={`loading article...`} />)}
 
-                {loading === false && (
+                {loading === false && row.id && (
                     <div className="mg-b-30">
                         <Advert position="top" />
 
                         <div className="row">
                             <div id="news___details" className="col-12 col-sm-9 col-lg-9">
                                 {row.image && (<div className="mg-b-10 news-image" style={{ backgroundImage: `url(${row.image_link})` }}></div>)}
-                                <h2>{row.title}</h2>
+                                <h2 className="text-capitalize">{row.title.toLowerCase()}</h2>
                                 <div className="bd-t bd-b mg-t-4 mg-b-4 text-muted">
                                     <small>
                                         <span>Posted in <Link to={`news/${row.category.id}`}>{row.category.name}</Link> </span>
@@ -62,7 +62,18 @@ class PostDetails extends Component {
                                 <p className="mg-t-20" dangerouslySetInnerHTML={{ __html: row.content }}></p>
                                 <div className="clearfix"></div>
                                 <hr />
+                                <Share />
+                                <hr />
+                                <div className="pd-10 bg-gray-100">
+                                    <p><b>Become a member and win amazing rewards</b></p>
+                                    <p>Sign up to be a Campus Punch member and rack up points to win amazing prizes such as laptops, mobile phones, power banks, airtime credits, food items and many more.</p>
 
+                                    <p>You accumulate points just by reading and engaging with the content on our website. <br />
+                                    The more you engage, the more points you earn and the more you can win!</p>
+
+                                    <Link to="/bidding">Register NOW!!!</Link>
+                                </div>
+                                <hr />
                                 <Comments item={id} type="post" {...this.props} />
                             </div>
 

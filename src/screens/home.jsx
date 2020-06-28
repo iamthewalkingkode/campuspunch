@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as func from '../utils/functions';
 import { Link } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 
 import { Loading, Advert } from '../components';
 import SideBar from '../partials/Sidebar';
@@ -15,7 +16,7 @@ class HomeScreen extends Component {
     componentDidMount() {
         this.props.setMetaTags({ title: 'Campus Most Entertaining Student Community', description: '', keywords: '' });
         this.setState({ loading: true });
-        func.post('posts/home', { limit: 4 }).then(res => {
+        func.post('posts/home', { limit: 5 }).then(res => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             this.setState({ loading: false });
             if (res.status === 200) {
@@ -68,41 +69,55 @@ const HomeCard = props => {
     let main = ((data[ctg.id] || [])[0] || {});
 
     return (
-        <div key={key} className="card mg-b-25">
-            <div className="card-header pd-y-15 pd-x-20 d-flex align-items-center justify-content-between bg-gray-100">
-                <h6 className="tx-uppercase tx-semibold mg-b-0">Campus {ctg.name}</h6>
-            </div>
-            <div className="card-body">
-                <div className="">
-                    {main.id && (
-                        <div className="row row-sm">
-                            <div className="col-12 col-lg-4">
-                                <img className="img-fluid" src={main.image_link} alt={`${main.title} - CampusPunch`} />
-                            </div>
-                            <div className="col-12 col-lg-8">
-                                <Link to={`/article/${main.slug}.${main.id}`} className="tx-20 tx-inverse tx-semibold mg-b-0">{main.title}</Link>
-                                <p className="d-block tx-13 text-muteds">{main.content_small} ...</p>
+        <React.Fragment>
+            {main.user && (
+                <div key={key}>
+                    <div className="bg-gray-100">
+                        <div className="">
+                            <div className="row">
+                                <div className="col-12 col-lg-7">
+                                    <div style={{ backgroundImage: `url(${main.image_link})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', height: isMobile ? 200 : 300 }}></div>
+                                </div>
+                                <div className="col-12 col-lg-5">
+                                    <div className="bg-gray-100" style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+                                        <div className="pd-20">
+                                            <h3 style={{ textTransform: 'capitalize' }}>
+                                                <Link to={`/article/${main.slug}.${main.id}`} className="tx-30 tx-inverse tx-semibold mg-b-0">{main.title.toLowerCase()}</Link>
+                                            </h3>
+                                            <div>&nbsp;</div>
+                                            <div className="tx-semibold">
+                                                By <Link className="tx-inverse" to={`/u/${main.user.username}`}>{main.user.username}</Link>&nbsp; • &nbsp;
+                                                <Link className="tx-inverse" to={`/news/${ctg.id}`}>{ctg.name}</Link></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    )}
-                    <ul className="list-group mg-t-5">
+                    </div>
+                    <p>&nbsp;</p>
+                    <div className="row">
                         {(data[ctg.id] || []).map((row, i) => (
                             i > 0 && (
-                                <li key={row.id} className="list-group-item bd-0 pd-0 mg-b-5">
-                                    <Link to={`/article/${row.slug}.${row.id}`}>{row.title}</Link>
-                                    {row.anonymous === 0 && (
-                                        <span>
-                                            {' '} | {' '}
-                                            <Link to={`/u/${row.user.username}`}><i className="fa fa-user"></i> {row.user.username}</Link>
-                                        </span>
-                                    )}
-                                </li>
+                                <div className="col-lg-4 col-12 mg-b-10">
+                                    <div
+                                        style={{ backgroundImage: `url(${row.image_link})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', height: 200 }}
+                                    />
+                                    <div className="pd-20 bg-gray-100">
+                                        <h4 className="ht-150 overflow-hidden"><Link className="tx-inverse" style={{ textTransform: 'capitalize' }} to={`/article/${row.slug}.${row.id}`}>{row.title.toLowerCase()}</Link></h4>
+                                        {row.anonymous === 0 && (
+                                            <span>
+                                                <Link className="tx-inverse small" to={`/u/${row.user.username}`}><i className="fa fa-user"></i> {row.user.username}</Link>
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
                             )
                         ))}
-                    </ul>
-                    <Link to={`/news/${ctg.id}`} className="btn btn-outline-primary mg-t-20">More {ctg.name}</Link>
+                    </div>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
                 </div>
-            </div>
-        </div>
+            )}
+        </React.Fragment>
     );
 };
