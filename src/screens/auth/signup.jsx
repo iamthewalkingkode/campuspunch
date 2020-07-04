@@ -36,7 +36,9 @@ class SignupForm extends Component {
         validateFields((err, v) => {
             if (!err) {
                 this.setState({ submitting: true, errorMessage: '' });
+                v['email'] = v.email.trim();
                 v['cpassword'] = undefined;
+                v['username'] = v.username.trim();
                 func.post('authenticate/signup', v).then(res => {
                     this.setState({ submitting: false });
                     if (res.status === 200) {
@@ -72,7 +74,7 @@ class SignupForm extends Component {
                         </div>
                         <div className={`${errorMessage ? 'animated shake' : ''}`} style={{ boxShadow: '0 0 3px #CACACA', padding: '35px 25px' }}>
                             <div className="row">
-                                <div className="col-6">
+                                <div className="col-12 col-lg-6">
                                     <Form.Item colon={false} label="Username">
                                         {getFieldDecorator('username', {
                                             rules: [{ required: true }]
@@ -81,7 +83,7 @@ class SignupForm extends Component {
                                         )}
                                     </Form.Item>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-12 col-lg-6">
                                     <Form.Item colon={false} label="Category">
                                         {getFieldDecorator('category', {
                                             rules: [{ required: true }]
@@ -94,7 +96,7 @@ class SignupForm extends Component {
                                         )}
                                     </Form.Item>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-12 col-lg-6">
                                     <Form.Item colon={false} label="Email address">
                                         {getFieldDecorator('email', {
                                             rules: [{ required: true }, { type: 'email' }]
@@ -103,7 +105,7 @@ class SignupForm extends Component {
                                         )}
                                     </Form.Item>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-12 col-lg-6">
                                     <Form.Item colon={false} label="Phone number">
                                         {getFieldDecorator('phone', {
                                             rules: [{ required: true }]
@@ -112,7 +114,7 @@ class SignupForm extends Component {
                                         )}
                                     </Form.Item>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-12 col-lg-6">
                                     <Form.Item colon={false} label="State of residence">
                                         {getFieldDecorator('state', {
                                             rules: [{ required: true }]
@@ -125,7 +127,7 @@ class SignupForm extends Component {
                                         )}
                                     </Form.Item>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-12 col-lg-6">
                                     <Form.Item colon={false} label="School/Campus">
                                         {getFieldDecorator('school', {
                                             rules: [{ required: true }]
@@ -138,7 +140,7 @@ class SignupForm extends Component {
                                         )}
                                     </Form.Item>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-12 col-lg-6">
                                     <Form.Item colon={false} label="Password">
                                         {getFieldDecorator('password', {
                                             rules: [{ required: true }]
@@ -147,7 +149,7 @@ class SignupForm extends Component {
                                         )}
                                     </Form.Item>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-12 col-lg-6">
                                     <Form.Item colon={false} label="Confirm password">
                                         {getFieldDecorator('cpassword', {
                                             rules: [{ required: true }, { validator: this.confirmPassword }]

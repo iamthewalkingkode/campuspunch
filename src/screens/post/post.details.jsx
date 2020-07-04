@@ -30,7 +30,7 @@ class PostDetails extends Component {
             if (res.status === 200) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 let row = res.result[0];
-                this.props.setMetaTags({ title: row.meta_title || row.title, description: row.meta_description || row.content_small, keywords: row.meta_keywords });
+                this.props.setMetaTags({ title: row.meta.title || row.title, description: row.meta.description || row.content_small, keywords: row.meta.keywords });
                 this.setState({ row });
             }
         });
@@ -49,7 +49,13 @@ class PostDetails extends Component {
 
                         <div className="row">
                             <div id="news___details" className="col-12 col-sm-9 col-lg-9">
-                                {row.image && (<div className="mg-b-10 news-image" style={{ backgroundImage: `url(${row.image_link})` }}></div>)}
+                                {/* {row.image && (<div className="mg-b-10 news-image" style={{ backgroundImage: `url(${row.image_link})` }}></div>)} */}
+                                {row.image && (
+                                    <div className="text-center">
+                                        <img className="img-fluid" src={row.image_link} alt={row.title} />
+                                        <div>&nbsp;</div>
+                                    </div>
+                                )}
                                 <h2 className="text-capitalize">{row.title.toLowerCase()}</h2>
                                 <div className="bd-t bd-b mg-t-4 mg-b-4 text-muted">
                                     <small>

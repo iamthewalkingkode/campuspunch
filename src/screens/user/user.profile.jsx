@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Loading, NewsCard } from '../../components';
 import NotFound from '../../partials/404';
 import moment from 'moment';
+import { Pagination, Spin } from 'antd';
 
 class UserProfile extends Component {
 
@@ -14,7 +15,8 @@ class UserProfile extends Component {
         this.state = {
             usr: {}, posts: [],
             loading: true, loadingPosts: false,
-            username: '', lightImages: [], lightIndex: 0, lightOpen: false
+            username: '', lightImages: [], lightIndex: 0, lightOpen: false,
+            step: 0, total: 0, currentStep: 1, limit: props._utils.limit,
         };
     }
 
@@ -32,31 +34,40 @@ class UserProfile extends Component {
                     this.setState({ loading: false });
                     if (res.status === 200) {
                         var usr = res.result[0];
-                        this.getPosts(usr.id);
                         setTimeout(() => {
                             window.init();
                         }, 200);
                         this.props.setMetaTags({ title: usr.username, description: usr.about, keywords: '' });
-                        this.setState({ usr, lightImages: [usr.avatar_link] });
+                        this.setState({ usr, lightImages: [usr.avatar_link] }, () => {
+                            this.getPosts();
+                        });
                     }
                 });
             });
         }
     }
 
-    getPosts(user) {
+    nextPrev = (e) => {
+        let { limit } = this.state;
+        this.setState({ currentStep: e, step: (e - 1) * limit }, () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            this.getPosts();
+        });
+    }
+    getPosts() {
+        const { usr, step, limit } = this.state;
         this.setState({ loadingPosts: true });
-        func.post('posts', { user, limit: 6, status: 1 }).then(res => {
+        func.post('posts', { user: usr.id, limit: `${step},${limit}`, status: 1 }).then(res => {
             this.setState({ loadingPosts: false });
             if (res.status === 200) {
-                this.setState({ posts: res.result });
+                this.setState({ posts: res.result, total: res.count });
             }
         });
     }
 
     render() {
         const { _auth: { logg } } = this.props;
-        const { loading, usr, username, loadingPosts, posts, lightImages, lightIndex, lightOpen } = this.state;
+        const { loading, usr, username, loadingPosts, posts, lightImages, lightIndex, lightOpen, total, limit, currentStep } = this.state;
 
         return (
             <React.Fragment>
@@ -150,8 +161,12 @@ class UserProfile extends Component {
                                     <h6 className="tx-uppercase tx-semibold mg-b-0">{usr.username}'s Posts</h6>
                                 </div>
                                 <div className="card-body pd-20 pd-lg-25">
-                                    {loadingPosts === true && (<div>loading posts...</div>)}
-                                    {posts.map(row => (<NewsCard key={row.id} row={row} />))}
+                                    <Spin spinning={loadingPosts} indicator={func.fspinner_xs}>
+                                        {loadingPosts === true && (<div>loading posts...</div>)}
+                                        {posts.map(row => (<NewsCard key={row.id} row={row} />))}
+
+                                        {total > limit && !loading && (<Pagination total={total} pageSize={limit} current={currentStep} onChange={(e) => this.nextPrev(e)} />)}
+                                    </Spin>
                                 </div>
                                 {/* <div className="card-footer bg-transparent pd-y-10 pd-sm-y-15 pd-x-10 pd-sm-x-20">
                                 <nav className="nav nav-with-icon tx-13">

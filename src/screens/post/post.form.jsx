@@ -82,6 +82,7 @@ class PostFormScreen extends Component {
         v['image'] = image;
         v['anonymous'] = v.anonymous ? 1 : 0;
         v['content'] = window.$('#content').val();
+        v['meta'] = '';
         func.post(`posts/${this.state.action}`, v).then(res => {
             this.setState({ submitting: false });
             if (res.status === 200) {

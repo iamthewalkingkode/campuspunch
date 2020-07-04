@@ -173,6 +173,8 @@ class AcademyQuestions extends Component {
     }
 
     nextLesson = (score) => {
+        // academy/lesson/campus-academy.499/waec.158/arts.24/economics.128
+        // academy/questions/campus-academy.499/waec.158/arts.24/2017/economics.128/definition-and-scope-of-economics.12
         const { lesson, path, pathname } = this.state;
         if (score >= 70) {
             if (lesson) {
@@ -186,14 +188,20 @@ class AcademyQuestions extends Component {
                 this.props.history.push(`/${path[1]}/courses/${path[3]}/${path[4]}/${path[5]}/${path[6]}`);
             }
         } else {
-            this.setState({ saved: false }, () => {
-                func.delStorage(`${pathname}.academy.correct`);
-                func.delStorage(`${pathname}.academy.elapsed`);
-                func.delStorage(`${pathname}.academy.answers`);
-                func.delStorage(`${pathname}.academy.questions`);
-                func.delStorage(`${pathname}.academy.questions.index`);
-                this.getActiveQuestion();
-            });
+            func.delStorage(`${pathname}.academy.correct`);
+            func.delStorage(`${pathname}.academy.elapsed`);
+            func.delStorage(`${pathname}.academy.answers`);
+            func.delStorage(`${pathname}.academy.questions`);
+            func.delStorage(`${pathname}.academy.questions.index`);
+            setTimeout(() => {
+                if (lesson) {
+                    this.props.history.push(`/${path[1]}/lesson/${path[3]}/${path[4]}/${path[5]}/${path[7]}`);
+                } else {
+                    this.setState({ saved: false }, () => {
+                        this.getActiveQuestion();
+                    });
+                }
+            }, 100);
         }
     }
 

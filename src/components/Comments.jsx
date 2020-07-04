@@ -4,7 +4,7 @@ import * as func from '../utils/functions';
 import { Link } from 'react-router-dom';
 import publicIp from 'public-ip';
 
-const CommentsC = props => {
+const Comments = props => {
     const { type, item, _auth: { logg, authenticated } } = props;
 
     const [loading, setLoading] = useState(false);
@@ -109,5 +109,4 @@ const CommentTemplate = props => {
     );
 }
 
-const Comments = Form.create()(CommentsC);
-export default Comments;
+export default Form.create()(Comments);
