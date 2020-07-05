@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import * as func from '../../utils/functions';
 
 import AcademySelector from './components/Selector';
-import { Modal } from 'antd';
+import { Modal, Input, Button } from 'antd';
 
 class AcademyHome extends Component {
 
     state = {
-        visible: false, skills: [], levels: [], dep: {}
+        visible: false, modalDiscount: false, skills: [], levels: [], dep: {}
     }
 
     componentDidMount() {
@@ -33,8 +33,9 @@ class AcademyHome extends Component {
     }
 
     introAcademy = (e) => {
-        const { history } = this.props;
-        history.push(`/academy/intro/${e.school.slug}.${e.school.id}/${e.department.slug}.${e.department.id}/${e.level.slug}.${e.level.id}`);
+        this.setState({ modalDiscount: true });
+        // const { history } = this.props;
+        // history.push(`/academy/intro/${e.school.slug}.${e.school.id}/${e.department.slug}.${e.department.id}/${e.level.slug}.${e.level.id}`);
     }
 
     openSkill = (lvl) => {
@@ -45,7 +46,7 @@ class AcademyHome extends Component {
 
     render() {
         const { _data: { schools } } = this.props;
-        const { skills, levels, visible } = this.state;
+        const { skills, levels, visible, modalDiscount } = this.state;
 
         return (
             <React.Fragment>
@@ -131,6 +132,19 @@ class AcademyHome extends Component {
                     {levels.map(lvl => (
                         <button key={lvl.id} className="btn btn-xs btn-light btn-block text-left" onClick={() => this.openSkill(lvl)}>{lvl.name}</button>
                     ))}
+                </Modal>
+
+                <Modal title="Discount code" visible={modalDiscount} closable={true} footer={null} maskClosable={false} width={600}
+                    onCancel={() => this.setState({ modalDiscount: false })} style={{ top: 20 }}
+                >
+                    <h4>Please enter your discount code</h4>
+                    <Input size="large" placeholder="Enter code here" />
+                    <div>&nbsp;</div>
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <Button type="primary">Continue</Button>
+                        </div>
+                    </div>
                 </Modal>
             </React.Fragment>
         )
