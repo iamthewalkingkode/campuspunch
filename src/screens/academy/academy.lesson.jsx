@@ -137,10 +137,10 @@ class AcademyLesson extends Component {
                             <p id="transcript" className="text-justifys pd-15 bg-gray-100 mg-b-25" style={{ display: 'none' }}>
                                 <span dangerouslySetInnerHTML={{ __html: lss.transcript }}></span>
                             </p>
+                            <h2>{lss.title}</h2>
                             <p className="text-justifys mg-b-40">
                                 <span dangerouslySetInnerHTML={{ __html: lss.instruction }}></span>
                             </p>
-                            <h2>{lss.title}</h2>
                             <div className="mg-b-50">
                                 {index > 0 && (
                                     <Button type="primary" size="small" className="float-left" onClick={() => this.navigateLesson('-')}>&laquo; Previous lesson</Button>

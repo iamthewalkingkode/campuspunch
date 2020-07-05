@@ -43,7 +43,10 @@ class FocPhoto extends Component {
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                             this.setState({ loading: false });
                             this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
-                            this.props.setHeaderBottom({ h1: row.name, h3: row.description, p: `Jambites | Students | Graduates <br />  <br /> <a class="text-white" href="${window.location.pathname}#rules">See Rules</a>`, image: row.image_link });
+                            this.props.setHeaderBottom({
+                                h1: row.name, h3: row.description, image: row.image_link,
+                                p: `${foc.canvote ? 'Voting Started. Vote Now!' : 'Application still ongoing. Apply Now!'} <br /> <br/> <a class="text-white" href="${window.location.pathname}#rules">See Rules</a>`,
+                            });
                             // if (row.canapply === true) {
                             //     this.countDown();
                             //     let interval = setInterval(() => {
