@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Select, Button, message } from 'antd';
 import * as func from '../../utils/functions';
 
-const SetProfile = props => {
+const SettingsProfile = props => {
     const { form: { getFieldDecorator }, _data: { states, schools, studentCategories }, _auth: { logg } } = props;
     const [image, setImage] = useState(undefined);
     const [avatar, setAvatar] = useState(logg.avatar_link);
@@ -195,5 +195,4 @@ const SetProfile = props => {
     );
 };
 
-const SettingsProfile = Form.create()(SetProfile);
-export default SettingsProfile;
+export default Form.create()(SettingsProfile);

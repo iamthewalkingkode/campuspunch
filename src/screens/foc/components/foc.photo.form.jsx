@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, message, Form, Modal, Input } from 'antd';
 import * as func from '../../../utils/functions';
 
-const FocPhotoFormScreen = props => {
+const FocPhotoForm = props => {
     const contest = parseInt(props.match.params.contest.split('.')[1]);
     const { visible, row, _auth: { logg }, form: { getFieldDecorator, validateFields, resetFields } } = props;
     const [submitting, setSubmitting] = useState(false);
     const [errMessage, setErrMessage] = useState('');
     const [files, setFiles] = useState([]);
     const [images, setImages] = useState([]);
+
+    useEffect(() => {
+        if (row.id) {
+            setImages(row.images_links);
+        }
+    }, [row]);
 
     const addImage = async (e) => {
         window.$.each(e.target.files, (x) => {
@@ -27,45 +33,46 @@ const FocPhotoFormScreen = props => {
     }
 
     const removeImg = (image) => {
+        if (image.match(/http/)) {
+            // http://localhost/campuspunch/api/v1/
+            const nImages = (images.filter(img => (img !== image && img.match(/http/)))).map(img => {
+                return img.split(func.api.apiURL + 'assets/user/')[1];
+            });
+            func.post('users/update', { id: row.id, images: nImages.join(',') }).then(res => {
+                setSubmitting(false);
+                if (res.status === 200) {
+                    props.onSuccess(res.user);
+                } else {
+                    message.error(res.result);
+                }
+            });
+        }
         setImages(images.filter(img => img !== image));
     }
 
     const _submit = (e) => {
         e.preventDefault();
-        if (files.length >= 3) {
+        if (files.length >= 3 || row.id) {
             validateFields((err, v) => {
                 if (!err) {
                     setSubmitting(true);
                     setErrMessage('');
-                    var payload = { folder: 'user', filename: logg.username };
-                    window.$.each(files, (f) => {
-                        payload['file[' + f + ']'] = files[f];
-                    });
-                    func.postFile('upload', payload).then(upl => {
-                        setSubmitting(false);
-                        if (upl.status === 200) {
-                            v['user'] = logg.id;
-                            v['school'] = logg.school.id;
-                            v['contest'] = contest;
-                            v['images'] = upl.result;
-                            func.post(`foc/photo_apply`, v).then(res => {
-                                setSubmitting(false);
-                                if (res.status === 200) {
-                                    resetFields();
-                                    setImages([]);
-                                    props.onCancel();
-                                    if (!row.id) {
-                                        props.history.push(`/face-of-campus/photo/${props.match.params.contest}/apply`);
-                                        message.success('You application has been received');
-                                    }
-                                } else {
-                                    setErrMessage(res.result);
-                                }
-                            });
-                        } else {
-                            setErrMessage(upl.result);
-                        }
-                    });
+                    if (files.length > 0) {
+                        var payload = { folder: 'user', filename: logg.username };
+                        window.$.each(files, (f) => {
+                            payload['file[' + f + ']'] = files[f];
+                        });
+                        func.postFile('upload', payload).then(upl => {
+                            setSubmitting(false);
+                            if (upl.status === 200) {
+                                _submitGo(v, upl.result);
+                            } else {
+                                setErrMessage(upl.result);
+                            }
+                        });
+                    } else {
+                        _submitGo(v, '');
+                    }
                 }
             });
         } else {
@@ -73,8 +80,33 @@ const FocPhotoFormScreen = props => {
         }
     }
 
+    const _submitGo = (v, images) => {
+        v['user'] = logg.id;
+        v['school'] = logg.school.id;
+        v['contest'] = contest;
+        v['images'] = images;
+        func.post(`foc/photo_${row.id ? 'update' : 'apply'}`, v).then(res => {
+            setSubmitting(false);
+            if (res.status === 200) {
+                setFiles([]);
+                resetFields();
+                setImages([]);
+                props.onCancel();
+                if (row.id) {
+                    props.onSuccess(res.user);
+                    message.success('Your profile has been updated');
+                } else {
+                    props.history.push(`/face-of-campus/photo/${props.match.params.contest}/apply`);
+                    message.success('Your application has been received');
+                }
+            } else {
+                setErrMessage(res.result);
+            }
+        });
+    }
+
     return (
-        <Modal visible={visible} title="Submit your profile" width={700} closable={true} maskClosable={false} destroyOnClose={true} onCancel={() => { setImages([]); props.onCancel(); }}
+        <Modal visible={visible} title="Submit your profile" width={700} closable={true} maskClosable={false} destroyOnClose={true} onCancel={() => { setImages([]); setFiles([]); props.onCancel(); }}
             footer={[
                 <Button key="submit" type="primary" loading={submitting} onClick={_submit}>Submit</Button>
             ]}
@@ -135,7 +167,7 @@ const FocPhotoFormScreen = props => {
             </div>
             <div className="rows row-sms bg-gray-100 pd-10">
                 {images.map(image => (
-                    <div className="col-12s col-lg-3s float-left mg-r-10 mg-t-5">
+                    <div className="col-12s col-lg-3 float-left mg-r-10 mg-t-5">
                         <img src={image} alt={logg.username} className="img-thumbnail float-left" style={{ height: 115 }} />
                         <div className="badge badge-danger pointer wd-60p float-left" onClick={() => removeImg(image)}>Remove</div>
                         <div className="clearfix"></div>
@@ -149,5 +181,4 @@ const FocPhotoFormScreen = props => {
 };
 
 
-const FocPhotoForm = Form.create()(FocPhotoFormScreen);
-export default FocPhotoForm;
+export default Form.create()(FocPhotoForm);

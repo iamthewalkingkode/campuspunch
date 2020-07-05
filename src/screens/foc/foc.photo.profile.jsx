@@ -5,6 +5,7 @@ import Lightbox from 'react-image-lightbox';
 import * as func from '../../utils/functions';
 
 import { Loading, Advert, Comments } from '../../components';
+import FocPhotoForm from './components/foc.photo.form';
 import NotFound from '../../partials/404';
 // import moment from 'moment';
 
@@ -14,11 +15,11 @@ class FocPhotoProfile extends Component {
         super(props);
         this.state = {
             usr: {}, foc: {},
-            loading: true,
+            loading: true, formModal: false,
             lightImages: [], lightIndex: 0, lightOpen: false,
             username: parseInt(this.props.match.params.contest.split('.')[0]),
             contest: parseInt(this.props.match.params.contest.split('.')[1]),
-            user: parseInt(this.props.match.params.user.split('.')[1])
+            user: parseInt(this.props.match.params.user.split('.')[1]),
         };
     }
 
@@ -66,7 +67,7 @@ class FocPhotoProfile extends Component {
 
     render() {
         const { _foc: { voting } } = this.props;
-        const { loading, usr, foc, username, lightImages, lightIndex, lightOpen, user, contest } = this.state;
+        const { loading, usr, foc, username, lightImages, lightIndex, lightOpen, user, contest, formModal } = this.state;
 
         return (
             <React.Fragment>
@@ -160,13 +161,19 @@ class FocPhotoProfile extends Component {
                                 </div>
                                 <div className="card mg-b-20 mg-lg-b-25">
                                     <div className="card-header pd-y-15 pd-x-20 d-flex align-items-center justify-content-between">
-                                        <h6 className="tx-uppercase tx-semibold mg-b-0">{usr.username}'s photos</h6>
+                                        <h6 className="tx-uppercase tx-semibold mg-b-0 wd-100p">
+                                            <div className="float-left">{usr.username}'s photos</div>
+                                            <div className="float-right">
+                                                <Button type="primary" size="small" onClick={() => this.setState({ formModal: true })}><i className="fa fa-edit"></i> &nbsp; Edit profile</Button>
+                                            </div>
+                                            <div className="clearfix"></div>
+                                        </h6>
                                     </div>
                                     <div className="card-body pd-20 pd-lg-25">
                                         <div className="row row-xxs">
-                                            {lightImages.map(image => (
+                                            {lightImages.map((image, lightIndex) => (
                                                 <div className="col-4">
-                                                    <span className="d-block ht-60s pointer" onClick={() => this.setState({ lightOpen: true })}>
+                                                    <span className="d-block ht-60s pointer" onClick={() => this.setState({ lightOpen: true, lightIndex })}>
                                                         <img src={image} className="img-fit-cover" alt={usr.username} />
                                                     </span>
                                                 </div>
@@ -180,6 +187,13 @@ class FocPhotoProfile extends Component {
                         <Comments item={`${contest}-${user}`} type="foc-photo" {...this.props} />
                     </div>
                 )}
+
+                <FocPhotoForm {...this.props} visible={formModal} row={usr}
+                    onCancel={() => this.setState({ formModal: false })}
+                    onSuccess={(usr) => {
+                        this.setState({ usr, lightImages: usr.images_links });
+                    }}
+                />
 
                 {lightOpen === true && (
                     <Lightbox
