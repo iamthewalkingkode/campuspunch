@@ -14,7 +14,7 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'Campus Most Entertaining Student Community', description: '', keywords: '' });
+        this.props.setMetaTags({ title: 'Campus Most Entertaining Student Community', description: 'Our Mission is to create a community that gives students the medium to fully express themselves, gain a sense of belonging and get access to opportunities around the world to succeed in their career.', keywords: '' });
         this.setState({ loading: true });
         func.post('posts/home', { limit: 5 }).then(res => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -103,7 +103,7 @@ const HomeCard = props => {
                                         style={{ backgroundImage: `url(${row.image_link})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', height: 200 }}
                                     />
                                     <div className="pd-20 bg-gray-100">
-                                        <h4 className="ht-150 overflow-hidden"><Link className="tx-inverse" style={{ textTransform: 'capitalize' }} to={`/article/${row.slug}.${row.id}`}>{row.title.toLowerCase()}</Link></h4>
+                                        <h4 className="ht-80 overflow-hidden"><Link className="tx-inverse" style={{ textTransform: 'capitalize' }} to={`/article/${row.slug}.${row.id}`}>{row.title.toLowerCase()}</Link></h4>
                                         {row.anonymous === 0 && (
                                             <span>
                                                 <Link className="tx-inverse small" to={`/u/${row.user.username}`}><i className="fa fa-user"></i> {row.user.username}</Link>
