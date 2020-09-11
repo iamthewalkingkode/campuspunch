@@ -163,7 +163,7 @@ const FocPhotoForm = props => {
 
             <div className="col-12 custom-file mg-t-20">
                 <input type="file" id="photos" name="photos" accept="image/*" onChange={addImage} className="custom-file-input" />
-                <label className="custom-file-label" for="customFile">Choose photos (at least three)</label>
+                <label className="custom-file-label" for="customFile">Add Photos (at least three)</label>
             </div>
             <div className="rows row-sms bg-gray-100 pd-10">
                 {images.map(image => (

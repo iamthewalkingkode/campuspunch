@@ -202,7 +202,7 @@ const mapStateToProps = (state) => ({
   _foc: state._foc,
   _utils: state._utils,
   _data: state.data,
-  router: state.router
+  router: state.router,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -17,7 +17,7 @@ class FocPhotoProfile extends Component {
             usr: {}, foc: {},
             loading: true, formModal: false,
             lightImages: [], lightIndex: 0, lightOpen: false,
-            username: parseInt(this.props.match.params.contest.split('.')[0]),
+            username: (this.props.match.params.user.split('.')[0]),
             contest: parseInt(this.props.match.params.contest.split('.')[1]),
             user: parseInt(this.props.match.params.user.split('.')[1]),
         };
@@ -66,7 +66,7 @@ class FocPhotoProfile extends Component {
     }
 
     render() {
-        const { _foc: { voting } } = this.props;
+        const { _foc: { voting }, _auth: { logg } } = this.props;
         const { loading, usr, foc, username, lightImages, lightIndex, lightOpen, user, contest, formModal } = this.state;
 
         return (
@@ -164,7 +164,9 @@ class FocPhotoProfile extends Component {
                                         <h6 className="tx-uppercase tx-semibold mg-b-0 wd-100p">
                                             <div className="float-left">{usr.username}'s photos</div>
                                             <div className="float-right">
-                                                <Button type="primary" size="small" onClick={() => this.setState({ formModal: true })}><i className="fa fa-edit"></i> &nbsp; Edit profile</Button>
+                                                {usr.id === logg.id && (
+                                                    <Button type="primary" size="small" onClick={() => this.setState({ formModal: true })}><i className="fa fa-images"></i> &nbsp; Add photos</Button>
+                                                )}
                                             </div>
                                             <div className="clearfix"></div>
                                         </h6>

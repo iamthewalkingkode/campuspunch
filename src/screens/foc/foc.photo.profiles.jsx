@@ -50,7 +50,7 @@ class FocPhotoProfiles extends Component {
 
     render() {
         const { data, loading, foc } = this.state;
-        const row = data[0] || '';
+        const row = data[0] || {};
 
         return (
             <React.Fragment>

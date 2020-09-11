@@ -133,13 +133,14 @@ const SettingsProfile = props => {
                                     )}
                                 </Form.Item>
                             </div>
+                            {console.log(logg)}
                             <div className="col-6 col-lg-6">
                                 <Form.Item colon={false} label="School/Campus">
                                     {getFieldDecorator('school', {
                                         rules: [{ required: true }],
                                         initialValue: logg.school.id || undefined
                                     })(
-                                        <Select showSearch={true} autoComplete="off" size="large" optionFilterProp="children" disabled={submitting}>
+                                        <Select showSearch={true} autoComplete="off" size="large" optionFilterProp="children" disabled={submitting || logg.type === 1}>
                                             {schools.map(sch => (
                                                 <Select.Option key={sch.id} value={sch.id}>{sch.name}</Select.Option>
                                             ))}

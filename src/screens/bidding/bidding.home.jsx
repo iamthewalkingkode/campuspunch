@@ -21,7 +21,7 @@ class BiddingHome extends Component {
     componentDidMount() {
         const { _auth: { authenticated, logg } } = this.props;
         this.props.setMetaTags({ title: 'Bid and win free laptops, tablets & phones', description: 'Campus Bidding goal is to help students get all the gadgets they need to learn', keywords: '' });
-        this.props.setHeaderBottom({ h1: 'Bidding', h3: '', p: '', image: 'banner/bidding.jpg' });
+        this.props.setHeaderBottom({ h1: 'Bidding', h3: 'Bidding is free for now till August 1st', p: 'Bid for free and win', image: 'banner/bidding.jpg' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -49,7 +49,7 @@ class BiddingHome extends Component {
 
     bidItems() {
         this.setState({ loading: true });
-        func.post('bidding', { status: 1, limit: 4, active: 'yes', orderby: 'level_asc' }).then(res => {
+        func.post('bidding', { status: 1, limit: 10, active: 'yes', orderby: 'level_asc' }).then(res => {
             this.setState({ loading: false });
             if (res.status === 200) {
                 this.setState({ items: res.result });
@@ -117,33 +117,6 @@ class BiddingHome extends Component {
                                     You need to <Link to="/user/signin?redirect=bidding">Sign in</Link> or <Link to="/user/signup?redirect=bidding">Sign up</Link> to be able to bid
                                 </div>
                             )}
-                            {!loading && appliedPro === false && (
-                                <div className="card mg-b-20">
-                                    <div className="card-body bg-gray-200 d-flex flex-row justify-content-around">
-                                        <div className="profile-skillset flex-fills text-center">
-                                            <h5><i className="fa fa-star"></i> <br /> Bidding PRO</h5>
-                                            <div className="mg-b-20 mg-t-20" style={{ fontSize: 14 }}>
-                                                Win an instant MacBook Apple Laptop in a month
-                                            </div>
-                                            <Button type="primary" disabled={!authenticated} onClick={this.applyPro}>Apply to Bidding PRO (₦3,200)</Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                            {!loading && appliedPro === true && authenticated === true && (
-                                <div className="card mg-b-20">
-                                    <div className="card-body bg-gray-200 d-flex flex-row justify-content-around">
-                                        <div className="profile-skillset flex-fills text-center">
-                                            <h5><i className="fa fa-star"></i> <br /> Bidding PRO</h5>
-                                            <div className="mg-b-20 mg-t-20" style={{ fontSize: 14 }}>
-                                                Here is your bidding affiliate link: <br />
-                                                <span className="text-primary">{window.location.protocol + '//'}{window.location.host}/bidding/pro/{logg.username}.{logg.id}</span> <br />
-                                                Invite just 2 persons with this link and you are on your way to own brand new laptops and phones in a month.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
                         </div>
                         <div className="row">
                             <div className="col-12 col-sm-6 col-lg-6">
@@ -152,21 +125,85 @@ class BiddingHome extends Component {
                             <div className="col-12 col-sm-6 col-lg-6">
                                 {(loading === true || (items[1] || {}).id) && (<BiddingCard item={items[1] || {}} {...this.props} />)}
                             </div>
-                            <div className="col-12 mg-t-20">
-                                <Advert position="top" />
-                            </div>
+                            {(items[2] || {}).id && (
+                                <div className="col-12 mg-t-20">
+                                    <Advert position="top" />
+                                </div>
+                            )}
                             <div className="col-12 col-sm-6 col-lg-6">
                                 {(loading === true || (items[2] || {}).id) && (<BiddingCard item={items[2] || {}} {...this.props} />)}
                             </div>
                             <div className="col-12 col-sm-6 col-lg-6">
                                 {(loading === true || (items[3] || {}).id) && (<BiddingCard item={items[3] || {}} {...this.props} />)}
                             </div>
+                            {(items[4] || {}).id && (
+                                <div className="col-12 mg-t-20">
+                                    <Advert position="top" />
+                                </div>
+                            )}
+                            <div className="col-12 col-sm-6 col-lg-6">
+                                {(loading === true || (items[4] || {}).id) && (<BiddingCard item={items[4] || {}} {...this.props} />)}
+                            </div>
+                            <div className="col-12 col-sm-6 col-lg-6">
+                                {(loading === true || (items[5] || {}).id) && (<BiddingCard item={items[5] || {}} {...this.props} />)}
+                            </div>
+                            {(items[6] || {}).id && (
+                                <div className="col-12 mg-t-20">
+                                    <Advert position="top" />
+                                </div>
+                            )}
+                            <div className="col-12 col-sm-6 col-lg-6">
+                                {(loading === true || (items[6] || {}).id) && (<BiddingCard item={items[6] || {}} {...this.props} />)}
+                            </div>
+                            <div className="col-12 col-sm-6 col-lg-6">
+                                {(loading === true || (items[7] || {}).id) && (<BiddingCard item={items[7] || {}} {...this.props} />)}
+                            </div>
+                            {(items[8] || {}).id && (
+                                <div className="col-12 mg-t-20">
+                                    <Advert position="top" />
+                                </div>
+                            )}
+                            <div className="col-12 col-sm-6 col-lg-6">
+                                {(loading === true || (items[8] || {}).id) && (<BiddingCard item={items[8] || {}} {...this.props} />)}
+                            </div>
+                            <div className="col-12 col-sm-6 col-lg-6">
+                                {(loading === true || (items[9] || {}).id) && (<BiddingCard item={items[9] || {}} {...this.props} />)}
+                            </div>
                         </div>
+
+                        {!loading && appliedPro === false && (
+                            <div className="card mg-t-20 mg-b-20">
+                                <div className="card-body bg-gray-200 d-flex flex-row justify-content-around">
+                                    <div className="profile-skillset flex-fills text-center">
+                                        <h5><i className="fa fa-star"></i> <br /> Bidding PRO</h5>
+                                        <div className="mg-b-20 mg-t-20" style={{ fontSize: 14 }}>
+                                            Want bigger and better rewards? Join Bidding Pro.
+                                            </div>
+                                        <Button type="primary" disabled={!authenticated} onClick={this.applyPro}>Apply to Bidding PRO (₦3,200)</Button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {!loading && appliedPro === true && authenticated === true && (
+                            <div className="card mg-b-20 mg-t-20">
+                                <div className="card-body bg-gray-200 d-flex flex-row justify-content-around">
+                                    <div className="profile-skillset flex-fills text-center">
+                                        <h5><i className="fa fa-star"></i> <br /> Bidding PRO</h5>
+                                        <div className="mg-b-20 mg-t-20" style={{ fontSize: 14 }}>
+                                            Here is your bidding affiliate link: <br />
+                                            <span className="text-primary">{window.location.protocol + '//'}{window.location.host}/bidding/pro/{logg.username}.{logg.id}</span> <br />
+                                                Invite just 2 persons with this link and you are on your way to own brand new laptops and phones in a month.
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="col-12 col-sm-3 col-lg-3">
                         <div className="mg-b-20">
                             <h6 className="tx-uppercase tx-semibold mg-b-5">Campus bidding</h6>
+                            <div><b>Free Bidding</b>: is the bidding where you bid for free with zero naira (0N)</div>
                             <div><b>Fresher Bidding</b>: is the bidding where the highest bidder goes home with the latest phones, tablets and laptops using either N100, N200 or N300 only.</div>
                             <div><b>Bidding Pro</b>: is the bidding affiliate program where one registers with N3,200, then invites just 2 people and get to own the latest laptops, tablets and phones within a month. <span className="text-primary pointer" onClick={() => this.setState({ visible: true })}>Read more</span></div>
                             <hr />
@@ -197,10 +234,11 @@ class BiddingHome extends Component {
                 ]}>
                     <div className="text-muted"><h4>How Bidding Works</h4></div>
                     <div>&nbsp;</div>
-                    <div>Campus Bidding is presented in two models: <b>Fresher Bidding</b> and <b>Bidding Pro</b></div>
+                    <div>Campus Bidding is presented in two models: <b>Free Bidding</b>, <b>Fresher Bidding</b> and <b>Bidding Pro</b></div>
+                    <div><b>Free Bidding</b>: is the bidding where you bid for free with zero naira (0N)</div>
                     <div><b>Fresher Bidding</b>: is the bidding where the highest bidder goes home with the latest phones, tablets and laptops using either N100, N200 or N300 only.</div>
                     <div><b>Bidding Pro</b>: is the bidding affiliate program where one registers with N3,200, then invites just 2 people and get to own the latest laptops, tablets and phones within a month.</div>
-                    
+
                     <div>&nbsp;</div>
                     <div className="text-muted"><h4>How to Bid in Fresher Bidding</h4></div>
                     <div>&nbsp;</div>
@@ -215,7 +253,7 @@ class BiddingHome extends Component {
                         <li>Make sure to be the highest bidder to win the bid item</li>
                     </ul>
                     <div>This looks like some fun game, but you’d be surprised to learn that <b>Bidding Pro</b> is where the real fun gets started</div>
-                    
+
                     <div>&nbsp;</div>
                     <div className="text-muted"><h4>How to Bid in Bidding Pro</h4></div>
                     <div>&nbsp;</div>

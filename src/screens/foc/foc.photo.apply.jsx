@@ -56,7 +56,6 @@ class FocPhotoApply extends Component {
             </React.Fragment>
         )
     }
-
 }
 
 export default FocPhotoApply;

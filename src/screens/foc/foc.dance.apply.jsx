@@ -18,7 +18,7 @@ class FocDanceApply extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'Dance Contest', description: 'It\'s time for the world to see your dance moves', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+        this.props.setMetaTags({ title: 'Dance Contest', description: 'It\'s time for the world to see your dance moves', keywords: 'photo contest, foc, campuspunch, campus photo contest' });
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
@@ -27,7 +27,7 @@ class FocDanceApply extends Component {
             if (res.status === 200) {
                 const foc = res.result[0];
                 this.setState({ foc });
-                this.props.setMetaTags({ title: foc.name, description: foc.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+                this.props.setMetaTags({ title: foc.name, description: foc.description, keywords: 'photo contest, foc, campuspunch, campus photo contest' });
                 this.props.setHeaderBottom({ h1: foc.name, h3: foc.description, p: '', image: foc.image_link });
             }
             this.setState({ loading: false });

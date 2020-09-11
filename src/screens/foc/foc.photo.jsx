@@ -23,7 +23,7 @@ class FocPhoto extends Component {
     }
 
     componentDidMount() {
-        this.props.setMetaTags({ title: 'Face Of Campus Photogenic Contest', description: 'Share your pics and win N2 million', keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+        this.props.setMetaTags({ title: 'Face Of Campus Photogenic Contest', description: 'Share your pics and win N2 million', keywords: 'photo contest, foc, campuspunch, campus photo contest' });
         this.props.setHeaderBottom({ h1: '', h3: '', p: '', image: '' });
         this.props.setFooterTop({ h1: '', p: '', btnText: '', btnLink: '', image: '' });
 
@@ -42,7 +42,7 @@ class FocPhoto extends Component {
                         func.post('foc/users', { user: logg.id, contest }).then(usr => {
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                             this.setState({ loading: false });
-                            this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, cmpuspunch, campus photo contest' });
+                            this.props.setMetaTags({ title: row.name, description: row.description, keywords: 'photo contest, foc, campuspunch, campus photo contest' });
                             this.props.setHeaderBottom({
                                 h1: row.name, h3: row.description, image: row.image_link,
                                 p: `${foc.canvote ? 'Voting Started. Vote Now!' : 'Application still ongoing. Apply Now!'} <br /> <br/> <a class="text-white" href="${window.location.pathname}#rules">See Rules</a>`,

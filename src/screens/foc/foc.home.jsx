@@ -6,7 +6,7 @@ class FocScreen extends Component {
 
     state = {
         partners: [],
-        loading: true
+        loading: true,
     }
 
     componentDidMount() {

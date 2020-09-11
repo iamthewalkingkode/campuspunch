@@ -1,10 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-const FocScreen = React.lazy(() => import('./foc.home'));
-import SigninForm from './screens/auth/signin';
-import SignupForm from './screens/auth/signup';
-import ResetForm from './screens/auth/reset';
+const SigninForm = React.lazy(() => import('../auth/signin'));
+const SignupForm = React.lazy(() => import('../auth/signup'));
+const ResetForm = React.lazy(() => import('../auth/reset'));
 
 export default class User extends React.Component {
 

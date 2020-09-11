@@ -16,7 +16,7 @@ class HomeScreen extends Component {
     componentDidMount() {
         this.props.setMetaTags({ title: 'Campus Most Entertaining Student Community', description: 'Our Mission is to create a community that gives students the medium to fully express themselves, gain a sense of belonging and get access to opportunities around the world to succeed in their career.', keywords: '' });
         this.setState({ loading: true });
-        func.post('posts/home', { limit: 5 }).then(res => {
+        func.post('posts/home', { limit: 8 }).then(res => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             this.setState({ loading: false });
             if (res.status === 200) {
@@ -65,13 +65,13 @@ export default HomeScreen;
 
 
 const HomeCard = props => {
-    const { ctg, data, key } = props;
+    const { ctg, data } = props;
     let main = ((data[ctg.id] || [])[0] || {});
 
     return (
         <React.Fragment>
             {main.user && (
-                <div key={key}>
+                <div key={ctg.id}>
                     <div className="bg-gray-100">
                         <div className="">
                             <div className="row">
@@ -98,7 +98,7 @@ const HomeCard = props => {
                     <div className="row">
                         {(data[ctg.id] || []).map((row, i) => (
                             i > 0 && (
-                                <div className="col-lg-4 col-12 mg-b-10">
+                                <div className="col-lg-4 col-12 mg-b-20">
                                     <div
                                         style={{ backgroundImage: `url(${row.image_link})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', height: 200 }}
                                     />
@@ -113,6 +113,10 @@ const HomeCard = props => {
                                 </div>
                             )
                         ))}
+                    </div>
+                    <p>&nbsp;</p>
+                    <div className="text-center">
+                        <Link className="ant-btn ant-btn-primary" to={`/news/${ctg.id}`}>Load More {ctg.name}</Link>
                     </div>
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
