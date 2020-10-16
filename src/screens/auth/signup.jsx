@@ -54,7 +54,6 @@ class SignupForm extends Component {
     }
     _activate = (e) => {
         e.preventDefault();
-
     }
 
     render() {
