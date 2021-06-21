@@ -12,7 +12,7 @@ class AcademyIntro extends Component {
         courses: [], tutors: [], payAmount: 0, ipaid: 0,
         level: parseInt(this.props.match.params.level.split('.')[1]),
         school: parseInt(this.props.match.params.school.split('.')[1]),
-        department: parseInt(this.props.match.params.department.split('.')[1])
+        department: parseInt(this.props.match.params.department.split('.')[1]),
     }
 
     componentDidMount() {
@@ -173,7 +173,7 @@ class AcademyIntro extends Component {
                         </div>
                     )}
                     <div className="pointer pd-12" onClick={() => this.setState({ payVisible: true, payAmount: 3000, planVisible: false })} style={{ background: '#e5e9f2' }}>
-                        Video Lessons + Personal Tutor: <b className="text-primary">₦3000</b>
+                        Video Lessons + Personal Tutor: <b className="text-primary">₦3,000</b>
                     </div>
                 </Modal>
 

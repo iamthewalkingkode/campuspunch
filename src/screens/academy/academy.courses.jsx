@@ -15,7 +15,7 @@ class AcademyCourses extends Component {
         year: parseInt(this.props.match.params.year),
         level: parseInt(this.props.match.params.level.split('.')[1]),
         school: parseInt(this.props.match.params.school.split('.')[1]),
-        department: parseInt(this.props.match.params.department.split('.')[1])
+        department: parseInt(this.props.match.params.department.split('.')[1]),
     }
 
     componentDidMount() {
@@ -61,27 +61,6 @@ class AcademyCourses extends Component {
                 }
             }
         });
-    }
-
-    startAcademy = (e) => {
-        const { _auth: { authenticated } } = this.props;
-        if (authenticated === true) {
-            if (this.state.ipaid > 0) {
-                this.enterAcademy();
-            } else {
-                this.setState({ planVisible: true });
-            }
-        } else {
-            let self = this;
-            Modal.confirm({
-                title: 'Sign in',
-                content: `You need to sign in to gain access to Academy`,
-                okText: 'Sign in',
-                onOk() {
-                    self.props.history.push(`/user/signin`);
-                }
-            });
-        }
     }
 
     enterQuestions = (crs) => {

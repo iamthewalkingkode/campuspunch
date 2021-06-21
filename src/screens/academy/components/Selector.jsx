@@ -38,8 +38,8 @@ const Screen = props => {
                 const ok = {
                     school: schools.filter(sch => sch.id === final.school)[0],
                     department: departments.filter(dep => dep.id === final.department)[0],
-                    level: levels.filter(lvl => lvl.id === final.level)[0]
-                }
+                    level: levels.filter(lvl => lvl.id === final.level)[0],
+                };
                 props.onOK(ok);
             }
         });

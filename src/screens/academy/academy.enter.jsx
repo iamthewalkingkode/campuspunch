@@ -90,7 +90,7 @@ class AcademyEnter extends Component {
                             history.push(`${pathname.split('enter').join('buddy')}`);
                             break;
                         case 'resources':
-                            history.push(`${pathname.split('enter').join('ressources')}`);
+                            history.push(`${pathname.split('enter').join('resources')}`);
                             break;
                     }
                 }
@@ -141,7 +141,7 @@ class AcademyEnter extends Component {
 
                         <Modal title="Complete your payment" visible={planVisible} onCancel={() => this.setState({ planVisible: false })} footer={null}>
                             <div className="pointer pd-12" onClick={() => this.setState({ payVisible: true, payAmount: 3000, planVisible: false })} style={{ background: '#e5e9f2' }}>
-                                Video Lessons + Personal Tutor: <b className="text-primary">₦3000</b>
+                                Video Lessons + Personal Tutor: <b className="text-primary">₦3,000</b>
                             </div>
                         </Modal>
 
